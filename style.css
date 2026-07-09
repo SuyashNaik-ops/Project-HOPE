@@ -1,0 +1,204 @@
+/* STREAMING_CHUNK: Importing fonts and defining CSS Custom Properties */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+:root {
+/* Color Palette Design Tokens */
+--color-cream: #FFFDF8;
+--color-sage: #8DB596;
+--color-sage-light: #A3C6AB;
+--color-sage-dark: #769E7F;
+--color-sage-muted: #E9EFEA;
+--color-beige: #F6F1E9;
+--color-beige-dark: #EBE3D5;
+--color-dusty-blue: #A7C7E7;
+--color-dusty-blue-light: #C5DCF5;
+--color-dusty-blue-dark: #8FB4D9;
+--color-peach: #F6C28B;
+--color-peach-light: #FADCB8;
+--color-peach-dark: #E2A566;
+--color-success: #CFE8D5;
+--color-charcoal: #3A3A3A;
+
+/* Shadow Variations */
+--shadow-cozy: 0 12px 30px -10px rgba(141, 181, 150, 0.12);
+--shadow-cozy-lg: 0 22px 48px -15px rgba(141, 181, 150, 0.2);
+--shadow-accent-soft: 0 12px 28px -5px rgba(167, 199, 231, 0.18);
+--shadow-glass: 0 8px 32px 0 rgba(141, 181, 150, 0.08);
+
+/* Rounded Corners Standard */
+--radius-premium: 24px;
+--radius-interactive: 16px;
+
+
+}
+
+/* STREAMING_CHUNK: Base document and Typography styling */
+body {
+font-family: 'Inter', sans-serif;
+background-color: var(--color-cream);
+color: var(--color-charcoal);
+overflow-x: hidden;
+line-height: 1.6;
+}
+
+h1, h2, h3, h4, .font-poppins {
+font-family: 'Poppins', sans-serif;
+font-weight: 700;
+}
+
+/* Premium Selection Highlighter */
+::selection {
+background-color: rgba(141, 181, 150, 0.3);
+color: var(--color-charcoal);
+}
+
+/* Cozy Custom Scrollbar styling */
+::-webkit-scrollbar {
+width: 10px;
+}
+
+::-webkit-scrollbar-track {
+background: var(--color-cream);
+}
+
+::-webkit-scrollbar-thumb {
+background: var(--color-beige-dark);
+border-radius: 12px;
+border: 2.5px solid var(--color-cream);
+transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+background: var(--color-sage);
+}
+
+/* STREAMING_CHUNK: Navigation & Glassmorphic styling */
+.glass-header {
+background: rgba(255, 253, 248, 0.85);
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
+border-bottom: 1px solid rgba(141, 181, 150, 0.1);
+}
+
+/* Interactive elements and Premium buttons */
+.btn-primary {
+background-color: var(--color-sage);
+color: var(--color-cream);
+border-radius: var(--radius-premium);
+box-shadow: var(--shadow-cozy);
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary:hover {
+background-color: var(--color-sage-dark);
+box-shadow: var(--shadow-cozy-lg);
+transform: translateY(-2px);
+}
+
+.btn-secondary {
+border: 2px solid rgba(141, 181, 150, 0.3);
+color: var(--color-sage-dark);
+border-radius: var(--radius-premium);
+transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+border-color: var(--color-sage);
+background-color: rgba(141, 181, 150, 0.05);
+}
+
+/* STREAMING_CHUNK: Premium Animations and Keyframes */
+@keyframes float {
+0%, 100% {
+transform: translateY(0px) rotate(0deg);
+}
+50% {
+transform: translateY(-14px) rotate(1.5deg);
+}
+}
+
+@keyframes drift {
+0% {
+transform: translateX(0) scale(1);
+}
+50% {
+transform: translateX(20px) scale(1.03);
+}
+100% {
+transform: translateX(0) scale(1);
+}
+}
+
+@keyframes sunPulse {
+0%, 100% {
+opacity: 0.45;
+transform: scale(1);
+}
+50% {
+opacity: 0.7;
+transform: scale(1.12);
+}
+}
+
+@keyframes fadeIn {
+from {
+opacity: 0;
+transform: translateY(10px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+/* Animation utilities applied on cards and graphic nodes */
+.animate-float-slow {
+animation: float 8s ease-in-out infinite;
+}
+
+.animate-float-medium {
+animation: float 6s ease-in-out infinite;
+}
+
+.animate-drift-slow {
+animation: drift 28s linear infinite;
+}
+
+.animate-sun-pulse {
+animation: sunPulse 8s ease-in-out infinite;
+}
+
+.animate-fade-in {
+animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* STREAMING_CHUNK: Interactive Oasis Breathing and Garden Components /
+/ Breathing Sandbox Sphere expansion metrics */
+#breath-circle {
+box-shadow: var(--shadow-accent-soft);
+will-change: transform;
+}
+
+/* Garden Sprout Layout */
+.sprout-container {
+transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.sprout-container:hover .group-hover:opacity-100 {
+opacity: 1;
+}
+
+/* Interactive card transitions */
+.feature-card {
+border: 1px solid rgba(235, 227, 213, 0.5);
+background-color: #FFFFFF;
+border-radius: var(--radius-premium);
+box-shadow: var(--shadow-cozy);
+transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.feature-card:hover {
+border-color: rgba(141, 181, 150, 0.4);
+box-shadow: var(--shadow-cozy-lg);
+transform: translateY(-6px);
+}
