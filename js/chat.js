@@ -120,7 +120,7 @@ function initPremiumChatEngine() {
         if (typingIndicatorNode)
             typingIndicatorNode.classList.add('hidden');
 
-        createChatBubbleElement(data.reply, "ai");
+        typeWriterEffect(data.reply);
 
         persistMessageToLocalStorage(data.reply, "ai");
 
@@ -254,5 +254,51 @@ function initPremiumChatEngine() {
     } catch (error) {
       console.warn("Unable to deserialize persistent workspace history tracking objects:", error);
     }
+    function typeWriterEffect(text) {
+
+    const rowNode = document.createElement('div');
+    rowNode.classList.add('chat-message-row', 'ai-row');
+
+    const avatarNode = document.createElement('div');
+    avatarNode.classList.add('message-actor-avatar', 'ai-avatar');
+    avatarNode.textContent = "✨";
+
+    const wrapperNode = document.createElement('div');
+    wrapperNode.classList.add('message-bubble-wrapper');
+
+    const labelNode = document.createElement('div');
+    labelNode.classList.add('actor-identity-label');
+    labelNode.textContent = "HOPE AI";
+
+    const bubbleNode = document.createElement('div');
+    bubbleNode.classList.add('message-bubble-content');
+
+    wrapperNode.appendChild(labelNode);
+    wrapperNode.appendChild(bubbleNode);
+
+    rowNode.appendChild(avatarNode);
+    rowNode.appendChild(wrapperNode);
+
+    chatViewport.appendChild(rowNode);
+
+    let i = 0;
+
+    const interval = setInterval(() => {
+
+        bubbleNode.textContent += text.charAt(i);
+
+        i++;
+
+        scrollViewportToBaseline();
+
+        if (i >= text.length) {
+
+            clearInterval(interval);
+
+        }
+
+    }, 15);
+
+}
   }
 }
