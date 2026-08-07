@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Sanctuary Portal | Project HOPE</title>
+  
+  <!-- Google Fonts: Poppins (headings) & Inter (body text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN for high fidelity design assembly -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons (Apple / Notion aesthetic clean line icons) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FFFDF8',
+            sage: {
+              DEFAULT: '#8DB596',
+              light: '#A3C6AB',
+              dark: '#769E7F',
+              muted: '#E9EFEA',
+            },
+            beige: {
+              DEFAULT: '#F6F1E9',
+              dark: '#EBE3D5',
+            },
+            dustyBlue: {
+              DEFAULT: '#A7C7E7',
+              light: '#C5DCF5',
+              dark: '#8FB4D9',
+            },
+            peach: {
+              DEFAULT: '#F6C28B',
+              light: '#FADCB8',
+              dark: '#E2A566',
+            },
+            success: '#CFE8D5',
+            charcoal: '#3A3A3A',
+          },
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif'],
+            inter: ['Inter', 'sans-serif'],
+          },
+          borderRadius: {
+            premium: '24px',
+            interactive: '16px',
+          },
+          boxShadow: {
+            cozy: '0 12px 30px -10px rgba(141, 181, 150, 0.12)',
+            cozyLg: '0 22px 48px -15px rgba(141, 181, 150, 0.2)',
+            glass: '0 8px 32px 0 rgba(141, 181, 150, 0.08)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Baseline layout settings */
+    body {
+      background-color: #FFFDF8;
+      font-family: 'Inter', sans-serif;
+      color: #3A3A3A;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Soft focus states for inputs */
+    .soothing-input {
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .soothing-input:focus {
+      outline: none;
+      border-color: #8DB596;
+      box-shadow: 0 0 0 4px rgba(141, 181, 150, 0.15);
+      background-color: #FFFFFF;
+    }
+
+    /* Custom Cozy Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FFFDF8;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #EBE3D5;
+      border-radius: 20px;
+    }
+
+    /* Premium Micro-Animations */
+    @keyframes floatNature {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(1deg); }
+    }
+    @keyframes pulseAura {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.06); opacity: 0.95; }
+    }
+    @keyframes slowLeafSway {
+      0%, 100% { transform: rotate(0deg) translateY(0px); }
+      50% { transform: rotate(4deg) translateY(-4px); }
+    }
+
+    .animate-float-slow {
+      animation: floatNature 8s ease-in-out infinite;
+    }
+    .animate-pulse-aura {
+      animation: pulseAura 4.5s ease-in-out infinite;
+    }
+    .animate-leaf-sway {
+      animation: slowLeafSway 6s ease-in-out infinite;
+    }
+
+    /* Transitions for Sliding Panels */
+    .slide-panel {
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Gradient Backing Dynamic glow shift */
+    .dynamic-glow {
+      transition: background 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* High Fidelity Focus State border matching */
+    .input-error {
+      border-color: #E2A566 !important;
+      box-shadow: 0 0 0 4px rgba(246, 194, 139, 0.2) !important;
+    }
+    .input-success {
+      border-color: #8DB596 !important;
+      box-shadow: 0 0 0 4px rgba(141, 181, 150, 0.15) !important;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-sage/20 relative">
+
+  <!-- Ambient organic backgrounds blur panels -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <div class="absolute -top-[12%] -left-[6%] w-[45vw] h-[45vw] rounded-full bg-sage-muted/30 filter blur-3xl animate-float-slow"></div>
+    <div class="absolute -bottom-[15%] -right-[5%] w-[48vw] h-[48vw] rounded-full bg-peach-light/15 filter blur-3xl" style="animation: floatNature 12s ease-in-out infinite;"></div>
+  </div>
+
+  <!-- Header Glassmorphic Navigation -->
+  <header class="sticky top-0 w-full z-40 bg-cream/80 backdrop-blur-md border-b border-sage/10 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <!-- Premium Identity Brand -->
+      <a href="#" class="flex items-center gap-3 hover:opacity-90 transition-opacity" aria-label="Project HOPE Homepage">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-sage to-dustyBlue flex items-center justify-center shadow-cozy">
+          <svg class="w-6 h-6 text-cream" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12 6C9.79 6 8 7.79 8 10C8 11.38 8.69 12.61 9.75 13.34C9.25 14.17 9 15.13 9 16.14V17H15V16.14C15 15.13 14.75 14.17 14.25 13.34C15.31 12.61 16 11.38 16 10C16 7.79 14.21 6 12 6ZM12 15C11.17 15 10.5 14.33 10.5 13.5C10.5 12.67 11.17 12 12 12C12.83 12 13.5 12.67 13.5 13.5C13.5 14.33 12.83 15 12 15Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <span class="font-poppins font-bold text-xl tracking-tight text-charcoal">Project <span class="text-sage">HOPE</span></span>
+      </a>
+
+      <!-- Quick back button to represent Apple layout standards -->
+      <a href="#" class="flex items-center gap-2 text-sm text-charcoal/70 hover:text-sage transition-colors focus:outline-none focus:ring-2 focus:ring-sage/40 rounded-lg px-2 py-1">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i>
+        <span>Back to Home</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Grid Core Layout -->
+  <main class="relative z-10 flex-grow max-w-7xl w-full mx-auto px-4 md:px-8 py-6 md:py-12 flex items-center justify-center">
+    <div class="grid lg:grid-cols-12 gap-10 w-full items-stretch min-h-[660px]">
+      
+      <!-- LEFT COLUMN: Elegant Illustration & Grounding Space (Hidden on Mobile/Tablet) -->
+      <div class="lg:col-span-5 hidden lg:flex flex-col justify-between p-8 rounded-premium bg-beige/40 border border-beige-dark/50 relative overflow-hidden shadow-cozy">
+        
+        <!-- Background Organic Graphic Details -->
+        <div class="absolute -top-10 -right-10 text-sage/15 w-40 h-40 animate-leaf-sway">
+          <svg viewBox="0 0 100 100" fill="currentColor">
+            <path d="M50 0 C40 30, 10 40, 10 50 C10 60, 40 70, 50 100 C60 70, 90 60, 90 50 C90 40, 60 30, 50 0 Z"/>
+          </svg>
+        </div>
+
+        <!-- Upper Content & Rotating Comfort Text -->
+        <div class="space-y-6 relative z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cream border border-sage/20 text-xs font-semibold text-sage-dark tracking-wide shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-sage animate-ping"></span>
+            Sanctuary Space
+          </div>
+          
+          <div id="quote-wrapper" class="transition-opacity duration-500 ease-in-out">
+            <h2 id="rotating-quote" class="text-2xl font-poppins font-bold text-charcoal leading-snug">
+              "Quiet the mind, and the soul will speak."
+            </h2>
+            <p id="rotating-author" class="text-sm text-charcoal/60 mt-2 italic">— Project HOPE Guide</p>
+          </div>
+        </div>
+
+        <!-- Core Wellness Organic Illustration (Apple & Headspace Style) -->
+        <div class="my-auto flex items-center justify-center relative py-6">
+          <div class="absolute w-52 h-52 bg-dustyBlue/10 rounded-full filter blur-xl animate-pulse-aura"></div>
+          
+          <svg viewBox="0 0 400 400" class="w-full max-w-[280px] h-auto relative z-10 animate-float-slow">
+            <!-- Sun backdrop glow -->
+            <circle cx="200" cy="200" r="140" fill="#F6F1E9" opacity="0.8"/>
+            <circle cx="200" cy="120" r="45" fill="#F6C28B" opacity="0.6" class="animate-pulse-aura"/>
+            
+            <!-- Leaves & Botanical Vines Swaying backdrops -->
+            <path d="M120 280 C110 230, 150 190, 200 200" stroke="#8DB596" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <path d="M280 280 C290 230, 250 190, 200 200" stroke="#8DB596" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <path d="M160 210 C140 180, 145 150, 170 140 C190 150, 180 180, 160 210 Z" fill="#8DB596" opacity="0.8"/>
+            <path d="M240 210 C260 180, 255 150, 230 140 C210 150, 220 180, 240 210 Z" fill="#8DB596" opacity="0.8"/>
+            
+            <!-- Relaxing Figure Silhouette -->
+            <path d="M200 155 C212 155, 222 145, 222 133 C222 121, 212 111, 200 111 C188 111, 178 121, 178 133 C178 145, 188 155, 200 155 Z" fill="#3A3A3A"/>
+            <path d="M152 260 C152 225, 172 175, 200 175 C228 175, 248 225, 248 260 C248 270, 152 270, 152 260 Z" fill="#8DB596"/>
+            <!-- Meditating Hands -->
+            <circle cx="160" cy="235" r="7" fill="#F6C28B"/>
+            <circle cx="240" cy="235" r="7" fill="#F6C28B"/>
+            
+            <!-- Soft Rippling Waves beneath base -->
+            <path d="M100 290 Q200 275 300 290" stroke="#A7C7E7" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <path d="M130 305 Q200 295 270 305" stroke="#A7C7E7" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+          </svg>
+        </div>
+
+        <!-- Stress reduction interface to settle login anxiety -->
+        <div class="space-y-4 relative z-10 bg-cream/90 backdrop-blur border border-sage/10 p-4.5 rounded-interactive">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-charcoal/70 tracking-wide uppercase">Breathing Shield</span>
+            <span class="text-[10px] text-sage-dark font-semibold bg-sage/10 px-2 py-0.5 rounded-full">Anxiety Reliever</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <!-- Breathing trigger indicator -->
+            <button id="breathe-trigger" class="w-11 h-11 rounded-full bg-sage hover:bg-sage-dark text-cream flex items-center justify-center transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-sm focus:outline-none focus:ring-2 focus:ring-sage/40" aria-label="Toggle Breathing exercises guide">
+              <i data-lucide="wind" class="w-5 h-5"></i>
+            </button>
+            <div>
+              <p id="breath-status" class="text-xs font-bold text-charcoal">Feeling overwhelmed?</p>
+              <p id="breath-action" class="text-[11px] text-charcoal/60">Tap the bubble to start a soothing box breathing helper.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: Premium Core Form Sanctuary -->
+      <div class="lg:col-span-7 flex flex-col justify-center">
+        <div class="bg-white rounded-premium border border-beige shadow-cozyLg p-6 md:p-10 relative overflow-hidden">
+          
+          <!-- Dynamic Moodglow backdrop -->
+          <div id="glow-container" class="absolute inset-0 bg-gradient-to-br from-sage/5 to-transparent pointer-events-none opacity-80 z-0 dynamic-glow"></div>
+
+          <!-- Sliding Mode Switcher (Auth state toggle) -->
+          <div class="relative z-10 flex items-center p-1 bg-beige/50 rounded-full max-w-[280px] mx-auto mb-8 border border-beige-dark/40" role="tablist">
+            <button id="switch-to-login" onclick="toggleMode('login')" class="flex-1 py-2 text-xs font-bold font-poppins text-charcoal bg-white rounded-full shadow-sm transition-all duration-300 focus:outline-none" role="tab" aria-selected="true" aria-controls="login-panel">
+              Log In
+            </button>
+            <button id="switch-to-signup" onclick="toggleMode('signup')" class="flex-1 py-2 text-xs font-bold font-poppins text-charcoal/60 hover:text-charcoal transition-all duration-300 focus:outline-none" role="tab" aria-selected="false" aria-controls="signup-panel">
+              Create Account
+            </button>
+          </div>
+
+          <!-- Welcoming Header Segment -->
+          <div class="relative z-10 text-center mb-8">
+            <h1 id="auth-main-title" class="text-2xl md:text-3xl font-poppins font-bold text-charcoal tracking-tight">
+              Welcome Back 🌿
+            </h1>
+            <p id="auth-sub-title" class="text-sm text-charcoal/60 mt-1 max-w-sm mx-auto leading-relaxed">
+              Continue your wellness journey.
+            </p>
+          </div>
+
+          <!-- FORM VIEW CONTROLLER -->
+          <div class="relative z-10">
+
+            <!-- 1. LOGIN FORM PANEL -->
+            <form id="login-form" onsubmit="handleFormSubmission(event, 'login')" class="slide-panel space-y-5" aria-label="Login Form">
+              
+              <!-- Email Input block -->
+              <div class="space-y-1">
+                <label for="login-email" class="block text-xs font-bold text-charcoal/70 uppercase tracking-wider font-poppins">Registered Email</label>
+                <div class="relative">
+                  <span class="absolute left-4 top-3.5 text-charcoal/40">
+                    <i data-lucide="mail" class="w-4.5 h-4.5"></i>
+                  </span>
+                  <input type="email" id="login-email" required placeholder="name@yourharbor.com" class="w-full soothing-input bg-cream/40 border border-beige-dark rounded-xl py-3 pl-11 pr-4 text-sm text-charcoal" aria-describedby="login-email-error">
+                </div>
+                <p id="login-email-error" class="text-[11px] text-peach-dark font-medium hidden flex items-center gap-1">
+                  <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> <span>Please enter a valid email address.</span>
+                </p>
+              </div>
+
+              <!-- Password Input block -->
+              <div class="space-y-1">
+                <div class="flex items-center justify-between">
+                  <label for="login-pass" class="block text-xs font-bold text-charcoal/70 uppercase tracking-wider font-poppins">Secure Password</label>
+                  <button type="button" onclick="triggerForgotPassword()" class="text-[11px] text-sage-dark font-semibold hover:underline focus:outline-none">Forgot password?</button>
+                </div>
+                <div class="relative">
+                  <span class="absolute left-4 top-3.5 text-charcoal/40">
+                    <i data-lucide="lock" class="w-4.5 h-4.5"></i>
+                  </span>
+                  <input type="password" id="login-pass" required placeholder="••••••••" class="w-full soothing-input bg-cream/40 border border-beige-dark rounded-xl py-3 pl-11 pr-12 text-sm text-charcoal" aria-describedby="login-pass-error">
+                  <button type="button" onclick="togglePasswordVisibility('login-pass', this)" class="absolute right-4 top-3.5 text-charcoal/40 hover:text-charcoal transition-colors focus:outline-none" aria-label="Show password">
+                    <i data-lucide="eye" class="w-4 h-4"></i>
+                  </button>
+                </div>
+                <p id="login-pass-error" class="text-[11px] text-peach-dark font-medium hidden flex items-center gap-1">
+                  <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> <span>Password must contain at least 8 characters.</span>
+                </p>
+              </div>
+
+              <!-- Remember Me Toggle Segment -->
+              <div class="flex items-center justify-between py-1">
+                <div class="flex items-center gap-2">
+                  <input type="checkbox" id="remember-me" class="w-4 h-4 rounded border-beige-dark text-sage focus:ring-sage focus:ring-offset-0 focus:outline-none">
+                  <label for="remember-me" class="text-xs text-charcoal/60 select-none">Remember my harbor space</label>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="w-full py-3.5 rounded-xl bg-sage hover:bg-sage-dark text-cream font-poppins font-bold text-sm shadow-cozy hover:shadow-cozyLg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-sage/40">
+                <span>Enter Your Haven</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </button>
+            </form>
+
+            <!-- 2. REGISTRATION FORM PANEL (Initially Hidden via JS toggling) -->
+            <form id="signup-form" onsubmit="handleFormSubmission(event, 'signup')" class="slide-panel space-y-4 hidden opacity-0 translate-y-3" aria-label="Sign Up Form">
+              
+              <!-- Full Name Input -->
+              <div class="space-y-1">
+                <label for="signup-name" class="block text-xs font-bold text-charcoal/70 uppercase tracking-wider font-poppins">Full Name</label>
+                <div class="relative">
+                  <span class="absolute left-4 top-3.5 text-charcoal/40">
+                    <i data-lucide="user" class="w-4.5 h-4.5"></i>
+                  </span>
+                  <input type="text" id="signup-name" required placeholder="Aria Lightwood" class="w-full soothing-input bg-cream/40 border border-beige-dark rounded-xl py-3 pl-11 pr-4 text-sm text-charcoal" aria-describedby="signup-name-error">
+                </div>
+                <p id="signup-name-error" class="text-[11px] text-peach-dark font-medium hidden flex items-center gap-1">
+                  <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> <span>Please fill out your full name.</span>
+                </p>
+              </div>
+
+              <!-- Email Input -->
+              <div class="space-y-1">
+                <label for="signup-email" class="block text-xs font-bold text-charcoal/70 uppercase tracking-wider font-poppins">Private Email Address</label>
+                <div class="relative">
+                  <span class="absolute left-4 top-3.5 text-charcoal/40">
+                    <i data-lucide="mail" class="w-4.5 h-4.5"></i>
+                  </span>
+                  <input type="email" id="signup-email" required placeholder="aria@soothinglife.com" class="w-full soothing-input bg-cream/40 border border-beige-dark rounded-xl py-3 pl-11 pr-4 text-sm text-charcoal" aria-describedby="signup-email-error">
+                </div>
+                <p id="signup-email-error" class="text-[11px] text-peach-dark font-medium hidden flex items-center gap-1">
+                  <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> <span>Please enter a valid email address.</span>
+                </p>
+              </div>
+
+              <!-- Passwords Side-by-Side on Desktop Grid -->
+              <div class="grid md:grid-cols-2 gap-4">
+                <!-- Pass 1 -->
+                <div class="space-y-1">
+                  <label for="signup-pass" class="block text-xs font-bold text-charcoal/70 uppercase tracking-wider font-poppins">Establish Password</label>
+                  <div class="relative">
+                    <span class="absolute left-4 top-3.5 text-charcoal/40">
+                      <i data-lucide="lock" class="w-4.5 h-4.5"></i>
+                    </span>
+                    <input type="password" id="signup-pass" required placeholder="Min. 8 characters" class="w-full soothing-input bg-cream/40 border border-beige-dark rounded-xl py-3 pl-11 pr-12 text-sm text-charcoal" aria-describedby="signup-pass-error">
+                    <button type="button" onclick="togglePasswordVisibility('signup-pass', this)" class="absolute right-4 top-3.5 text-charcoal/40 hover:text-charcoal transition-colors focus:outline-none" aria-label="Show password">
+                      <i data-lucide="eye" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                  <p id="signup-pass-error" class="text-[11px] text-peach-dark font-medium hidden flex items-center gap-1">
+                    <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> <span>At least 8 characters required.</span>
+                  </p>
+                </div>
+
+                <!-- Pass 2 -->
+                <div class="space-y-1">
+                  <label for="signup-confirm" class="block text-xs font-bold text-charcoal/70 uppercase tracking-wider font-poppins">Confirm Password</label>
+                  <div class="relative">
+                    <span class="absolute left-4 top-3.5 text-charcoal/40">
+                      <i data-lucide="shield-check" class="w-4.5 h-4.5"></i>
+                    </span>
+                    <input type="password" id="signup-confirm" required placeholder="Repeat security key" class="w-full soothing-input bg-cream/40 border border-beige-dark rounded-xl py-3 pl-11 pr-12 text-sm text-charcoal" aria-describedby="signup-confirm-error">
+                    <button type="button" onclick="togglePasswordVisibility('signup-confirm', this)" class="absolute right-4 top-3.5 text-charcoal/40 hover:text-charcoal transition-colors focus:outline-none" aria-label="Show password">
+                      <i data-lucide="eye" class="w-4 h-4"></i>
+                    </button>
+                  </div>
+                  <p id="signup-confirm-error" class="text-[11px] text-peach-dark font-medium hidden flex items-center gap-1">
+                    <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> <span>Passwords must match exactly.</span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Consent Policy Toggle -->
+              <div class="flex items-start gap-2.5 py-1">
+                <input type="checkbox" id="privacy-agreement" required class="w-4 h-4 mt-0.5 rounded border-beige-dark text-sage focus:ring-sage focus:ring-offset-0 focus:outline-none">
+                <label for="privacy-agreement" class="text-xs text-charcoal/60 leading-relaxed select-none">
+                  I promise to respect Project HOPE’s <span class="underline hover:text-sage cursor-pointer">Privacy Guidelines</span> & medical guidelines.
+                </label>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="w-full py-3.5 rounded-xl bg-sage hover:bg-sage-dark text-cream font-poppins font-bold text-sm shadow-cozy hover:shadow-cozyLg transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-sage/40">
+                <span>Cultivate My Sanctuary</span>
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+              </button>
+            </form>
+          </div>
+
+          <!-- Alternative SSO Sign In Channels -->
+          <div class="relative z-10 mt-8">
+            <div class="flex items-center justify-between mb-4">
+              <span class="w-1/4 h-[1px] bg-beige-dark"></span>
+              <span class="text-[10px] uppercase tracking-wider font-bold text-charcoal/40 font-poppins">Or continue with</span>
+              <span class="w-1/4 h-[1px] bg-beige-dark"></span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <!-- Google Account -->
+              <button onclick="handleSsoSimulation('Google')" class="flex items-center justify-center gap-2 py-3 border border-beige-dark hover:bg-beige/30 hover:border-sage/40 rounded-xl transition-all duration-300 text-xs font-semibold text-charcoal focus:outline-none focus:ring-2 focus:ring-sage/30">
+                <svg class="w-4.5 h-4.5" viewBox="0 0 24 24">
+                  <path fill="#EA4335" d="M12 5.04c1.66 0 3.2.57 4.38 1.69l3.27-3.27C17.67 1.58 14.99 1 12 1 7.35 1 3.37 3.65 1.43 7.55l3.8 2.94C6.12 7.42 8.84 5.04 12 5.04z"/>
+                  <path fill="#4285F4" d="M23.49 12.27c0-.81-.07-1.59-.2-2.36H12v4.51h6.46c-.29 1.48-1.14 2.73-2.42 3.58l3.76 2.91c2.2-2.03 3.49-5.02 3.49-8.64z"/>
+                  <path fill="#FBBC05" d="M5.23 10.49c-.24-.72-.37-1.49-.37-2.29s.13-1.57.37-2.29L1.43 2.97C.52 4.8.01 6.84.01 9s.51 4.2 1.42 6.03l3.8-2.97c-.24-.72-.37-1.49-.37-2.29z"/>
+                  <path fill="#34A853" d="M12 23c3.24 0 5.97-1.07 7.96-2.91l-3.76-2.91c-1.1.74-2.5 1.18-4.2 1.18-3.16 0-5.88-2.38-6.77-5.45l-3.8 2.94C3.37 20.35 7.35 23 12 23z"/>
+                </svg>
+                <span>Google</span>
+              </button>
+
+              <!-- GitHub Account -->
+              <button onclick="handleSsoSimulation('GitHub')" class="flex items-center justify-center gap-2 py-3 border border-beige-dark hover:bg-beige/30 hover:border-sage/40 rounded-xl transition-all duration-300 text-xs font-semibold text-charcoal focus:outline-none focus:ring-2 focus:ring-sage/30">
+                <i data-lucide="github" class="w-4.5 h-4.5 text-charcoal"></i>
+                <span>GitHub</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bottom Toggle Guide Helper -->
+          <div class="relative z-10 text-center mt-6">
+            <p id="alternate-prompt" class="text-xs text-charcoal/60">
+              Don't have an account? 
+              <button onclick="toggleMode('signup')" class="text-sage-dark font-bold hover:underline focus:outline-none">Sign Up</button>
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- HIGH FIDELITY TRANSITION VIEWPORT: Simulated Login Dashboard entry point -->
+  <div id="success-viewport" class="fixed inset-0 bg-cream/98 flex items-center justify-center p-6 z-50 transition-all duration-700 pointer-events-none opacity-0 scale-95" role="dialog" aria-hidden="true">
+    <div class="max-w-md w-full bg-white border border-beige rounded-premium shadow-cozyLg p-8 text-center space-y-6 relative overflow-hidden">
+      
+      <!-- Leaf pattern decorative -->
+      <div class="absolute -top-6 -left-6 text-peach-light/25 w-24 h-24 animate-float-slow">
+        <svg viewBox="0 0 100 100" fill="currentColor"><path d="M50 0 C40 30, 10 40, 10 50 C10 60, 40 70, 50 100 C60 70, 90 60, 90 50 C90 40, 60 30, 50 0 Z"/></svg>
+      </div>
+
+      <div class="w-16 h-16 rounded-full bg-success/80 text-sage-dark flex items-center justify-center mx-auto shadow-cozy animate-bounce">
+        <i data-lucide="heart" class="w-8 h-8 fill-sage-dark text-sage-dark"></i>
+      </div>
+
+      <div class="space-y-2">
+        <h2 id="success-headline" class="text-2xl font-poppins font-bold text-charcoal">Welcome to Sanctuary</h2>
+        <p class="text-sm text-charcoal/70 leading-relaxed">Initializing your safe harbor details...</p>
+      </div>
+
+      <!-- Personalized Intentional affirmation powered by Gemini Mock or Offline base -->
+      <div class="p-5 bg-cream border border-sage/20 rounded-interactive relative text-left">
+        <div class="absolute top-2.5 right-2.5 flex items-center gap-1 bg-sage-muted text-[9px] text-sage-dark px-2 py-0.5 rounded-full font-bold">
+          <i data-lucide="sparkles" class="w-3 h-3"></i>
+          <span>Gemini Intent</span>
+        </div>
+        <p id="affirmation-quote" class="text-xs italic text-charcoal/80 leading-relaxed font-medium mt-3">
+          "The strongest mountain stands still amidst passing clouds. You are resilient, and your progress starts here."
+        </p>
+        <span class="block text-[10px] text-sage-dark font-bold mt-2">— Hope Companion</span>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <button onclick="closeSuccessOverlay()" class="w-full py-3 bg-sage hover:bg-sage-dark text-cream font-bold rounded-xl text-sm transition-all shadow-md focus:outline-none">
+          Enter Oasis Space
+        </button> 
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SOOTHING ACCESSIBLE TOAST COMPONENT -->
+  <div id="cozy-toast" class="fixed bottom-6 right-6 z-50 bg-charcoal text-cream text-xs px-4.5 py-3.5 rounded-xl shadow-lg flex items-center gap-3 transform translate-y-12 opacity-0 transition-all duration-300 pointer-events-none" role="alert">
+    <i data-lucide="smile" class="w-4 h-4 text-peach"></i>
+    <span id="toast-text">Ambient alert notice</span>
+  </div>
+
+  <!-- Minimal Footer Sanctuary Standards -->
+  <footer class="w-full border-t border-beige px-6 py-4 bg-cream/30 text-center relative z-10">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-charcoal/50">
+      <span>© 2026 Project HOPE. Safe, Secure, & Shared with Care.</span>
+      <div class="flex items-center gap-3">
+        <a href="#" class="hover:text-sage transition-colors">Privacy Principles</a>
+        <span class="w-1 h-1 rounded-full bg-beige-dark"></span>
+        <a href="#" class="hover:text-sage transition-colors">HIPAA Compliance</a>
+        <span class="w-1 h-1 rounded-full bg-beige-dark"></span>
+        <a href="#" class="hover:text-sage transition-colors">Need Immediate Support?</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       MODULAR WEB PORTAL INTERACTION (JAVASCRIPT)
+       ========================================== -->
+  <script>
+    // System UI Environment Constants & In-Memory states
+    let isBreatheActive = false;
+    let breathSequenceTimer = null;
+    let quoteLoopIndex = 0;
+
+    const wellnessInspirations = [
+      { quote: "Quiet the mind, and the soul will speak.", author: "Zen Master" },
+      { quote: "Every sunset is a chance to reset your tired wings.", author: "Oasis Guide" },
+      { quote: "Take things exactly one tiny breath at a time.", author: "Mindfulness Advisor" },
+      { quote: "You are allowed to feel, release, and rebuild.", author: "Comfort System" }
+    ];
+
+    const moodColorGlows = {
+      overwhelmed: 'linear-gradient(to bottom right, rgba(246, 194, 139, 0.15), rgba(167, 199, 231, 0.05))',
+      tired: 'linear-gradient(to bottom right, rgba(167, 199, 231, 0.15), rgba(141, 181, 150, 0.05))',
+      calm: 'linear-gradient(to bottom right, rgba(141, 181, 150, 0.15), rgba(207, 232, 213, 0.05))',
+      hopeful: 'linear-gradient(to bottom right, rgba(246, 194, 139, 0.15), rgba(141, 181, 150, 0.08))'
+    };
+
+    // Initialize UI on load
+    window.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      initializeQuoteRotation();
+      initializeValidationListeners();
+    });
+
+    // State machine to toggle Auth forms smoothly
+    function toggleMode(targetMode) {
+      currentAuthState = targetMode;
+      const loginTab = document.getElementById('switch-to-login');
+      const signupTab = document.getElementById('switch-to-signup');
+      const loginForm = document.getElementById('login-form');
+      const signupForm = document.getElementById('signup-form');
+      const mainTitle = document.getElementById('auth-main-title');
+      const subTitle = document.getElementById('auth-sub-title');
+      const alternatePrompt = document.getElementById('alternate-prompt');
+
+      if (targetMode === 'signup') {
+        // Tab indicator swapping
+        loginTab.className = 'flex-1 py-2 text-xs font-bold font-poppins text-charcoal/60 hover:text-charcoal transition-all duration-300 focus:outline-none';
+        signupTab.className = 'flex-1 py-2 text-xs font-bold font-poppins text-charcoal bg-white rounded-full shadow-sm transition-all duration-300 focus:outline-none';
+        signupTab.setAttribute('aria-selected', 'true');
+        loginTab.setAttribute('aria-selected', 'false');
+
+        // Form toggle logic
+        loginForm.classList.add('hidden', 'opacity-0', 'translate-y-3');
+        signupForm.classList.remove('hidden');
+        setTimeout(() => {
+          signupForm.classList.remove('opacity-0', 'translate-y-3');
+        }, 50);
+
+        // Copy transitions
+        mainTitle.innerText = "Create Sanctuary ✨";
+        subTitle.innerText = "Begin your guided journey to mindfulness.";
+        alternatePrompt.innerHTML = `Already have an account? <button onclick="toggleMode('login')" class="text-sage-dark font-bold hover:underline focus:outline-none">Login</button>`;
+      } else {
+        // Tab indicator swapping
+        signupTab.className = 'flex-1 py-2 text-xs font-bold font-poppins text-charcoal/60 hover:text-charcoal transition-all duration-300 focus:outline-none';
+        loginTab.className = 'flex-1 py-2 text-xs font-bold font-poppins text-charcoal bg-white rounded-full shadow-sm transition-all duration-300 focus:outline-none';
+        loginTab.setAttribute('aria-selected', 'true');
+        signupTab.setAttribute('aria-selected', 'false');
+
+        // Form toggle logic
+        signupForm.classList.add('hidden', 'opacity-0', 'translate-y-3');
+        loginForm.classList.remove('hidden');
+        setTimeout(() => {
+          loginForm.classList.remove('opacity-0', 'translate-y-3');
+        }, 50);
+
+        // Copy transitions
+        mainTitle.innerText = "Welcome Back 🌿";
+        subTitle.innerText = "Continue your wellness journey.";
+        alternatePrompt.innerHTML = `Don't have an account? <button onclick="toggleMode('signup')" class="text-sage-dark font-bold hover:underline focus:outline-none">Sign Up</button>`;
+      }
+    }
+
+    // Toggle password hiding visually
+    function togglePasswordVisibility(inputId, buttonEl) {
+      const targetInput = document.getElementById(inputId);
+      if (!targetInput) return;
+
+      const isPassword = targetInput.type === 'password';
+      targetInput.type = isPassword ? 'text' : 'password';
+
+      buttonEl.innerHTML = isPassword 
+        ? `<i data-lucide="eye-off" class="w-4 h-4"></i>` 
+        : `<i data-lucide="eye" class="w-4 h-4"></i>`;
+      lucide.createIcons();
+    }
+
+    // Change visual ambiance on mood selection
+    function setHeartMood(moodState, btnElement) {
+      document.querySelectorAll('.mood-check-btn').forEach(btn => {
+        btn.classList.remove('border-sage', 'border-peach', 'border-dustyBlue', 'border-peach-dark', 'bg-sage/10', 'bg-peach/10', 'bg-dustyBlue/10', 'scale-105');
+      });
+
+      let borderStyle = 'border-sage';
+      if (moodState === 'overwhelmed') borderStyle = 'border-peach bg-peach/10';
+      if (moodState === 'tired') borderStyle = 'border-dustyBlue bg-dustyBlue/10';
+      if (moodState === 'calm') borderStyle = 'border-sage bg-sage/10';
+      if (moodState === 'hopeful') borderStyle = 'border-peach-dark bg-peach-light/20';
+
+      btnElement.classList.add(...borderStyle.split(' '), 'scale-105');
+
+      const bgGlow = moodColorGlows[moodState];
+      if (bgGlow) {
+        document.getElementById('glow-container').style.background = bgGlow;
+      }
+
+      showCozyToast(`Aura adjusted: ${moodState.toUpperCase()}. Rest inside our quiet space.`);
+    }
+
+    // Real-time error handling with high color contrast
+    function initializeValidationListeners() {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      // Email Validator
+      document.getElementById('login-email').addEventListener('input', function() {
+        const errorEl = document.getElementById('login-email-error');
+        if (emailRegex.test(this.value)) {
+          this.classList.remove('input-error');
+          this.classList.add('input-success');
+          errorEl.classList.add('hidden');
+        } else {
+          this.classList.remove('input-success');
+          this.classList.add('input-error');
+          errorEl.classList.remove('hidden');
+        }
+      });
+
+      // Passwords length check
+      document.getElementById('login-pass').addEventListener('input', function() {
+        const errorEl = document.getElementById('login-pass-error');
+        if (this.value.length >= 8) {
+          this.classList.remove('input-error');
+          this.classList.add('input-success');
+          errorEl.classList.add('hidden');
+        } else {
+          this.classList.remove('input-success');
+          this.classList.add('input-error');
+          errorEl.classList.remove('hidden');
+        }
+      });
+    }
+
+    // Handle SSO sandbox simulations
+    function handleSsoSimulation(provider) {
+      showCozyToast(`Securing auth handshake protocols via ${provider}...`);
+      setTimeout(() => {
+        triggerSuccessState("Harmonic Traveler");
+      }, 1400);
+    }
+
+    // Form execution submit coordinator
+    function handleFormSubmission(event, type) {
+      event.preventDefault();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      let valid = true;
+
+      if (type === 'login') {
+        const email = document.getElementById('login-email');
+        const pass = document.getElementById('login-pass');
+        
+        if (!emailRegex.test(email.value)) {
+          email.classList.add('input-error');
+          document.getElementById('login-email-error').classList.remove('hidden');
+          valid = false;
+        }
+        if (pass.value.length < 8) {
+          pass.classList.add('input-error');
+          document.getElementById('login-pass-error').classList.remove('hidden');
+          valid = false;
+        }
+
+        if (valid) {
+          showCozyToast("Establishing encrypted connection...");
+          setTimeout(() => {
+            triggerSuccessState(email.value.split('@')[0]);
+          }, 1500);
+        }
+
+      } else {
+        const name = document.getElementById('signup-name');
+        const email = document.getElementById('signup-email');
+        const pass = document.getElementById('signup-pass');
+        const confirm = document.getElementById('signup-confirm');
+
+        if (name.value.trim().length === 0) {
+          name.classList.add('input-error');
+          document.getElementById('signup-name-error').classList.remove('hidden');
+          valid = false;
+        }
+        if (!emailRegex.test(email.value)) {
+          email.classList.add('input-error');
+          document.getElementById('signup-email-error').classList.remove('hidden');
+          valid = false;
+        }
+        if (pass.value.length < 8) {
+          pass.classList.add('input-error');
+          document.getElementById('signup-pass-error').classList.remove('hidden');
+          valid = false;
+        }
+        if (pass.value !== confirm.value) {
+          confirm.classList.add('input-error');
+          document.getElementById('signup-confirm-error').classList.remove('hidden');
+          valid = false;
+        }
+
+        if (valid) {
+          showCozyToast("Initializing your secure metadata...");
+          setTimeout(() => {
+            triggerSuccessState(name.value);
+          }, 1500);
+        }
+      }
+    }
+
+    // Dynamic success viewport alignment
+    function triggerSuccessState(userName) {
+      const viewport = document.getElementById('success-viewport');
+      const greeting = document.getElementById('success-headline');
+      
+      greeting.innerText = `Welcome, ${userName} 🌿`;
+      viewport.classList.remove('pointer-events-none', 'opacity-0', 'scale-95');
+      viewport.classList.add('opacity-100', 'scale-100');
+      viewport.setAttribute('aria-hidden', 'false');
+
+      // Offline clinical affirmations list backup selector
+      const randomAffirmations = [
+        "In quietude, you find your core strength. Welcome back to safety.",
+        "Your progress occurs quietly, in gentle steps. We support you.",
+        "Your breathing is a constant anchor. Let your worry go.",
+        "Today is a fresh step. Be gentle to your heart."
+      ];
+      const affirmationEl = document.getElementById('affirmation-quote');
+      affirmationEl.innerText = `"${randomAffirmations[Math.floor(Math.random() * randomAffirmations.length)]}"`;
+    }
+
+    function closeSuccessOverlay() {
+    window.location.href = "dashboard.html";
+}
+
+    // Dynamic breathing companion animation loop
+    function setupBreathingCompanion() {
+      const trigger = document.getElementById('breathe-trigger');
+      const status = document.getElementById('breath-status');
+      const action = document.getElementById('breath-action');
+      const midCircle = document.getElementById('breath-mid');
+      const outerCircle = document.getElementById('breath-outer');
+
+      trigger.addEventListener('click', () => {
+        if (isBreatheActive) {
+          clearInterval(breathSequenceTimer);
+          isBreatheActive = false;
+          status.innerText = "Breathing paused";
+          action.innerText = "Tap the bubble to resume the box breathing guide.";
+          midCircle.style.transform = 'scale(1)';
+          outerCircle.style.transform = 'scale(1)';
+          return;
+        }
+
+        isBreatheActive = true;
+        let phrase = 'inhale';
+        let countdown = 0;
+
+        breathSequenceTimer = setInterval(() => {
+          countdown++;
+          if (countdown % 4 === 0) {
+            if (phrase === 'inhale') {
+              phrase = 'hold';
+            } else if (phrase === 'hold') {
+              phrase = 'exhale';
+            } else {
+              phrase = 'inhale';
+            }
+          }
+
+          if (phrase === 'inhale') {
+            status.innerText = "Breathing Inhale...";
+            action.innerText = "Deeply fill your chest with quiet air.";
+            midCircle.style.transform = 'scale(1.4)';
+            outerCircle.style.transform = 'scale(1.8)';
+          } else if (phrase === 'hold') {
+            status.innerText = "Hold & Stillness...";
+            action.innerText = "Rest peacefully inside this exact moment.";
+          } else {
+            status.innerText = "Releasing Exhale...";
+            action.innerText = "Let go of all anxious or heavy thoughts.";
+            midCircle.style.transform = 'scale(1.0)';
+            outerCircle.style.transform = 'scale(1.0)';
+          }
+        }, 1000);
+      });
+    }
+
+    // ROTATOR: Soft transitions for inspirational quotes
+    function initializeQuoteRotation() {
+      const quoteEl = document.getElementById('rotating-quote');
+      const authorEl = document.getElementById('rotating-author');
+      const wrapper = document.getElementById('quote-wrapper');
+
+      setInterval(() => {
+        quoteLoopIndex = (quoteLoopIndex + 1) % wellnessInspirations.length;
+        wrapper.classList.add('opacity-0');
+        
+        setTimeout(() => {
+          quoteEl.innerText = `"${wellnessInspirations[quoteLoopIndex].quote}"`;
+          authorEl.innerText = `— ${wellnessInspirations[quoteLoopIndex].author}`;
+          wrapper.classList.remove('opacity-0');
+        }, 400);
+
+      }, 10000);
+    }
+
+    function triggerForgotPassword() {
+      showCozyToast("🌸 Reset instructions are wings on their way to your mailbox.");
+    }
+
+    // Elegant alert messaging helper
+    function showCozyToast(message) {
+      const toast = document.getElementById('cozy-toast');
+      const toastMsg = document.getElementById('toast-text');
+      
+      toastMsg.innerText = message;
+      toast.classList.remove('translate-y-12', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-12', 'opacity-0');
+      }, 5000);
+    }
+  </script>
+</body>
+</html>
