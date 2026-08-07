@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOPE AI Room | Project HOPE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/chat.css">
+</head>
+<body>
+  <!-- Ambient Premium Glow Backdrops -->
+  <div class="ambient-glow-mesh" aria-hidden="true"></div>
+
+  <!-- Top Navigation Header -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="index.html" class="logo-link" aria-label="Project HOPE Home">
+          <span class="logo-icon" aria-hidden="true">🕊️</span>
+          <span class="logo-text">Project <span class="logo-highlight">HOPE</span></span>
+        </a>
+      </div>
+      <div class="nav-right">
+        <a href="dashboard.html" class="btn btn-secondary" aria-label="Return to Dashboard">
+          <span class="btn-icon" aria-hidden="true">←</span> Back to Dashboard
+        </a>
+        <div class="profile-avatar" role="img" aria-label="User Profile Avatar for Suyash Hegde">SH</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Three-Column Work Surface Container -->
+  <div class="chat-app-layout">
+    
+    <!-- Left Sidebar: Suggested Conversations -->
+    <aside class="sidebar-panel left-sidebar" aria-labelledby="left-sidebar-heading">
+      <div class="sidebar-header">
+        <span class="sparkle-badge" aria-hidden="true">✨ Deep Listening</span>
+        <h2 id="left-sidebar-heading" class="sidebar-main-title">Suggested Openings</h2>
+      </div>
+      <nav class="prompts-navigation" role="list">
+        <button class="prompt-chip" role="listitem" data-prompt="I'm feeling anxious right now. Can we do a quick grounding exercise?">
+          <span class="chip-emoji" aria-hidden="true">😊</span>
+          <span class="chip-label">I'm feeling anxious</span>
+        </button>
+        <button class="prompt-chip" role="listitem" data-prompt="I feel lonely today and just want a warm space to chat.">
+          <span class="chip-emoji" aria-hidden="true">😔</span>
+          <span class="chip-label">I feel lonely</span>
+        </button>
+        <button class="prompt-chip" role="listitem" data-prompt="I can't sleep. My mind won't settle down.">
+          <span class="chip-emoji" aria-hidden="true">😴</span>
+          <span class="chip-label">I can't sleep</span>
+        </button>
+        <button class="prompt-chip" role="listitem" data-prompt="I'm feeling stressed about my upcoming exams and need a strategic reset.">
+          <span class="chip-emoji" aria-hidden="true">📚</span>
+          <span class="chip-label">I'm stressed about exams</span>
+        </button>
+        <button class="prompt-chip" role="listitem" data-prompt="Give me some motivation to push through the rest of this day.">
+          <span class="chip-emoji" aria-hidden="true">💪</span>
+          <span class="chip-label">Give me motivation</span>
+        </button>
+        <button class="prompt-chip" role="listitem" data-prompt="I just need someone to talk to without any judgment.">
+          <span class="chip-emoji" aria-hidden="true">❤️</span>
+          <span class="chip-label">I just need someone to talk to</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- Center Sandbox Panel: Large AI Chat Interface -->
+    <main class="chat-sandbox-panel" aria-label="Active Interactive Conversation Space">
+      <!-- Conversation Display Stream -->
+      <div class="chat-conversation-stream" id="chat-stream-viewport" role="log" aria-live="polite">
+        
+        <!-- Welcome AI Message Block -->
+        <div class="chat-message-row ai-row">
+          <div class="message-actor-avatar ai-avatar" role="img" aria-label="HOPE AI Core Engine Platform">✨</div>
+          <div class="message-bubble-wrapper">
+            <div class="actor-identity-label">HOPE AI</div>
+            <div class="message-bubble-content">
+              Welcome back to your safe space, Suyash. 🌿 Take a soft breath. I am completely here to hold space for you today. Whatever you are carrying right now, feel free to let it out. How can I best support your mind?
+            </div>
+            <span class="message-time-stamp">Just now</span>
+          </div>
+        </div>
+
+        <!-- Dynamic message insertion point -->
+
+        <!-- Active Mock Streaming Typing Indicator Node -->
+        <div class="chat-message-row ai-row typing-indicator-row hidden" id="chat-typing-node">
+          <div class="message-actor-avatar ai-avatar" role="img" aria-label="HOPE AI System is writing">✨</div>
+          <div class="message-bubble-wrapper">
+            <div class="message-bubble-content premium-typing-bubble">
+              <span class="animated-pulse-dot"></span>
+              <span class="animated-pulse-dot"></span>
+              <span class="animated-pulse-dot"></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Form Control Interface Suite -->
+      <footer class="chat-input-controls-footer">
+        <form class="chat-composer-form" id="chat-composer-element" action="#" method="POST">
+          <div class="composer-inner-container">
+            <div class="utility-actions-left">
+              <button type="button" class="utility-icon-btn" id="trigger-emoji" aria-label="Add text expression emoji">😊</button>
+              <button type="button" class="utility-icon-btn" id="trigger-attachment" aria-label="Attach context file or wellness matrix document">📎</button>
+            </div>
+            
+            <textarea id="composer-textarea" placeholder="Share your thoughts safely with HOPE AI..." aria-label="Supportive message prompt input body" rows="1" required></textarea>
+            
+            <div class="utility-actions-right">
+              <button type="button" class="utility-icon-btn" id="trigger-voice" aria-label="Activate voice transcription engine UI">🎤</button>
+              <button type="submit" class="btn btn-primary btn-send-action" id="submit-send-btn" aria-label="Transmit message to HOPE AI">
+                <span class="send-text-lbl">Send</span>
+                <span class="send-arrow-icon" aria-hidden="true">→</span>
+              </button>
+            </div>
+          </div>
+        </form>
+        <p class="safety-disclaimer-text">
+          🛡️ Secure End-to-End Space. HOPE AI is supportive but not a substitute for clinical psychiatric care or medical emergency assistance.
+        </p>
+      </footer>
+    </main>
+
+    <!-- Right Sidebar: Contextual Anchor Panel -->
+    <aside class="sidebar-panel right-sidebar" aria-labelledby="right-sidebar-heading">
+      <h2 id="right-sidebar-heading" class="visually-hidden">Your Wellness Context</h2>
+      <div class="widgets-stack-container">
+        
+        <!-- Mood Module Card -->
+        <section class="widget-card mood-widget" aria-labelledby="widget-mood-title">
+          <h3 id="widget-mood-title" class="widget-title">Today's Mood</h3>
+          <div class="widget-mood-badge">
+            <span class="mood-badge-emoji" aria-hidden="true">😌</span>
+            <div class="mood-badge-meta">
+              <span class="mood-badge-name">Calm State</span>
+              <span class="mood-badge-time">Logged at 9:15 AM</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Breathing Reminder Module Card -->
+        <section class="widget-card breathing-widget" aria-labelledby="widget-breath-title">
+          <h3 id="widget-breath-title" class="widget-title">Breathing Anchor</h3>
+          <p class="widget-body-copy">Take a brief 60-second structural exhale break to center focus.</p>
+          <a href="dashboard.html" class="widget-action-link" aria-label="Navigate to dashboard breathing session exercise">Start Anchor Session →</a>
+        </section>
+
+        <!-- Daily Quote Module Card -->
+        <section class="widget-card quote-widget" aria-labelledby="widget-quote-title">
+          <h3 id="widget-quote-title" class="widget-title">Daily Reminder</h3>
+          <blockquote class="widget-quote-body">
+            <p class="quote-text">"Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor."</p>
+            <cite class="quote-author">— Thich Nhat Hanh</cite>
+          </blockquote>
+        </section>
+
+        <!-- Streak Metric Module Card -->
+        <section class="widget-card metric-widget" aria-labelledby="widget-streak-title">
+          <h3 id="widget-streak-title" class="widget-title">Consistency Streak</h3>
+          <div class="streak-data-row">
+            <span class="streak-icon-flame" aria-hidden="true">🔥</span>
+            <div class="streak-count-wrapper">
+              <span class="streak-count-value">5 Days Continuous</span>
+              <span class="streak-count-sub">Keep prioritizing your mind</span>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </aside>
+
+  </div>
+<script src="js/chat.js"></script>
+  
+</body>
+</html>
+

@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Project HOPE - Your Safe Space for Mental Wellness</title>
+    <!-- Google Fonts: Poppins & Inter -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Tailwind Custom Color Palette and Design Tokens -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FFFDF8',
+                        sage: {
+                            DEFAULT: '#8DB596',
+                            light: '#A3C6AB',
+                            dark: '#769E7F',
+                            muted: '#E9EFEA'
+                        },
+                        beige: {
+                            DEFAULT: '#F6F1E9',
+                            dark: '#EBE3D5'
+                        },
+                        dustyBlue: {
+                            DEFAULT: '#A7C7E7',
+                            light: '#C5DCF5',
+                            dark: '#8FB4D9'
+                        },
+                        peach: {
+                            DEFAULT: '#F6C28B',
+                            light: '#FADCB8',
+                            dark: '#E2A566'
+                        },
+                        success: '#CFE8D5',
+                        charcoal: '#3A3A3A'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif']
+                    },
+                    borderRadius: {
+                        'premium': '24px'
+                    },
+                    boxShadow: {
+                        'cozy': '0 12px 30px -10px rgba(40, 50, 43, 0.08)',
+                        'cozy-lg': '0 22px 48px -15px rgba(40, 50, 43, 0.15)',
+                        'accent-soft': '0 12px 28px -5px rgba(167, 199, 231, 0.15)',
+                        'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.04)'
+                    },
+                    animation: {
+                        'float-slow': 'float 8s ease-in-out infinite',
+                        'float-medium': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'drift-slow': 'drift 28s linear infinite',
+                        'sun-pulse': 'sunPulse 8s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-10px) rotate(0.5deg)' }
+                        },
+                        drift: {
+                            '0%': { transform: 'translateX(0) scale(1)' },
+                            '50%': { transform: 'translateX(12px) scale(1.01)' },
+                            '100%': { transform: 'translateX(0) scale(1)' }
+                        },
+                        sunPulse: {
+                            '0%, 100%': { opacity: '0.45', transform: 'scale(1)' },
+                            '50%': { opacity: '0.65', transform: 'scale(1.08)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #3A3A3A;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 253, 248, 0.1);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(141, 181, 150, 0.4);
+            border-radius: 12px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(141, 181, 150, 0.7);
+        }
+        .glass-panel {
+            background: rgba(255, 253, 248, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        .glass-header {
+            background: rgba(255, 253, 248, 0.65);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="selection:bg-sage/30 selection:text-charcoal relative">
+
+<!-- Calming Ambient Dark Overlay Shield -->
+<div class="fixed inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/30 pointer-events-none -z-40"></div>
+
+<!-- Ambient Light Mesh Accents -->
+<div class="absolute top-[5%] left-[-15vw] w-[50vw] h-[50vw] bg-sage/10 rounded-full filter blur-[120px] pointer-events-none animate-drift-slow -z-30"></div>
+<div class="absolute top-[35%] right-[-15vw] w-[55vw] h-[55vw] bg-dustyBlue/15 rounded-full filter blur-[140px] pointer-events-none animate-float-slow -z-30"></div>
+
+<!-- Navigation Bar -->
+<header class="sticky top-0 z-50 transition-all duration-300 py-4 px-6 md:px-12 glass-header shadow-sm" id="nav">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <!-- Brand Identity / Official Logo -->
+        <a class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-sage/40 rounded-xl p-1" href="#">
+            <div class="w-10 h-10 rounded-full bg-sage flex items-center justify-center text-cream shadow-cozy transition-transform duration-300 group-hover:scale-105">
+                <svg class="h-6 w-6 text-cream" fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </div>
+            <div>
+                <span class="text-xl font-poppins font-bold tracking-tight text-charcoal">Project <span class="text-sage">HOPE</span></span>
+                <span class="block text-[10px] tracking-widest text-sage-dark/80 font-semibold uppercase -mt-1">safe harbor</span>
+            </div>
+        </a>
+        <!-- Premium Navigation -->
+        <nav class="hidden lg:flex items-center gap-8">
+            <a class="text-charcoal/80 hover:text-sage font-medium text-sm transition-colors py-2" href="#hero">Home</a>
+            <a class="text-charcoal/80 hover:text-sage font-medium text-sm transition-colors py-2" href="#features">Companion Deck</a>
+            <a class="text-charcoal/80 hover:text-sage font-medium text-sm transition-colors py-2" href="#interactive">Oasis Sandbox</a>
+        </nav>
+        <!-- Right Side Actions -->
+        <div class="hidden md:flex items-center gap-4">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-sage/20 text-charcoal text-xs font-semibold" title="Gemini Core reframing architecture enabled.">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sage opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-sage"></span>
+                </span>
+                <span>Gemini Core Active</span>
+            </div>
+            <button class="p-2 text-charcoal/60 hover:text-sage hover:bg-white/40 rounded-xl transition-all" onclick="openModal('api-config-modal')" title="Configure Gemini API Parameters">
+                <i class="w-5 h-5" data-lucide="settings"></i>
+            </button>
+            <a class="bg-sage hover:bg-sage-dark text-cream font-medium text-sm py-3 px-6 rounded-premium shadow-cozy hover:shadow-cozy-lg transition-all transform hover:-translate-y-0.5" href="login.html">
+                Get Started
+            </a>
+        </div>
+        <!-- Mobile Menu trigger -->
+        <button class="lg:hidden p-2 rounded-xl bg-white/60 hover:bg-white/80 text-charcoal transition-colors" id="mobile-menu-btn">
+            <i class="w-6 h-6" data-lucide="menu"></i>
+        </button>
+    </div>
+    <!-- Mobile Navigation Menu -->
+    <div class="hidden lg:hidden absolute left-0 right-0 top-full bg-cream/95 backdrop-blur-md border-b border-sage/10 shadow-lg px-6 py-8 flex flex-col gap-4" id="mobile-menu">
+        <a class="text-charcoal/80 hover:text-sage font-semibold text-lg py-1" href="#hero" onclick="toggleMobileMenu()">Home Sanctuary</a>
+        <a class="text-charcoal/80 hover:text-sage font-semibold text-lg py-1" href="#features" onclick="toggleMobileMenu()">Companion Deck</a>
+        <a class="text-charcoal/80 hover:text-sage font-semibold text-lg py-1" href="#interactive" onclick="toggleMobileMenu()">Oasis Sandbox</a>
+        <div class="flex flex-col gap-3 pt-4 border-t border-charcoal/10">
+            <button class="border border-charcoal/20 bg-white/40 text-charcoal font-semibold py-3 px-6 rounded-premium text-center" onclick="toggleMobileMenu(); openModal('api-config-modal')">
+                ⚙️ API Parameters
+            </button>
+            <a class="bg-sage text-cream font-semibold py-3 px-6 rounded-premium shadow-cozy text-center" href="login.html">
+                Get Started
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="relative max-w-7xl mx-auto px-6 md:px-12 pt-12 pb-20 lg:py-24 overflow-hidden" id="hero">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Left Side copy and mood checker -->
+        <div class="lg:col-span-7 flex flex-col items-start gap-6 z-10">
+            <div class="inline-flex items-center gap-2 bg-white/60 backdrop-blur-md text-charcoal border border-white/40 rounded-full px-4 py-2 text-xs md:text-sm font-medium tracking-wide">
+                <span class="w-2.5 h-2.5 rounded-full bg-sage animate-pulse"></span>
+                Welcome to your premium mental harbor
+            </div>
+            <div class="space-y-4">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-poppins leading-tight text-charcoal tracking-tight">
+                    Your Safe Space for <br class="hidden sm:inline"/>
+                    <span class="relative inline-block text-sage-dark">
+                        Mental Wellness.
+                        <span class="absolute bottom-1.5 left-0 w-full h-[8px] bg-peach/30 rounded-full -z-10"></span>
+                    </span>
+                </h1>
+                <p class="text-base md:text-lg text-charcoal/90 max-w-xl font-normal leading-relaxed">
+                    Track your emotions, chat with an empathetic AI companion, journal with real-time cognitive reframing parameters, and watch your mental state flourish.
+                </p>
+            </div>
+            <!-- Action Rows -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
+                <a class="bg-sage hover:bg-sage-dark text-cream font-semibold text-base py-4 px-8 rounded-premium shadow-cozy hover:shadow-cozy-lg transition-all transform hover:-translate-y-0.5 text-center" href="login.html">
+                    Open Your Sanctuary
+                </a>
+                <a class="bg-white/60 hover:bg-white/80 border border-white/50 text-charcoal font-semibold text-base py-4 px-8 rounded-premium transition-all text-center flex items-center justify-center gap-2" href="#interactive">
+                    <i class="w-5 h-5" data-lucide="play-circle"></i> Try Oasis Sandbox
+                </a>
+            </div>
+            <!-- Instant Check-in Sub-module -->
+            <div class="w-full max-w-md glass-panel p-5 rounded-premium shadow-cozy mt-2 transition-transform hover:scale-[1.005]">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-semibold tracking-wider text-charcoal/60 uppercase">Sanctuary Check-in</span>
+                    <span class="text-[10px] text-sage-dark font-semibold bg-white/80 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                        <i class="w-3 h-3" data-lucide="lock"></i> Client-Side Sandbox
+                    </span>
+                </div>
+                <h3 class="font-poppins font-semibold text-charcoal text-sm mb-3">How are you feeling in this exact moment?</h3>
+                <div class="grid grid-cols-5 gap-2">
+                    <button class="bg-white/40 hover:bg-white/80 border border-white/20 text-xl py-3 rounded-2xl transition-all hover:scale-105 active:scale-95 flex flex-col items-center gap-1 shadow-sm" onclick="setHeroMood('Anxious', '🌱 Let\'s take a soft, deep breath. Focus on your inhalation: you are completely safe here.')">
+                        <span>😢</span>
+                        <span class="text-[10px] text-charcoal/70 font-semibold">Anxious</span>
+                    </button>
+                    <button class="bg-white/40 hover:bg-white/80 border border-white/20 text-xl py-3 rounded-2xl transition-all hover:scale-105 active:scale-95 flex flex-col items-center gap-1 shadow-sm" onclick="setHeroMood('Tired', '🍵 Warm tea and soft cushions are waiting. Be gentle with your capacity today.')">
+                        <span>😴</span>
+                        <span class="text-[10px] text-charcoal/70 font-semibold">Tired</span>
+                    </button>
+                    <button class="bg-white/40 hover:bg-white/80 border border-white/20 text-xl py-3 rounded-2xl transition-all hover:scale-105 active:scale-95 flex flex-col items-center gap-1 shadow-sm" onclick="setHeroMood('Okay', '🏡 Center awareness. A quiet day of steady, deliberate progress is ahead.')">
+                        <span>😐</span>
+                        <span class="text-[10px] text-charcoal/70 font-semibold">Okay</span>
+                    </button>
+                    <button class="bg-white/40 hover:bg-white/80 border border-white/20 text-xl py-3 rounded-2xl transition-all hover:scale-105 active:scale-95 flex flex-col items-center gap-1 shadow-sm" onclick="setHeroMood('Calm', '✨ Flowing smoothly. What a lovely, peaceful space to claim in your heart.')">
+                        <span>😌</span>
+                        <span class="text-[10px] text-charcoal/70 font-semibold">Calm</span>
+                    </button>
+                    <button class="bg-white/40 hover:bg-white/80 border border-white/20 text-xl py-3 rounded-2xl transition-all hover:scale-105 active:scale-95 flex flex-col items-center gap-1 shadow-sm" onclick="setHeroMood('Joyful', '🌸 Your light is bright! Let\'s anchor and validate this joyful spark together.')">
+                        <span>☀️</span>
+                        <span class="text-[10px] text-charcoal/70 font-semibold">Joyful</span>
+                    </button>
+                </div>
+                <!-- Dynamic feedback zone -->
+                <div class="hidden mt-3 p-3.5 rounded-xl bg-white/90 border border-white/50 text-xs text-charcoal leading-relaxed font-medium" id="hero-mood-feedback"></div>
+            </div>
+        </div>
+        <!-- Right Side Canvas Presentation Graphic -->
+        <div class="lg:col-span-5 flex justify-center items-center z-10">
+            <div class="relative w-full max-w-lg aspect-square">
+                <div class="absolute inset-0 bg-gradient-to-tr from-peach/10 to-dustyBlue/20 rounded-full filter blur-xl opacity-60 animate-pulse-slow"></div>
+                <div class="relative w-full h-full flex items-center justify-center animate-float-slow">
+                    <svg class="w-full h-full max-w-[400px]" fill="none" viewbox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="250" cy="250" fill="#F6F1E9" fill-opacity="0.35" r="190"></circle>
+                        <circle cx="250" cy="250" fill="#FFFDF8" opacity="0.5" r="140"></circle>
+                        <circle class="animate-sun-pulse" cx="250" cy="140" fill="#F6C28B" opacity="0.6" r="45"></circle>
+                        <path d="M110 160C130 145 160 145 180 160C200 175 230 175 250 160C270 145 300 145 320 160" opacity="0.75" stroke="#A7C7E7" stroke-linecap="round" stroke-width="4.5"></path>
+                        <path d="M70,230 C100,200 110,240 130,220" stroke="#8DB596" stroke-linecap="round" stroke-width="6"></path>
+                        <path d="M430,210 C400,190 390,230 370,210" stroke="#8DB596" stroke-linecap="round" stroke-width="5"></path>
+                        <circle cx="250" cy="190" fill="#3A3A3A" r="34"></circle>
+                        <path d="M236 192C239 195 242 195 244 192" stroke="#FFFDF8" stroke-linecap="round" stroke-width="2.5"></path>
+                        <path d="M256 192C259 195 262 195 264 192" stroke="#FFFDF8" stroke-linecap="round" stroke-width="2.5"></path>
+                        <path d="M245 204C249 207 251 207 255 204" stroke="#FFFDF8" stroke-linecap="round" stroke-width="2"></path>
+                        <path d="M226 218 C226 218 238 226 250 226 C262 226 274 218 274 218" fill="#F6C28B"></path>
+                        <path d="M165 360 C165 295 205 226 250 226 C295 226 335 295 335 360 C335 375 165 375 165 360 Z" fill="#8DB596"></path>
+                        <path class="animate-pulse" d="M250 276 C250 276 242 268 237 273 C232 278 239 287 250 292 C261 287 268 278 263 273 C258 268 250 276 250 276 Z" fill="#F6C28B"></path>
+                        <path d="M205 325 C215 315 225 315 235 321" stroke="#3A3A3A" stroke-linecap="round" stroke-width="5.5"></path>
+                        <path d="M295 325 C285 315 275 315 265 321" stroke="#3A3A3A" stroke-linecap="round" stroke-width="5.5"></path>
+                        <path d="M235 321 C235 333 265 333 265 321 Z" fill="#A7C7E7"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-20 max-w-7xl mx-auto px-6 md:px-12" id="features">
+    <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">
+        <span class="text-sage font-bold text-sm uppercase tracking-widest block">Gentle Features</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold font-poppins text-charcoal">Your core companion utilities for healing.</h2>
+        <p class="text-charcoal/80 text-base">
+            Explore dedicated feature models built around empathetic response structures, absolute local security constraints, and proven Cognitive Behavioral principles.
+        </p>
+    </div>
+    <!-- Clean Minimalist Core Component Blocks -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- AI Companion Card -->
+        <div class="group glass-panel p-6 rounded-premium shadow-cozy hover:shadow-cozy-lg transition-all duration-300 transform hover:-translate-y-1">
+            <div class="w-10 h-10 rounded-xl bg-dustyBlue/20 text-dustyBlue-dark flex items-center justify-center mb-4 transition-transform group-hover:scale-105">
+                <i class="w-5 h-5" data-lucide="message-circle"></i>
+            </div>
+            <h3 class="text-lg font-poppins font-bold text-charcoal mb-2 flex items-center gap-1.5">
+                💬 AI Companion
+            </h3>
+            <p class="text-charcoal/80 text-xs leading-relaxed mb-4">
+                Talk through intense, racing thoughts with a non-judgmental conversational proxy powered dynamically by Gemini.
+            </p>
+            <a class="inline-flex items-center gap-1.5 text-xs font-semibold text-sage-dark hover:text-sage transition-all" href="#interactive-chat">
+                Open Chat Arena <i class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" data-lucide="arrow-right"></i>
+            </a>
+        </div>
+        <!-- Mood Tracking Card -->
+        <div class="group glass-panel p-6 rounded-premium shadow-cozy hover:shadow-cozy-lg transition-all duration-300 transform hover:-translate-y-1">
+            <div class="w-10 h-10 rounded-xl bg-peach/20 text-peach-dark flex items-center justify-center mb-4 transition-transform group-hover:scale-105">
+                <i class="w-5 h-5" data-lucide="smile"></i>
+            </div>
+            <h3 class="text-lg font-poppins font-bold text-charcoal mb-2">
+                😊 Mood Sprout
+            </h3>
+            <p class="text-charcoal/80 text-xs leading-relaxed mb-4">
+                Log active status frames. Watch your logged states translate to structural plant seedlings inside your dashboard garden.
+            </p>
+            <a class="inline-flex items-center gap-1.5 text-xs font-semibold text-sage-dark hover:text-sage transition-all" href="#interactive-garden">
+                Sprout a Seedling <i class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" data-lucide="arrow-right"></i>
+            </a>
+        </div>
+        <!-- Journal Card -->
+        <div class="group glass-panel p-6 rounded-premium shadow-cozy hover:shadow-cozy-lg transition-all duration-300 transform hover:-translate-y-1">
+            <div class="w-10 h-10 rounded-xl bg-sage/20 text-sage-dark flex items-center justify-center mb-4 transition-transform group-hover:scale-105">
+                <i class="w-5 h-5" data-lucide="book-open"></i>
+            </div>
+            <h3 class="text-lg font-poppins font-bold text-charcoal mb-2">
+                📝 Thought Reframe
+            </h3>
+            <p class="text-charcoal/80 text-xs leading-relaxed mb-4">
+                Unload burdens safely into a private input field and evaluate balanced alternative perspectives in real time.
+            </p>
+            <a class="inline-flex items-center gap-1.5 text-xs font-semibold text-sage-dark hover:text-sage transition-all" href="#interactive-journal">
+                Release a Concern <i class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" data-lucide="arrow-right"></i>
+            </a>
+        </div>
+        <!-- Breathing Card -->
+        <div class="group glass-panel p-6 rounded-premium shadow-cozy hover:shadow-cozy-lg transition-all duration-300 transform hover:-translate-y-1">
+            <div class="w-10 h-10 rounded-xl bg-dustyBlue/20 text-dustyBlue-dark flex items-center justify-center mb-4 transition-transform group-hover:scale-105">
+                <i class="w-5 h-5" data-lucide="wind"></i>
+            </div>
+            <h3 class="text-lg font-poppins font-bold text-charcoal mb-2">
+                🧘 Somatic Anchor
+            </h3>
+            <p class="text-charcoal/80 text-xs leading-relaxed mb-4">
+                Settle acute physiological stress or tension states with pacing metronomes configured to center focus.
+            </p>
+            <a class="inline-flex items-center gap-1.5 text-xs font-semibold text-sage-dark hover:text-sage transition-all" href="#interactive-breath">
+                Begin Pacing <i class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" data-lucide="arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Interactive Oasis Playground Section (Working Sandbox) -->
+<section class="py-20 max-w-7xl mx-auto px-6 md:px-12 border-t border-white/20" id="interactive">
+    <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">
+        <span class="text-peach-dark font-bold text-sm uppercase tracking-widest block">Interactive Oasis</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold font-poppins text-charcoal">Experience instant grounding mechanisms.</h2>
+        <p class="text-charcoal/80 text-base">
+            Interact directly with the local wellness sandbox below. See how Project HOPE combines meditative controls with clean client-side scripts.
+        </p>
+    </div>
+    <!-- Sandbox Widgets Layout Matrix -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <!-- Widget 1: Guided Breathing Circle -->
+        <div class="lg:col-span-6 glass-panel p-6 rounded-premium shadow-cozy flex flex-col justify-between" id="interactive-breath">
+            <div class="space-y-2 mb-4">
+                <div class="flex items-center justify-between">
+                    <select class="px-3 py-1.5 text-xs font-semibold bg-white/60 text-charcoal rounded-full border border-charcoal/10 focus:outline-none cursor-pointer" id="breathing-mode" onchange="changeBreathingMode()">
+                        <option value="444">Box Breathing (4-4-4)</option>
+                        <option value="478">Anxiety Relief (4-7-8)</option>
+                        <option value="555">Symmetric Calming (5-5-5)</option>
+                    </select>
+                    <span class="text-xs text-charcoal/50">Somatic Pacer</span>
+                </div>
+                <h3 class="text-xl font-poppins font-bold text-charcoal">Breathe &amp; Ground</h3>
+            </div>
+            <!-- Breathing Pacer Circle -->
+            <div class="flex flex-col items-center justify-center my-6 relative h-56">
+                <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-sage/40 to-dustyBlue/40 flex items-center justify-center transition-all duration-[4000ms] ease-in-out z-10" id="breath-circle">
+                    <div class="w-16 h-16 rounded-full bg-cream/90 flex items-center justify-center text-center">
+                        <span class="text-xs font-extrabold text-charcoal uppercase tracking-widest" id="breath-text">Ready</span>
+                    </div>
+                </div>
+                <div class="absolute w-28 h-24 rounded-full border border-sage/30 transition-all duration-[4000ms] ease-in-out" id="breath-glow"></div>
+                <p class="mt-6 text-xs font-semibold text-charcoal/80 text-center min-h-[20px]" id="breath-instruction">
+                    Click "Begin Breath Cycle" to align your pacing.
+                </p>
+            </div>
+            <div class="flex gap-2 justify-center">
+                <button class="bg-sage hover:bg-sage-dark text-cream text-xs font-semibold py-3 px-6 rounded-premium transition-all shadow-sm flex items-center gap-1.5" id="btn-start-breath" onclick="startBreathing()">
+                    <i class="w-4 h-4" data-lucide="play"></i> Begin Breath Cycle
+                </button>
+                <button class="hidden border border-charcoal/20 bg-white/40 hover:bg-white/60 text-charcoal text-xs font-semibold py-3 px-6 rounded-premium transition-all flex items-center gap-1.5" id="btn-stop-breath" onclick="stopBreathing()">
+                    <i class="w-4 h-4" data-lucide="square"></i> Pause Pacer
+                </button>
+            </div>
+        </div>
+        <!-- Widget 2: Visual Mood Garden -->
+        <div class="lg:col-span-6 glass-panel p-6 rounded-premium shadow-cozy flex flex-col justify-between" id="interactive-garden">
+            <div class="space-y-2 mb-4">
+                <span class="px-2.5 py-1 rounded-full bg-sage/20 text-sage-dark text-xs font-semibold">Mood Garden</span>
+                <h3 class="text-xl font-poppins font-bold text-charcoal">Nourish Your Virtual Garden</h3>
+            </div>
+            <!-- Garden Bed Container -->
+            <div class="bg-white/40 rounded-2xl border border-charcoal/5 p-4 flex flex-col items-center justify-center my-2 h-48 relative overflow-hidden">
+                <div class="absolute bottom-0 inset-x-0 h-3 bg-sage/10 border-t border-sage/15"></div>
+                <div class="w-full h-full flex items-end justify-center gap-4 pb-2 z-10" id="garden-bed">
+                    <div class="text-center pb-6" id="garden-placeholder">
+                        <i class="w-8 h-8 text-sage/40 mx-auto mb-1 animate-bounce" data-lucide="sprout"></i>
+                        <p class="text-xs text-charcoal/50 max-w-xs leading-relaxed">No sprout nodes generated. Pick a seed emotion below to log a state check-in.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Seed Trigger Nodes -->
+            <div class="space-y-2">
+                <div class="grid grid-cols-4 gap-2">
+                    <button class="bg-white/50 hover:bg-white/80 border border-charcoal/5 py-2 rounded-xl text-xs font-medium text-charcoal transition-all" onclick="plantSeed('Hopeful', '#F6C28B', '✨')">✨ Hope</button>
+                    <button class="bg-white/50 hover:bg-white/80 border border-charcoal/5 py-2 rounded-xl text-xs font-medium text-charcoal transition-all" onclick="plantSeed('Calm', '#8DB596', '🌸')">😌 Calm</button>
+                    <button class="bg-white/50 hover:bg-white/80 border border-charcoal/5 py-2 rounded-xl text-xs font-medium text-charcoal transition-all" onclick="plantSeed('Anxious', '#A7C7E7', '🌱')">🌱 Stress</button>
+                    <button class="bg-white/50 hover:bg-white/80 border border-charcoal/5 py-2 rounded-xl text-xs font-medium text-charcoal transition-all" onclick="plantSeed('Joyful', '#E2A566', '🌻')">🌻 Joy</button>
+                </div>
+            </div>
+        </div>
+        <!-- Widget 3: Live Companion Chat Window -->
+        <div class="lg:col-span-7 glass-panel p-6 rounded-premium shadow-cozy flex flex-col justify-between" id="interactive-chat">
+            <div class="space-y-1 mb-2">
+                <div class="flex items-center justify-between">
+                    <span class="px-2.5 py-1 rounded-full bg-peach/20 text-peach-dark text-xs font-semibold">Gemini 3 Flash</span>
+                    <span class="text-[10px] text-sage-dark font-semibold bg-white/60 px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-sage animate-pulse"></span> Sandbox Tunnel
+                    </span>
+                </div>
+                <h3 class="text-xl font-poppins font-bold text-charcoal">Talk with Hope (AI Companion)</h3>
+            </div>
+            <!-- Chat Streams Viewport -->
+            <div class="bg-white/40 rounded-2xl border border-charcoal/5 p-4 flex flex-col gap-3 my-2 h-56 overflow-y-auto" id="chat-messages">
+                <div class="flex items-start gap-2 max-w-[85%] self-start">
+                    <div class="w-7 h-7 rounded-full bg-sage flex-shrink-0 flex items-center justify-center text-cream text-[10px] font-bold">H</div>
+                    <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-charcoal/5 text-xs text-charcoal leading-relaxed shadow-sm">
+                        Hello, traveler. I'm Hope, your conversational safe harbor. How are your shoulders holding up right now? Feel free to unload.
+                    </div>
+                </div>
+            </div>
+            <!-- Text Entry Form Input -->
+            <form class="flex gap-2" onsubmit="handleCustomChat(event)">
+                <input class="flex-1 px-4 py-2.5 border border-charcoal/10 rounded-xl text-xs text-charcoal bg-white/80 focus:outline-none focus:ring-2 focus:ring-sage/30 transition-all" id="custom-chat-input" placeholder="Type an active concern or lingering thought pattern..." type="text"/>
+                <button class="bg-sage hover:bg-sage-dark text-cream text-xs font-semibold py-2.5 px-4 rounded-xl transition-all shadow-sm flex items-center gap-1" type="submit">
+                    <i class="w-3.5 h-3.5" data-lucide="send"></i> Send
+                </button>
+            </form>
+        </div>
+        <!-- Widget 4: Mindful Thought Release Box -->
+        <div class="lg:col-span-5 glass-panel p-6 rounded-premium shadow-cozy flex flex-col justify-between" id="interactive-journal">
+            <div class="space-y-1 mb-2">
+                <span class="px-2.5 py-1 rounded-full bg-sage/20 text-sage-dark text-xs font-semibold">Release Box</span>
+                <h3 class="text-xl font-poppins font-bold text-charcoal">Release or Reframe Worry</h3>
+            </div>
+            <!-- Input Console -->
+            <div class="space-y-2.5 my-1">
+                <textarea class="w-full p-3 rounded-xl border border-charcoal/10 focus:ring-2 focus:ring-sage/30 focus:outline-none text-xs text-charcoal bg-white/50 resize-none placeholder:text-charcoal/40" id="journal-input" placeholder="Type out a heavy cognitive distortion, stressful pressure point, or worry statement..." rows="3"></textarea>
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] text-charcoal/40 italic flex items-center gap-1">
+                        <i class="w-3.5 h-3.5" data-lucide="eye-off"></i> Client-Side Processing Vector
+                    </span>
+                    <div class="flex gap-1.5">
+                        <button class="border border-charcoal/20 bg-white/40 hover:bg-white/80 text-charcoal text-xs font-semibold py-2 px-3 rounded-premium transition-all shadow-sm" onclick="releaseWorry()">Release</button>
+                        <button class="bg-sage hover:bg-sage-dark text-cream text-xs font-semibold py-2 px-3 rounded-premium transition-all shadow-sm flex items-center gap-1" onclick="reframeWorryWithGemini()"><i class="w-3 h-3" data-lucide="sparkles"></i> Reframe</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Reframer Output Block -->
+            <div class="hidden p-3 rounded-xl bg-white/90 border border-sage/20 text-xs text-charcoal leading-relaxed font-medium" id="journal-reframe-result"></div>
+            <div class="hidden p-3 rounded-xl bg-white/90 border border-peach/20 text-xs text-charcoal leading-relaxed text-center" id="journal-release-status"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Inspiration Affirmations Block -->
+<section class="py-12 max-w-5xl mx-auto px-6">
+    <div class="glass-panel p-8 md:p-12 rounded-premium border border-sage/20 shadow-cozy-lg text-center relative overflow-hidden group">
+        <div class="relative z-10 space-y-4 max-w-2xl mx-auto">
+            <span class="text-sage-dark font-bold text-xs uppercase tracking-widest block">Daily Reminder</span>
+            <div class="space-y-3">
+                <i class="w-6 h-6 text-peach-dark mx-auto opacity-60" data-lucide="quote"></i>
+                <blockquote class="text-lg md:text-2xl font-poppins font-semibold text-charcoal leading-relaxed" id="inspiration-quote">
+                    "Small steps every day create meaningful change."
+                </blockquote>
+                <p class="text-xs text-charcoal/60 uppercase tracking-widest font-bold" id="inspiration-author">— Project HOPE Wisdom</p>
+            </div>
+            <button class="bg-white/80 hover:bg-white text-charcoal hover:text-sage text-xs font-semibold py-3 px-6 rounded-premium border border-charcoal/10 transition-all shadow-sm flex items-center gap-1.5 mx-auto mt-2" onclick="getNewQuote()">
+                <i class="w-4 h-4" data-lucide="sparkles" id="quote-spark-icon"></i>
+                <span id="quote-btn-text">Generate Cozy Affirmation</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Footer Section -->
+<footer class="bg-white/40 backdrop-blur-md border-t border-charcoal/5 px-6 md:px-12 py-12">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+        <!-- Col 1 -->
+        <div class="md:col-span-4 space-y-3">
+            <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-full bg-sage flex items-center justify-center text-cream shadow-sm">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </div>
+                <span class="text-base font-poppins font-bold tracking-tight text-charcoal">Project <span class="text-sage">HOPE</span></span>
+            </div>
+            <p class="text-charcoal/70 text-xs leading-relaxed max-w-xs">
+                A comforting mental wellness harbor configured cleanly to shelter you during stress or heavy thought patterns. Powered by Gemini cognitive models.
+            </p>
+            <!-- Newsletter input -->
+            <div class="space-y-1.5 pt-1">
+                <div class="flex gap-2">
+                    <input class="bg-white border border-charcoal/10 rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-sage w-full max-w-[200px]" id="footer-newsletter-email" placeholder="Your secure email address..." type="email"/>
+                    <button class="bg-sage hover:bg-sage-dark text-cream text-xs font-semibold py-2 px-4 rounded-xl shadow-sm transition-all" onclick="subscribeNewsletter()">Join</button>
+                </div>
+                <p class="hidden text-[10px] text-sage-dark font-medium" id="newsletter-status"></p>
+            </div>
+        </div>
+        <!-- Col 2 Links -->
+        <div class="md:col-span-4 space-y-3">
+            <h4 class="text-xs font-bold font-poppins tracking-wider text-charcoal/50 uppercase">Legal Compliance</h4>
+            <ul class="space-y-1.5 text-xs text-charcoal/80">
+                <li><a class="hover:text-sage transition-all" href="#" onclick="openModal('privacy-modal')">Privacy Commitments</a></li>
+                <li><a class="hover:text-sage transition-all" href="#" onclick="openModal('terms-modal')">Terms of Comfort</a></li>
+                <li><span class="text-charcoal/50 select-none">Clinical Disclaimer: Non-Clinical Guidance Framework Only</span></li>
+            </ul>
+        </div>
+        <!-- Col 3 Help -->
+        <div class="md:col-span-4 space-y-2">
+            <h4 class="text-xs font-bold font-poppins tracking-wider text-charcoal/50 uppercase">Immediate Crisis Help</h4>
+            <p class="text-xs text-charcoal/70 leading-relaxed">
+                If you are currently managing an immediate acute crisis vector or threat to life, please bypass digital tools and contact professional human emergency services right now.
+                <span class="block mt-1 font-bold text-sage-dark">National Emergency Lifeline: Call 988</span>
+            </p>
+        </div>
+    </div>
+    <div class="max-w-7xl mx-auto mt-8 pt-6 border-t border-charcoal/5 text-center text-[11px] text-charcoal/40">
+        © 2026 Project HOPE Wellness Network. Designed with infinite empathy. Secure client sandbox system.
+    </div>
+</footer>
+
+<!-- MODAL SANDBOX OVERLAYS -->
+<!-- 1. Gemini Configuration Modal -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal/30 backdrop-blur-sm hidden" id="api-config-modal">
+    <div class="bg-cream border border-beige-dark rounded-premium shadow-cozy-lg w-full max-w-md p-8 relative">
+        <button class="absolute top-5 right-5 text-charcoal/50 hover:text-charcoal focus:outline-none" onclick="closeModal('api-config-modal')">
+            <i class="w-5 h-5" data-lucide="x"></i>
+        </button>
+        <div class="space-y-2 mb-6">
+            <h3 class="text-2xl font-poppins font-bold text-charcoal">Gemini API Parameters</h3>
+            <p class="text-xs text-charcoal/70">Supply your personal Google Gemini developer credentials below to route processing models safely.</p>
+        </div>
+        <div class="space-y-4">
+            <div>
+                <label class="block text-[11px] font-bold text-charcoal/60 uppercase tracking-widest mb-1.5">Developer Endpoint API Key</label>
+                <input class="w-full p-3 border border-beige-dark rounded-xl text-sm focus:outline-none focus:ring-1 focus:ring-sage bg-white" id="custom-api-key-input" placeholder="AIzaSy..." type="password"/>
+            </div>
+            <p class="text-[10px] text-charcoal/50 leading-relaxed bg-beige/40 p-3 rounded-lg border border-beige-dark/50">
+                🔒 Your parameter token remains cached safely in your client sandbox sandbox container (`localStorage`) and communicates directly with Google API endpoints.
+            </p>
+            <div class="flex gap-2 justify-end">
+                <button class="px-4 py-2 text-xs border border-charcoal/20 hover:border-charcoal/40 rounded-xl transition-all font-semibold" onclick="clearCustomAPIKey()">Reset Default</button>
+                <button class="px-5 py-2 text-xs bg-sage hover:bg-sage-dark text-cream rounded-xl font-semibold shadow-sm transition-all" onclick="saveCustomAPIKey()">Apply Parameters</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 2. Privacy Commitment Modal -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal/30 backdrop-blur-sm hidden" id="privacy-modal">
+    <div class="bg-cream border border-beige-dark rounded-premium shadow-cozy-lg w-full max-w-lg p-8 relative max-h-[85vh] overflow-y-auto">
+        <button class="absolute top-5 right-5 text-charcoal/50 hover:text-charcoal" onclick="closeModal('privacy-modal')">
+            <i class="w-5 h-5" data-lucide="x"></i>
+        </button>
+        <div class="space-y-4">
+            <h3 class="text-2xl font-poppins font-bold text-charcoal">Our Devoted Commitment to Privacy</h3>
+            <p class="text-sm text-charcoal/80 leading-relaxed">
+                Project HOPE operates under strict client-side data isolation models to protect personal privacy:
+            </p>
+            <ul class="list-disc pl-5 text-xs text-charcoal/70 space-y-2">
+                <li>We do not record, upload, or index plain-text thought variables to corporate cloud database nodes.</li>
+                <li>Audits are systematically managed through client memory arrays, allowing total local deletion with one click.</li>
+                <li>Your conversation sandbox is private, dynamic, and strictly scoped to your active session instance.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- 3. Terms of Comfort Modal -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal/30 backdrop-blur-sm hidden" id="terms-modal">
+    <div class="bg-cream border border-beige-dark rounded-premium shadow-cozy-lg w-full max-w-lg p-8 relative max-h-[85vh] overflow-y-auto">
+        <button class="absolute top-5 right-5 text-charcoal/50 hover:text-charcoal" onclick="closeModal('terms-modal')">
+            <i class="w-5 h-5" data-lucide="x"></i>
+        </button>
+        <div class="space-y-4">
+            <h3 class="text-2xl font-poppins font-bold text-charcoal">Terms of Comfort</h3>
+            <p class="text-sm text-charcoal/80 leading-relaxed">
+                By using Project HOPE, you acknowledge the parameters of this supportive tool:
+            </p>
+            <ul class="list-disc pl-5 text-xs text-charcoal/70 space-y-2">
+                <li>This is an interactive self-care sandbox framework and not a diagnostic psychiatric resource or prescription delivery system.</li>
+                <li>You agree to loop in verified clinical help structures or dial 988 if experiencing self-harm vectors.</li>
+                <li>Growth progresses across minor, incremental steps. Be patient with your mind.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Custom Toast Message Overlay -->
+<div class="fixed bottom-6 right-6 z-50 bg-charcoal text-cream text-xs font-semibold px-5 py-3.5 rounded-premium shadow-lg hidden transform translate-y-10 transition-all duration-300" id="toast"></div>
+
+<!-- Interactive Logic Scripts -->
+<script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Load custom API parameters safely on DOM check
+    let customApiKey = localStorage.getItem("gemini_custom_api_key") || "";
+    if (customApiKey) {
+        document.getElementById("custom-api-key-input").value = customApiKey;
+    }
+
+    // Sticky Header Mechanics
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('nav');
+        if (nav) {
+            if (window.scrollY > 40) {
+                nav.classList.add('shadow-md', 'py-3');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.remove('shadow-md', 'py-3');
+                nav.pyClassName = 'py-4';
+                nav.classList.add('py-4');
+            }
+        }
+    });
+
+    // Navigation Menu Toggling
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+            toggleMobileMenu();
+        });
+    }
+
+    function toggleMobileMenu() {
+        if (!mobileMenu || !mobileMenuBtn) return;
+        mobileMenu.classList.toggle('hidden');
+        if (mobileMenu.classList.contains('hidden')) {
+            mobileMenuBtn.innerHTML = `<i data-lucide="menu" class="w-6 h-6"></i>`;
+        } else {
+            mobileMenuBtn.innerHTML = `<i data-lucide="x" class="w-6 h-6"></i>`;
+        }
+        lucide.createIcons();
+    }
+
+    // Overlay Mechanics
+    function openModal(id) {
+        const modal = document.getElementById(id);
+        if (modal) {
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    function closeModal(id) {
+        const modal = document.getElementById(id);
+        if (modal) {
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+    }
+
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        if (!toast) return;
+        toast.innerText = message;
+        toast.classList.remove('hidden', 'translate-y-10');
+        
+        setTimeout(() => {
+            toast.classList.add('translate-y-10');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 300);
+        }, 4000);
+    }
+
+    // Central Gemini Pipeline Logic
+    async function callGeminiAPI(systemPrompt, userQuery) {
+        const storedKey = localStorage.getItem("gemini_custom_api_key") || "";
+        const apiKey = storedKey;
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+        
+        const payload = {
+            contents: [{ parts: [{ text: userQuery }] }],
+            systemInstruction: {
+                parts: [{ text: systemPrompt }]
+            }
+        };
+
+        let retryDelay = 1000;
+        for (let attempt = 0; attempt < 3; attempt++) {
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP Matrix Error Status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                const textOutput = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (textOutput) {
+                    return textOutput;
+                }
+                throw new Error("Malformed JSON data tree captured out of endpoint stream.");
+            } catch (error) {
+                console.warn(`Endpoint connect sequence retry iteration ${attempt + 1}:`, error);
+                if (attempt === 2) throw error;
+                await new Promise(res => setTimeout(res, retryDelay));
+                retryDelay *= 2;
+            }
+        }
+    }
+
+    function saveCustomAPIKey() {
+        const input = document.getElementById("custom-api-key-input");
+        if (input && input.value.trim()) {
+            localStorage.setItem("gemini_custom_api_key", input.value.trim());
+            showToast("🔑 Parameters successfully serialized. Custom pipeline active.");
+            closeModal("api-config-modal");
+        } else {
+            showToast("⚠️ Supply a valid data string structure inside input fields.");
+        }
+    }
+
+    function clearCustomAPIKey() {
+        localStorage.removeItem("gemini_custom_api_key");
+        const input = document.getElementById("custom-api-key-input");
+        if (input) input.value = "";
+        showToast("🧹 Configuration values purged. Reverting sandbox to baseline values.");
+        closeModal("api-config-modal");
+    }
+
+    let currentUserMood = "";
+
+    function setHeroMood(mood, comfortText) {
+        currentUserMood = mood;
+        const feedbackBox = document.getElementById('hero-mood-feedback');
+        if (feedbackBox) {
+            feedbackBox.innerHTML = `
+                <div class="flex items-start gap-2.5">
+                    <span class="text-base">🍵</span>
+                    <div>
+                        <span class="block font-bold text-[11px] text-sage-dark uppercase tracking-wider mb-0.5">Advice for your ${mood} mind</span>
+                        <p class="leading-relaxed text-charcoal">${comfortText}</p>
+                    </div>
+                </div>
+            `;
+            feedbackBox.classList.remove('hidden');
+        }
+        showToast(`💚 Feeling logged: ${mood}. Seed sprout added to the oasis below.`);
+        
+        const symbols = { 'Anxious': '🌱', 'Tired': '😴', 'Okay': '😐', 'Calm': '🌸', 'Joyful': '🌻' };
+        plantSeed(mood, '#8DB596', symbols[mood] || '✨');
+    }
+
+    // Somatic Guided Breathing Loop Controller
+    let breathingInterval = null;
+    let breathPhase = 0; 
+    let secondsLeft = 4;
+    let selectedMode = '444'; 
+
+    function changeBreathingMode() {
+        const select = document.getElementById('breathing-mode');
+        if (!select) return;
+        selectedMode = select.value;
+        stopBreathing();
+        
+        const inst = document.getElementById('breath-instruction');
+        if (inst) {
+            if (selectedMode === '444') inst.innerText = "Box Breathing (4s Inhale, 4s Hold, 4s Exhale) active.";
+            else if (selectedMode === '478') inst.innerText = "Anxiety stabilization pattern (4s Inhale, 7s Hold, 8s Exhale) active.";
+            else if (selectedMode === '555') inst.innerText = "Symmetric soothing cycle (5s Inhale, 5s Hold, 5s Exhale) active.";
+        }
+    }
+
+    function startBreathing() {
+        const circle = document.getElementById('breath-circle');
+        const glow = document.getElementById('breath-glow');
+        const text = document.getElementById('breath-text');
+        const inst = document.getElementById('breath-instruction');
+        const btnStart = document.getElementById('btn-start-breath');
+        const btnStop = document.getElementById('btn-stop-breath');
+
+        if (!circle || !glow || !text || !inst || !btnStart || !btnStop) return;
+
+        btnStart.classList.add('hidden');
+        btnStop.classList.remove('hidden');
+        breathPhase = 0;
+        
+        let inhaleDuration = 4, holdDuration = 4, exhaleDuration = 4;
+        if (selectedMode === '478') { inhaleDuration = 4; holdDuration = 7; exhaleDuration = 8; }
+        else if (selectedMode === '555') { inhaleDuration = 5; holdDuration = 5; exhaleDuration = 5; }
+
+        secondsLeft = inhaleDuration;
+
+        function runBreathStep() {
+            if (breathPhase === 0) {
+                text.innerText = "Inhale";
+                inst.innerText = `Breathe in slow... (${secondsLeft}s)`;
+                circle.style.transform = "scale(1.5)";
+                glow.style.transform = "scale(1.8)";
+            } else if (breathPhase === 1) {
+                text.innerText = "Hold";
+                inst.innerText = `Rest at zero pressure... (${secondsLeft}s)`;
+            } else {
+                text.innerText = "Exhale";
+                inst.innerText = `Release tension softly... (${secondsLeft}s)`;
+                circle.style.transform = "scale(1.0)";
+                glow.style.transform = "scale(1.0)";
+            }
+
+            secondsLeft--;
+            if (secondsLeft < 0) {
+                breathPhase = (breathPhase + 1) % 3;
+                if (breathPhase === 0) secondsLeft = inhaleDuration;
+                else if (breathPhase === 1) secondsLeft = holdDuration;
+                else secondsLeft = exhaleDuration;
+            }
+        }
+
+        runBreathStep();
+        breathingInterval = setInterval(runBreathStep, 1000);
+    }
+
+    function stopBreathing() {
+        if (breathingInterval) { clearInterval(breathingInterval); breathingInterval = null; }
+        const circle = document.getElementById('breath-circle');
+        const glow = document.getElementById('breath-glow');
+        const text = document.getElementById('breath-text');
+        const inst = document.getElementById('breath-instruction');
+        const btnStart = document.getElementById('btn-start-breath');
+        const btnStop = document.getElementById('btn-stop-breath');
+
+        if (!circle || !glow || !text || !inst || !btnStart || !btnStop) return;
+
+        btnStart.classList.remove('hidden');
+        btnStop.classList.add('hidden');
+        circle.style.transform = "scale(1.0)";
+        glow.style.transform = "scale(1.0)";
+        text.innerText = "Ready";
+        inst.innerText = "Cycle paused. Click Begin Breath Cycle to realign tracking loops.";
+    }
+
+    // Garden Bed Sprout Matrix Injector
+    function plantSeed(mood, color, flower) {
+        const bed = document.getElementById('garden-bed');
+        const placeholder = document.getElementById('garden-placeholder');
+        if (!bed) return;
+        if (placeholder) placeholder.classList.add('hidden');
+
+        const dots = bed.querySelectorAll('.sprout-container');
+        if (dots.length >= 6) dots[0].remove();
+
+        const sprout = document.createElement('div');
+        sprout.className = 'sprout-container flex flex-col items-center justify-end h-full animate-bounce relative group';
+        sprout.style.animationDuration = '2s';
+
+        sprout.innerHTML = `
+            <div class="text-2xl cursor-pointer transform hover:scale-125 transition-transform duration-200 select-none">${flower}</div>
+            <div class="w-1 h-10 bg-sage rounded-full relative">
+                <div class="w-2.5 h-1 bg-sage-light rounded-full absolute top-3 left-1 rotate-45"></div>
+            </div>
+            <span class="text-[8px] text-charcoal/60 font-bold mt-1 uppercase tracking-wider">${mood}</span>
+        `;
+        bed.appendChild(sprout);
+    }
+
+    // Dynamic ChatGPT-Style Tunnel Pipeline
+    async function handleCustomChat(event) {
+        event.preventDefault();
+        const input = document.getElementById("custom-chat-input");
+        if (!input || !input.value.trim()) return;
+        const msg = input.value.trim();
+        input.value = "";
+        await processChatMessage(msg);
+    }
+
+    function sendChatMessage(presetText) { processChatMessage(presetText); }
+
+    async function processChatMessage(userText) {
+        const chatLogs = document.getElementById('chat-messages');
+        if (!chatLogs) return;
+
+        document.querySelectorAll('.chat-prompt-btn').forEach(btn => btn.classList.add('opacity-40', 'pointer-events-none'));
+
+        const uBubble = document.createElement('div');
+        uBubble.className = "flex items-start gap-2 max-w-[85%] self-end flex-row-reverse";
+        uBubble.innerHTML = `
+            <div class="w-7 h-7 rounded-full bg-charcoal flex-shrink-0 flex items-center justify-center text-cream text-[10px] font-bold">You</div>
+            <div class="bg-beige p-3 rounded-2xl rounded-tr-none border border-charcoal/5 text-xs text-charcoal leading-relaxed shadow-sm">
+                ${userText}
+            </div>
+        `;
+        chatLogs.appendChild(uBubble);
+        chatLogs.scrollTop = chatLogs.scrollHeight;
+
+        const indicator = document.createElement('div');
+        indicator.className = "flex items-start gap-2 max-w-[85%] self-start";
+        indicator.innerHTML = `
+            <div class="w-7 h-7 rounded-full bg-sage flex-shrink-0 flex items-center justify-center text-cream text-[10px] font-bold">H</div>
+            <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-charcoal/5 text-xs text-charcoal/50 flex items-center gap-1">
+                <span class="w-1 h-1 rounded-full bg-charcoal/40 animate-bounce"></span>
+                <span class="w-1 h-1 rounded-full bg-charcoal/40 animate-bounce [animation-delay:0.2s]"></span>
+                <span class="w-1 h-1 rounded-full bg-charcoal/40 animate-bounce [animation-delay:0.4s]"></span>
+            </div>
+        `;
+        chatLogs.appendChild(indicator);
+        chatLogs.scrollTop = chatLogs.scrollHeight;
+
+        const sysPrompt = "You are Hope, an intuitive digital wellness companion from Project HOPE. Your tone is conversational, cozy, minimal, and highly validating. Give a warm response in exactly 2 reassuring sentences. Provide an actionable cognitive alternative or grounding focus step without robotic loops.";
+
+        try {
+            const reply = await callGeminiAPI(sysPrompt, userText);
+            indicator.remove();
+
+            const companionBubble = document.createElement('div');
+            companionBubble.className = "flex items-start gap-2 max-w-[85%] self-start";
+            companionBubble.innerHTML = `
+                <div class="w-7 h-7 rounded-full bg-sage flex-shrink-0 flex items-center justify-center text-cream text-[10px] font-bold">H</div>
+                <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-charcoal/5 text-xs text-charcoal leading-relaxed shadow-sm">
+                    ${reply}
+                </div>
+            `;
+            chatLogs.appendChild(companionBubble);
+        } catch (err) {
+            indicator.remove();
+            const errBubble = document.createElement('div');
+            errBubble.className = "flex items-start gap-2 max-w-[85%] self-start";
+            errBubble.innerHTML = `
+                <div class="w-7 h-7 rounded-full bg-sage flex-shrink-0 flex items-center justify-center text-cream text-[10px] font-bold">H</div>
+                <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-charcoal/5 text-xs text-charcoal leading-relaxed shadow-sm">
+                    I hear your heart completely. Let's let that thought settle and take a quiet breath together right here.
+                </div>
+            `;
+            chatLogs.appendChild(errBubble);
+        }
+        chatLogs.scrollTop = chatLogs.scrollHeight;
+        document.querySelectorAll('.chat-prompt-btn').forEach(btn => btn.classList.remove('opacity-40', 'pointer-events-none'));
+    }
+
+    // Thought Release Console Mechanics
+    function releaseWorry() {
+        const input = document.getElementById('journal-input');
+        const status = document.getElementById('journal-release-status');
+        const reframe = document.getElementById('journal-reframe-result');
+        if (!input || !input.value.trim()) return;
+
+        if (reframe) reframe.classList.add('hidden');
+        input.disabled = true;
+        status.classList.remove('hidden');
+        status.innerHTML = `<p class="text-xs text-sage-dark animate-pulse">Sealing your concern privately into memory vectors...</p>`;
+
+        setTimeout(() => {
+            status.innerHTML = `<p class="text-xs text-dustyBlue-dark animate-pulse">Dissolving worries safely into background layers...</p>`;
+            input.value = "";
+        }, 1200);
+
+        setTimeout(() => {
+            status.innerHTML = `<p class="text-xs text-sage font-semibold">✨ Released. This thought contains zero weight now.</p>`;
+            input.disabled = false;
+            showToast("💚 Burden dissolved out of application view logs successfully.");
+        }, 2600);
+    }
+
+    async function reframeWorryWithGemini() {
+        const input = document.getElementById('journal-input');
+        const reframe = document.getElementById('journal-reframe-result');
+        const status = document.getElementById('journal-release-status');
+        if (!input || !input.value.trim()) return;
+
+        const txt = input.value.trim();
+        if (status) status.classList.add('hidden');
+        reframe.classList.remove('hidden');
+        reframe.innerHTML = `<p class="text-xs text-sage animate-pulse text-center">Consulting Hope AI for a gentle reframe...</p>`;
+
+        const sysPrompt = "You are a gentle Cognitive Reframing Guide. Reframe the user's worry statement into a single comforting alternative view focused on realistic self-compassion and validation. Limit response to 1-2 sentences maximum.";
+
+        try {
+            const out = await callGeminiAPI(sysPrompt, txt);
+            reframe.innerHTML = `
+                <span class="block text-[10px] font-bold text-sage-dark uppercase tracking-wider mb-0.5">Compassionate Reframe</span>
+                <p class="text-charcoal text-xs italic leading-relaxed">"${out}"</p>
+            `;
+            showToast("Reframer update successfully returned.");
+        } catch (e) {
+            reframe.innerHTML = `<p class="text-xs text-charcoal/70">Thoughts flow like clouds. You are doing perfectly fine just as you are right now.</p>`;
+        }
+    }
+
+    const standardQuotes = [
+        "Small steps every day create meaningful change.",
+        "Be gentle with your progress. Flowers grow slowly, and so do safe hearts.",
+        "You do not have to carry the entire weight of tomorrow today.",
+        "Allow your mind to rest. Rest is a foundational requirement, not a reward."
+    ];
+    let qIdx = 0;
+
+    async function getNewQuote() {
+        const block = document.getElementById('inspiration-quote');
+        const author = document.getElementById('inspiration-author');
+        const text = document.getElementById('quote-btn-text');
+        const icon = document.getElementById('quote-spark-icon');
+        if (!block || !author) return;
+
+        block.classList.add('opacity-40');
+        if (text) text.innerText = "Nurturing affirmation...";
+        if (icon) icon.classList.add('animate-spin');
+
+        const sysPrompt = "Generate one short, beautiful, cozy, mindfulness reminder or affirmation. It must be exactly 1 sentence. Do not include quotes.";
+        
+        try {
+            const out = await callGeminiAPI(sysPrompt, "Cozy mindfulness daily prompt card");
+            setTimeout(() => {
+                block.innerText = `"${out.trim()}"`;
+                author.innerText = "— Gentle Harbor Whisper";
+                block.classList.remove('opacity-40');
+                if (text) text.innerText = "Generate Cozy Affirmation";
+                if (icon) icon.classList.remove('animate-spin');
+            }, 300);
+        } catch (err) {
+            qIdx = (qIdx + 1) % standardQuotes.length;
+            setTimeout(() => {
+                block.innerText = `"${standardQuotes[qIdx]}"`;
+                author.innerText = "— Project HOPE Wisdom";
+                block.classList.remove('opacity-40');
+                if (text) text.innerText = "Generate Cozy Affirmation";
+                if (icon) icon.classList.remove('animate-spin');
+            }, 300);
+        }
+    }
+
+    function subscribeNewsletter() {
+        const input = document.getElementById('footer-newsletter-email');
+        const status = document.getElementById('newsletter-status');
+        if (!input || !input.value.includes('@')) return;
+        if (status) {
+            status.innerText = "💌 Welcome to the Hope AI Enviroment.";
+            status.classList.remove('hidden');
+        }
+        input.value = "";
+    }
+</script>
+</body>
+</html>

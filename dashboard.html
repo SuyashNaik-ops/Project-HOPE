@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Project HOPE - Your Safe Space for Mental Wellness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <!-- Ambient Dark Overlay Backdrop Layer -->
+  <div class="background-overlay-dark"></div>
+
+  <!-- Ambient Sound Floating Interface System -->
+  <div class="ambient-audio-float-widget" id="ambient-sound-panel" aria-label="Ambient Sound Player">
+    <button class="sound-panel-trigger" onclick="toggleAmbientMenuDrawer()" aria-label="Toggle ambient sound menu">
+      <span class="sound-status-icon">🎵</span>
+    </button>
+    <div class="sound-menu-drawer-card" id="sound-menu-drawer">
+      <div class="sound-track-selectors-grid">
+        <button onclick="selectAmbientTrack('rain')" id="track-rain" class="track-selection-chip active-track">🌧 Rain</button>
+        <button onclick="selectAmbientTrack('ocean')" id="track-ocean" class="track-selection-chip">🌊 Ocean</button>
+        <button onclick="selectAmbientTrack('forest')" id="track-forest" class="track-selection-chip">🌲 Forest</button>
+        <button onclick="selectAmbientTrack('piano')" id="track-piano" class="track-selection-chip">🎹 Piano</button>
+      </div>
+      <div class="sound-actions-control-row">
+        <button onclick="playAmbientAudio()" class="ctrl-btn-action">▶ Play</button>
+        <button onclick="pauseAmbientAudio()" class="ctrl-btn-action">⏸ Pause</button>
+        <button onclick="toggleMuteAmbientAudio()" id="btn-sound-mute" class="ctrl-btn-action">🔊 Mute</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Navigation System Bar -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="index.html" class="logo-link" aria-label="Project HOPE Home">
+          <span class="logo-icon" aria-hidden="true">🕊️</span>
+          <span class="logo-text">Project <span class="logo-highlight">HOPE</span></span>
+        </a>
+      </div>
+      <nav class="nav-center" aria-label="Main Navigation">
+        <a href="dashboard.html" class="nav-item active" aria-current="page">Dashboard</a>
+        <a href="resources.html" class="nav-item">Resources</a>
+        <a href="profile.html" class="nav-item">Profile</a>
+        <a href="settings.html" class="nav-item">Settings</a>
+      </nav>
+      <div class="nav-right">
+        <button class="nav-icon-btn" onclick="triggerNotificationToast()" aria-label="View notifications">
+          <span class="icon" aria-hidden="true">🔔</span>
+          <span class="notification-badge" id="nav-badge-node"></span>
+        </button>
+        <a href="profile.html" class="profile-avatar" id="global-avatar-indicator" style="text-decoration: none;">SH</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Interactive Sandbox Global Modal Layout -->
+  <div id="system-sandbox-modal" class="modal-overlay-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-window-card">
+      <div class="modal-header-row">
+        <h3 id="modal-system-title" class="card-title">Project HOPE Matrix Module</h3>
+        <button class="close-modal-btn" onclick="dismissSystemModal()" aria-label="Dismiss view">×</button>
+      </div>
+      <div id="modal-system-body" class="modal-body-content"></div>
+    </div>
+  </div>
+
+  <!-- Telemetry Toast Notification Center -->
+  <div id="toast-notification-center" class="toast-toast-alert" role="status" aria-live="polite"></div>
+
+  <!-- ONE CLICK RECOVERY PANEL LAYOUT -->
+  <div id="recovery-mode-overlay" class="recovery-screen-overlay">
+    <div class="recovery-top-bar">
+      <div>
+        <h1 class="welcome-title" style="font-size: 2rem; color: #b56c1b;">Emergency Comfort Space 🫂</h1>
+        <p class="welcome-subtitle">Your rapid mitigation sandbox is fully operational. Rest here.</p>
+      </div>
+      <button class="btn btn-secondary" onclick="toggleRecoveryMode(false)">Exit Recovery Mode</button>
+    </div>
+
+    <div class="recovery-dashboard-container">
+      <div class="recovery-column-stack">
+        <div class="card recovery-message-card">
+          <h3 class="card-title" style="font-size: 1.4rem; color: #2b4c6f;">💙 Safe Grounding Message</h3>
+          <p id="recovery-calm-msg" style="margin-top: 12px; font-size: 1.05rem; line-height: 1.6;">Loading targeted safety parameters...</p>
+        </div>
+
+        <div class="card text-center-breathing">
+          <h3 class="card-title">🌬️ Instant Somatic Breathing Anchor</h3>
+          <p class="card-subtitle" style="margin-bottom: 12px;">Calm System Regulation Cycle (4s Inhale, 7s Hold, 8s Exhale)</p>
+          <div class="breathing-container" style="margin: 16px 0;">
+            <div class="breathing-circle-outer" style="width: 110px; height: 110px;">
+              <div class="breathing-circle-inner" id="recovery-breath-circle" style="width: 40px; height: 40px;"></div>
+            </div>
+            <span id="recovery-breath-text" class="breathing-instruction">Ready to initialize</span>
+          </div>
+          <div class="button-row-center">
+            <button class="btn btn-primary" onclick="startRecoveryBreathing()">Start Exercise</button>
+            <button class="btn btn-secondary" onclick="stopRecoveryBreathing()">Pause</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title" style="margin-bottom: 16px;">💬 Immediate HOPE AI Companion Proxy</h3>
+          <div class="recovery-chat-log-box" id="recovery-chat-log">
+            <p style="color:#666;">✨ <strong>HOPE AI:</strong> Suyash, I am right here with you in this microsecond. Take all the time you need. Tell me exactly what feels intense right now.</p>
+          </div>
+          <div class="input-send-container">
+            <input type="text" id="recovery-chat-input" placeholder="Type what you feel inside..." class="btn btn-secondary text-left-input">
+            <button class="btn btn-primary" onclick="submitRecoveryChat()">Send</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="recovery-column-stack">
+        <div class="card recovery-affirmation-card">
+          <h3 class="card-title" style="color: #b56c1b; margin-bottom: 8px;">💡 Active Positive Affirmation</h3>
+          <p id="recovery-affirmation-text" style="font-style: italic; font-size: 1rem; line-height: 1.5; color: #3A3A3A;">"This wave is temporary. My capacity to process this intensity is intact."</p>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title" style="margin-bottom: 12px;">🎵 Play Rapid Relax Audio</h3>
+          <button onclick="launchAudioPipeline('https://www.youtube.com/watch?v=lFcSrYw-ARY')" class="btn btn-secondary text-left-btn-full" style="margin-bottom: 8px;"><span>🌊</span> Play Stress & Panic Relief Soundscape</button>
+          <button onclick="launchAudioPipeline('https://www.youtube.com/watch?v=rUxyKA_-grg')" class="btn btn-secondary text-left-btn-full"><span>🌙</span> Play Instant Biological Sleep Frequencies</button>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title" style="margin-bottom: 12px;">Curated Recovery Video Playlist</h3>
+          <button onclick="launchAudioPipeline('https://www.youtube.com/playlist?list=PLQiGxGHwiuD1kdxsWKFuhE0rITIXe76yC')" class="btn btn-primary" style="width: 100%; font-size: 0.88rem;">Watch Grounding & Mental Health Playlist</button>
+        </div>
+
+        <div class="card border-left-emergency">
+          <h3 class="card-title" style="color: #FF2B2B; margin-bottom: 8px;">📞 Emergency Support Lines</h3>
+          <p style="font-size: 0.82rem; color: #666; margin-bottom: 12px;">Clinical psychiatric connection systems accessible 24/7 globally.</p>
+          <a href="https://findahelpline.com/" target="_blank" class="btn btn-emergency" style="width: 100%; text-align: center; justify-content: center;">Access Verified Helplines</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main View Container Panel Grid -->
+  <main class="dashboard-grid">
+    
+    <!-- Premium Minimal Hero Header Section -->
+    <section class="premium-hero-card card">
+      <div class="hero-flex-wrapper">
+        <div class="hero-identity-meta">
+          <h1 class="welcome-title"><span id="time-greeting">Hello</span>, Suyash 🌿</h1>
+          <p id="hero-date-display" class="hero-date-text">Loading local timeline metrics...</p>
+          <div class="hero-quote-box">
+            <p id="daily-quote-text" class="hero-quote-content">"Loading your daily reminder of peace..."</p>
+            <cite id="daily-quote-author" class="hero-quote-citation">— Project HOPE</cite>
+          </div>
+          <div class="quote-action-buttons-row">
+            <button class="btn btn-secondary text-btn-sm" onclick="quoteCycleNew()">New Quote</button>
+            <button class="btn btn-secondary text-btn-sm" onclick="quoteCopyActive()">Copy</button>
+            <button class="btn btn-secondary text-btn-sm" id="quote-fav-btn" onclick="quoteFavoriteActive()">Favorite</button>
+          </div>
+        </div>
+        
+        <div class="hero-interactive-mood-cluster">
+          <h3 class="mood-widget-heading">Today's Pulse Registration</h3>
+          <div class="mood-selector" role="radiogroup" aria-label="Pulse registration choice matrix">
+            <button class="mood-btn" role="radio" aria-checked="false" onclick="registerMoodSelection(this, 'Happy', '😊')">
+              <span class="mood-emoji">😊</span><span class="mood-label">Happy</span>
+            </button>
+            <button class="mood-btn" role="radio" aria-checked="false" onclick="registerMoodSelection(this, 'Calm', '😌')">
+              <span class="mood-emoji">😌</span><span class="mood-label">Calm</span>
+            </button>
+            <button class="mood-btn" role="radio" aria-checked="false" onclick="registerMoodSelection(this, 'Neutral', '😐')">
+              <span class="mood-emoji">😐</span><span class="mood-label">Neutral</span>
+            </button>
+            <button class="mood-btn" role="radio" aria-checked="false" onclick="registerMoodSelection(this, 'Sad', '😔')">
+              <span class="mood-emoji">😔</span><span class="mood-label">Sad</span>
+            </button>
+            <button class="mood-btn" role="radio" aria-checked="false" onclick="registerMoodSelection(this, 'Stressed', '😢')">
+              <span class="mood-emoji">😢</span><span class="mood-label">Stressed</span>
+            </button>
+          </div>
+          <span id="mood-status" class="status-toast" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- One Click Emergency Trigger Mechanism -->
+    <section class="emergency-trigger-wrapper">
+      <button class="btn btn-emergency large-emergency-trigger-btn" onclick="toggleRecoveryMode(true)">
+        🫂 I Need Help Right Now
+      </button>
+    </section>
+
+    <!-- Split Layout Columns Architecture Grid -->
+    <div class="split-row column-2">
+      <section class="card ai-card">
+        <div class="card-icon-container">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#8DB596" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="card-badge">Companion Workspace</div>
+        <h2 class="card-title grid-title-large">HOPE AI</h2>
+        <p class="card-description">"I'm here whenever you need someone to listen without criteria parameters."</p>
+        <a href="chat.html" class="btn btn-primary" aria-label="Start Conversation with HOPE AI">Start Conversation</a>
+      </section>
+
+      <section class="card breathing-card" id="breathing-card-anchor">
+        <div class="card-icon-container">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#8DB596" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+        </div>
+        <h2 class="card-title">Mindful Breathing</h2>
+        <div class="breathing-container" style="margin: 20px 0;">
+          <div class="breathing-circle-outer">
+            <div class="breathing-circle-inner" id="breathing-circle"></div>
+          </div>
+          <span id="breathing-text" class="breathing-instruction">Select Cadence to Initialize</span>
+        </div>
+        <div class="cadence-button-row">
+          <button class="btn btn-secondary active-cadence-btn" id="cadence-box" onclick="selectBreathingPattern('Box Breathing')">Box (4-4-4)</button>
+          <button class="btn btn-secondary" id="cadence-478" onclick="selectBreathingPattern('4-7-8')">4-7-8 Mode</button>
+          <button class="btn btn-secondary" id="cadence-calm" onclick="selectBreathingPattern('Calm Mode')">Calm (5-5)</button>
+        </div>
+        <div class="control-button-row">
+          <button class="btn btn-primary" onclick="startCoreBreathing()">Start</button>
+          <button class="btn btn-secondary" onclick="pauseCoreBreathing()">Pause</button>
+          <button class="btn btn-secondary" onclick="restartCoreBreathing()">Restart</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- AI MOOD JOURNEY TIMELINE -->
+    <section class="card journey-timeline-card">
+      <h2 class="card-title">📈 Immersive AI Mood Journey Timeline</h2>
+      <p class="card-subtitle">Real-time data-layer insights parsed across journals, mood prompts, and companion metrics.</p>
+      
+      <div class="filter-buttons-row">
+        <button class="btn btn-primary" onclick="renderTimelineTimeline('all')">View Timeline</button>
+        <button class="btn btn-secondary" onclick="renderTimelineTimeline('happy')">Filter Happy Days</button>
+        <button class="btn btn-secondary" onclick="renderTimelineTimeline('difficult')">Filter Difficult Days</button>
+        <button class="btn btn-secondary" onclick="purgeTimelineLogs()" style="color: #FF2B2B;">Delete Entry Logs</button>
+      </div>
+
+      <div id="journey-rendering-viewport" class="journey-timeline-flow">
+        <!-- Populated live by tracking scripts -->
+      </div>
+    </section>
+
+    <!-- COMFORT KIT INTERACTIVE SECTIONS -->
+    <section class="card comfort-kit-card">
+      <h2 class="card-title">🧰 Specialized Behavioral Comfort Kit</h2>
+      <p class="card-subtitle">Access immediate grounding tools calibrated to target state behaviors.</p>
+      <div class="comfort-buttons-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;">
+        <button onclick="executeComfortAction('breathing')" class="btn btn-secondary text-left-btn-full">🌬️ Breathing Exercise</button>
+        <button onclick="executeComfortAction('grounding')" class="btn btn-secondary text-left-btn-full">🧘 Grounding Framework</button>
+        <button onclick="executeComfortAction('affirmations')" class="btn btn-secondary text-left-btn-full">💡 Positive Affirmations</button>
+        <button onclick="executeComfortAction('gratitude')" class="btn btn-secondary text-left-btn-full">✍️ Gratitude Prompt</button>
+        <button onclick="executeComfortAction('stretch')" class="btn btn-secondary text-left-btn-full">🤸 Stretch Reminder</button>
+        <button onclick="executeComfortAction('tips')" class="btn btn-secondary text-left-btn-full">🌿 Calming Health Tips</button>
+      </div>
+    </section>
+
+    <!-- COMPREHENSIVE MULTI-FIELD JOURNAL STRUCTURE -->
+    <section class="card dynamic-journal-card">
+      <div class="section-header" style="margin-bottom: 16px;">
+        <div>
+          <h2 class="card-title">📔 Advanced Mindful Evaluation Journal</h2>
+          <p style="font-size: 0.85rem; opacity: 0.7; margin-top:2px;">Analyze metric indices and compile historical entries locally.</p>
+        </div>
+        <span id="journal-saved-status" class="save-status-indicator" aria-live="polite">Logs synchronized</span>
+      </div>
+
+      <div class="journal-dropdowns-row">
+        <div class="dropdown-wrapper">
+          <label class="dropdown-label">Active Mood</label>
+          <select id="j-mood" class="btn btn-secondary select-dropdown-node">
+            <option value="😊 Happy">😊 Happy</option>
+            <option value="😌 Calm">😌 Calm</option>
+            <option value="😐 Neutral">😐 Neutral</option>
+            <option value="😔 Sad">😔 Sad</option>
+            <option value="😣 Stressed">😣 Stressed</option>
+          </select>
+        </div>
+        <div class="dropdown-wrapper">
+          <label class="dropdown-label">Energy Level</label>
+          <select id="j-energy" class="btn btn-secondary select-dropdown-node">
+            <option value="High Bandwidth">High Bandwidth</option>
+            <option value="Moderate Rested">Moderate Rested</option>
+            <option value="Depleted/Low">Depleted/Low</option>
+          </select>
+        </div>
+        <div class="dropdown-wrapper">
+          <label class="dropdown-label">Stress Index</label>
+          <select id="j-stress" class="btn btn-secondary select-dropdown-node">
+            <option value="Stable Calm">Stable Calm</option>
+            <option value="Elevated Load">Elevated Load</option>
+            <option value="Acute Hyper-arousal">Acute Hyper-arousal</option>
+          </select>
+        </div>
+        <div class="dropdown-wrapper">
+          <label class="dropdown-label">Sleep Quality</label>
+          <select id="j-sleep" class="btn btn-secondary select-dropdown-node">
+            <option value="Deep Restful">Deep Restful</option>
+            <option value="Interrupted Cycle">Interrupted Cycle</option>
+            <option value="Insomnia Wave">Insomnia Wave</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="journal-textareas-grid">
+        <div class="textarea-stack-column">
+          <textarea id="j-happened" placeholder="What occurred across your structural timeline today?" class="journal-field-textarea" aria-label="What happened today"></textarea>
+          <textarea id="j-challenged" placeholder="Detail any friction elements or obstacles encountered..." class="journal-field-textarea" aria-label="What challenged me today"></textarea>
+        </div>
+        <div class="textarea-stack-column">
+          <textarea id="j-smile" placeholder="What distinct event triggered a smile or cognitive release?" class="journal-field-textarea" aria-label="What made me smile"></textarea>
+          <input type="text" id="j-gratitude" placeholder="Three things you appreciate today..." class="btn btn-secondary text-left-input-field">
+          <input type="text" id="j-goal" placeholder="Declare your tomorrow baseline focal target objective..." class="btn btn-secondary text-left-input-field">
+        </div>
+      </div>
+
+      <div class="journal-actions-row">
+        <div class="primary-actions-cluster">
+          <button class="btn btn-primary" onclick="journalSaveDataEntry()">Save Entry</button>
+          <button class="btn btn-secondary" onclick="journalViewPreviousRecords()">View Previous Entries</button>
+          <button class="btn btn-secondary" onclick="journalToggleSearchSystem()">Search Entries</button>
+          <button class="btn btn-secondary" onclick="journalPurgeLatestRecord()" style="color: #FF2B2B;">Delete Entry</button>
+        </div>
+        <button class="btn btn-secondary" onclick="journalTriggerDataExport()">Export Journal Data</button>
+      </div>
+
+      <div id="journal-search-drawer" class="search-drawer-panel">
+        <input type="text" id="journal-query-input" oninput="executeJournalQueryFilter()" placeholder="Filter histories across text field parameters..." class="btn btn-secondary drawer-text-input">
+        <div id="journal-query-results" class="drawer-results-box"></div>
+      </div>
+    </section>
+
+    <!-- Music Section -->
+    <section class="card music-card-section" aria-labelledby="music-heading">
+      <h2 id="music-heading" class="card-title">🎵 Relax Music Playlists</h2>
+      <p class="card-description" style="margin-bottom: 20px;">Open safe high-retention audio layers mapped directly to YouTube soundscapes.</p>
+      <div class="music-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;">
+        <button onclick="launchAudioPipeline('https://www.youtube.com/watch?v=lFcSrYw-ARY')" class="btn btn-secondary center-flex-btn"><span>🌧️</span> Rain Sounds</button>
+        <button onclick="launchAudioPipeline('https://www.youtube.com/watch?v=jfKfPfyJRdk')" class="btn btn-secondary center-flex-btn"><span>☕</span> Lo-fi Study Music</button>
+        <button onclick="launchAudioPipeline('https://www.youtube.com/watch?v=eKFTSSKCzWA')" class="btn btn-secondary center-flex-btn"><span>🌲</span> Nature Sounds</button>
+        <button onclick="launchAudioPipeline('https://www.youtube.com/watch?v=vPhg6sc1Mk4')" class="btn btn-secondary center-flex-btn"><span>🎹</span> Calm Piano</button>
+        <button onclick="launchAudioPipeline('https://www.youtube.com/watch?v=TURbeWK21d8')" class="btn btn-secondary center-flex-btn"><span>🧘</span> Meditation Music</button>
+      </div>
+    </section>
+
+    <!-- Movies Section -->
+    <section class="card movies-card-section">
+      <h2 class="card-title">🎬 Mindful Cinema Recommendations</h2>
+      <p class="card-description" style="margin-bottom: 20px;">Curated films selected for deep emotional alignment and stress release.</p>
+      <div class="movies-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+        <button onclick="launchAudioPipeline('https://www.imdb.com/title/tt2096582/')" class="btn btn-secondary center-flex-btn">🎭 Inside Out (IMDb)</button>
+        <button onclick="launchAudioPipeline('https://www.imdb.com/title/tt0359950/')" class="btn btn-secondary center-flex-btn">🌿 Walter Mitty (IMDb)</button>
+        <button onclick="launchAudioPipeline('https://www.imdb.com/title/tt0454921/')" class="btn btn-secondary center-flex-btn">🔥 Pursuit of Happyness</button>
+        <button onclick="launchAudioPipeline('https://www.imdb.com/title/tt0449059/')" class="btn btn-secondary center-flex-btn">☀️ Little Miss Sunshine</button>
+      </div>
+    </section>
+
+    <!-- Motivation Section Layout -->
+    <section class="card videos-card-section" aria-labelledby="videos-heading">
+      <h2 id="videos-heading" class="card-title">🎥 Strategic Motivation Portals</h2>
+      <p class="card-description" style="margin-bottom: 20px;">Access fresh behavioral science insights across selected presentation arrays.</p>
+      <div class="motivation-links-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;">
+        <button onclick="launchAudioPipeline('https://www.youtube.com/@TED')" class="btn btn-secondary center-flex-btn"><span style="color: #E62B1E; font-weight: bold;">●</span> TED Talks</button>
+        <button onclick="launchAudioPipeline('https://www.youtube.com/@GaurGopalDas')" class="btn btn-secondary center-flex-btn"><span>🧡</span> Gaur Gopal Das</button>
+        <button onclick="launchAudioPipeline('https://www.youtube.com/@JayShettyPodcast')" class="btn btn-secondary center-flex-btn"><span>🌱</span> Jay Shetty</button>
+        <button onclick="launchAudioPipeline('https://www.youtube.com/@HealthyGamerGG')" class="btn btn-secondary center-flex-btn"><span>🧠</span> HealthyGamerGG</button>
+        <button onclick="launchAudioPipeline('https://www.youtube.com/@AliAbdaal')" class="btn btn-secondary center-flex-btn"><span>💎</span> Ali Abdaal</button>
+        <button onclick="launchAudioPipeline('https://www.youtube.com/results?search_query=study+motivation+mindset')" class="btn btn-secondary center-flex-btn"><span>📚</span> Study Motivation</button>
+      </div>
+    </section>
+
+    <!-- PANEL 2: COMPREHENSIVE RESOURCE ARRAYS PORT -->
+    <section class="resources-section" aria-labelledby="resources-heading">
+      <h2 id="resources-heading" class="section-main-title">📚 Clinical & Mindful Resources</h2>
+      <div class="resources-grid">
+        <section class="card resource-item-card">
+          <div>
+            <div class="resource-icon-wrapper color-stress" aria-hidden="true">🧠</div>
+            <h3 class="resource-card-title">WHO Mental Health</h3>
+            <p class="resource-card-desc">Global analytical metrics and strategic guidelines provided by the World Health Organization.</p>
+          </div>
+          <button onclick="launchAudioPipeline('https://www.who.int/health-topics/mental-health')" class="btn btn-primary full-width-sm-btn">Open Resource</button>
+        </section>
+
+        <section class="card resource-item-card">
+          <div>
+            <div class="resource-icon-wrapper color-anxiety" aria-hidden="true">😌</div>
+            <h3 class="resource-card-title">Mind UK</h3>
+            <p class="resource-card-desc">Trusted mental health resources, local support networks, and community stabilization advice.</p>
+          </div>
+          <button onclick="launchAudioPipeline('https://www.mind.org.uk/')" class="btn btn-primary full-width-sm-btn">Open Resource</button>
+        </section>
+
+        <section class="card resource-item-card">
+          <div>
+            <div class="resource-icon-wrapper color-sleep" aria-hidden="true">🌙</div>
+            <h3 class="resource-card-title">NAMI Portal</h3>
+            <p class="resource-card-desc">National Alliance on Mental Illness support structures, education frameworks, and clinical paths.</p>
+          </div>
+          <button onclick="launchAudioPipeline('https://www.nami.org/')" class="btn btn-primary full-width-sm-btn">Open Resource</button>
+        </section>
+
+        <section class="card resource-item-card">
+          <div>
+            <div class="resource-icon-wrapper color-stress" aria-hidden="true">🌿</div>
+            <h3 class="resource-card-title">Mental Health Foundation</h3>
+            <p class="resource-card-desc">Prevention research frameworks helping communities survive and thrive under pressure indices.</p>
+          </div>
+          <button onclick="launchAudioPipeline('https://www.mentalhealth.org.uk/')" class="btn btn-primary full-width-sm-btn">Open Resource</button>
+        </section>
+
+        <section class="card resource-item-card">
+          <div>
+            <div class="resource-icon-wrapper color-anxiety" aria-hidden="true">💬</div>
+            <h3 class="resource-card-title">7 Cups Support</h3>
+            <p class="resource-card-desc">Free anonymous emotional peer support networks and active chat rooms around the clock.</p>
+          </div>
+          <button onclick="launchAudioPipeline('https://www.7cups.com/')" class="btn btn-primary full-width-sm-btn">Open Resource</button>
+        </section>
+
+        <section class="card resource-item-card">
+          <div>
+            <div class="resource-icon-wrapper color-sleep" aria-hidden="true">📞</div>
+            <h3 class="resource-card-title">988 Lifeline Info</h3>
+            <p class="resource-card-desc">Verified international response networks and emergency counseling data parameter coordinates.</p>
+          </div>
+          <button onclick="launchAudioPipeline('https://988lifeline.org/')" class="btn btn-primary full-width-sm-btn">Open Resource</button>
+        </section>
+      </div>
+    </section>
+
+    <!-- Structural Footer Support Block -->
+    <div class="split-row">
+      <section class="card emergency-card" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+        <div class="emergency-content">
+          <h2 class="emergency-title">Need Immediate Help?</h2>
+          <p class="emergency-desc">Professional support networks are fully reachable 24/7.</p>
+        </div>
+        <button onclick="launchAudioPipeline('https://988lifeline.org/')" class="btn btn-emergency">Emergency Help</button>
+      </section>
+    </div>
+
+  </main>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
