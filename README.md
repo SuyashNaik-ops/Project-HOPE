@@ -27,6 +27,13 @@ Mental wellness books
 YouTube videos
 Spotify playlists
 Meditation resources
+🌱 Comfort & Self-Care
+
+Simple activities and suggestions such as breathing exercises, grounding exercises, affirmations, and calming activities.
+
+👤 User Features
+
+User login/signup and personalized sections for managing the Project HOPE experience.
 Trusted mental health websites
 
 
