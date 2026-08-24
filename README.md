@@ -160,6 +160,7 @@ Users experiencing a serious mental health crisis should contact a trusted perso
 🎯 Vision
 
 The goal of Project HOPE is to make emotional support and wellness resources more accessible through technology while creating a simple, welcoming, and user-friendly experience.
+this project is a complete mental health wellness ecosystem
 
 👨‍💻 Project
 
