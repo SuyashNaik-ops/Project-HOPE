@@ -106,5 +106,31 @@ Node.js
 Express.js
 User login/signup and personalized sections for managing the Project HOPE experience.
 Trusted mental health websites
+🚀 Getting Started
+1. Clone the repository
+git clone https://github.com/YOUR-USERNAME/Project-HOPE.git
+cd Project-HOPE
+2. Install backend dependencies
+cd server
+npm install
+3. Configure environment variables
+
+Create a .env file inside the server folder:
+
+GEMINI_API_KEY=your_gemini_api_key
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+
+Never upload your .env file to GitHub.
+
+4. Start the backend
+node server.js
+
+The backend should run on:
+
+http://localhost:3000
+5. Open the frontend
+
+Open the Project HOPE frontend using your preferred local server, such as VS Code Live Server.
 
 
