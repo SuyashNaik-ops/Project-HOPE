@@ -39,6 +39,69 @@ HTML5
 CSS3
 JavaScript
 Backend
+Database
+MongoDB
+Mongoose
+MongoDB Atlas for cloud deployment
+AI
+Google Gemini API
+Authentication
+bcrypt
+JSON Web Token (JWT)
+Development Tools
+Visual Studio Code
+Git
+GitHub
+🏗️ Architecture
+                    ┌──────────────────┐
+                    │     User         │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │ Project HOPE UI  │
+                    │ HTML/CSS/JS      │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │ Node.js +        │
+                    │ Express Backend  │
+                    └───────┬───┬──────┘
+                            │   │
+                 ┌──────────┘   └──────────┐
+                 ▼                         ▼
+        ┌─────────────────┐       ┌─────────────────┐
+        │  Gemini API     │       │    MongoDB      │
+        │    HOPE AI      │       │ User/Chat Data  │
+        └─────────────────┘       └─────────────────┘
+📁 Project Structure
+Project-HOPE/
+│
+├── dashboard.html
+├── login.html
+├── resources.html
+├── chat.html
+├── profile.html
+├── settings.html
+│
+├── css/
+│   ├── dashboard.css
+│   ├── resources.css
+│   └── ...
+│
+├── js/
+│   ├── dashboard.js
+│   ├── resources.js
+│   └── ...
+│
+├── server/
+│   ├── server.js
+│   ├── models/
+│   ├── package.json
+│   └── .env
+│
+└── README.md
 Node.js
 Express.js
 User login/signup and personalized sections for managing the Project HOPE experience.
