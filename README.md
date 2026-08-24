@@ -19,3 +19,14 @@ Users can record and monitor their moods to become more aware of their emotional
 📖 Journal
 
 A personal space where users can write and reflect on their thoughts and experiences.
+📚 HOPE Resources
+
+A dedicated resource library containing:
+
+Mental wellness books
+YouTube videos
+Spotify playlists
+Meditation resources
+Trusted mental health websites
+
+
