@@ -133,4 +133,36 @@ http://localhost:3000
 
 Open the Project HOPE frontend using your preferred local server, such as VS Code Live Server.
 
+🔐 Security
 
+API keys and database credentials are stored in environment variables rather than directly in the source code.
+
+The .env file should be added to .gitignore:
+
+.env
+node_modules/
+🌍 Deployment
+
+Project HOPE can be deployed using:
+
+Render — Node.js/Express backend
+MongoDB Atlas — cloud database
+GitHub — source code repository
+
+The Gemini API key should be configured as a secure environment variable on the hosting platform.
+
+⚠️ Disclaimer
+
+Project HOPE is designed as a supportive wellness application and is not a replacement for professional mental health care, diagnosis, or emergency services.
+
+Users experiencing a serious mental health crisis should contact a trusted person, qualified professional, or appropriate local emergency service.
+
+🎯 Vision
+
+The goal of Project HOPE is to make emotional support and wellness resources more accessible through technology while creating a simple, welcoming, and user-friendly experience.
+
+👨‍💻 Project
+
+Project HOPE — AI-Powered Mental Wellness Platform
+
+Built with ❤️ using AI, web technologies, and a focus on accessible emotional well-being.
