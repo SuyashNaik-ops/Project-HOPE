@@ -165,5 +165,6 @@ this project is a complete mental health wellness ecosystem
 👨‍💻 Project-
 
 Project HOPE — AI-Powered Mental Wellness Platform.
+"A hope is all that we need".
 
 Built with ❤️ using AI, web technologies, and a focus on accessible emotional well-being.
