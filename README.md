@@ -162,7 +162,7 @@ Users experiencing a serious mental health crisis should contact a trusted perso
 The goal of Project HOPE is to make emotional support and wellness resources more accessible through technology while creating a simple, welcoming, and user-friendly experience.
 this project is a complete mental health wellness ecosystem
 
-👨‍💻 Project-
+👨‍💻Project-
 
 Project HOPE — AI-Powered Mental Wellness Platform.
 "A hope is all that we need".
