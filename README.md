@@ -3,7 +3,7 @@ Project HOPE is an AI-integrated mental wellness platform designed to provide us
 It combines an AI-powered conversational companion with mood tracking, journaling, relaxation activities, motivational content, and curated wellness resources in one platform.
 
 "A little hope can make a big difference." 🌱
-✨ Features
+✨Features
 🤖 HOPE AI
 
 An AI-powered conversational companion integrated with the Google Gemini API to provide supportive and empathetic responses.
