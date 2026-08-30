@@ -1,4 +1,4 @@
-Project HOPE is an AI-integrated mental wellness platform designed to provide users with a supportive and accessible digital space for emotional well-being.
+Project HOPE is an AI-integrated mental wellness platform designed to provide users with a supportive and accessible digital space for emotional well-being.Project Hope comes in idea of helping people with mental health problems.
 
 It combines an AI-powered conversational companion with mood tracking, journaling, relaxation activities, motivational content, and curated wellness resources in one platform.
 
