@@ -3,18 +3,609 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard | Project HOPE - Your Safe Space for Mental Wellness</title>
+  <title>Project HOPE - Your Safe Space for Mental Wellness</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/dashboard.css">
+  <style>
+/* ===========================================================
+   Project HOPE — Dashboard Stylesheet
+   Calming wellness palette: sage green, deep navy, warm amber
+   =========================================================== */
+
+:root {
+  --sage: #8DB596;
+  --sage-light: #E4EFE6;
+  --sage-dark: #6b9476;
+  --navy: #2b4c6f;
+  --amber: #b56c1b;
+  --amber-light: #FBEFE1;
+  --red: #FF2B2B;
+  --red-light: #FFECEC;
+  --text-dark: #3A3A3A;
+  --text-muted: #6B6B6B;
+  --bg-cream: #F7F6F2;
+  --card-bg: #FFFFFF;
+  --border-soft: #E7E4DC;
+  --shadow-soft: 0 4px 18px rgba(43, 76, 111, 0.07);
+  --shadow-hover: 0 8px 26px rgba(43, 76, 111, 0.12);
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --font-display: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-cream);
+  color: var(--text-dark);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: var(--font-display); margin: 0; color: var(--navy); }
+
+a { color: inherit; }
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+}
+
+.background-overlay-dark {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(141,181,150,0.10), transparent 55%),
+              radial-gradient(circle at bottom left, rgba(43,76,111,0.06), transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
+
+.btn-primary {
+  background: var(--sage);
+  color: #fff;
+  box-shadow: var(--shadow-soft);
+}
+.btn-primary:hover { background: var(--sage-dark); box-shadow: var(--shadow-hover); }
+
+.btn-secondary {
+  background: #fff;
+  color: var(--navy);
+  border: 1px solid var(--border-soft);
+}
+.btn-secondary:hover { background: var(--sage-light); }
+
+.btn-emergency {
+  background: var(--red);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(255,43,43,0.28);
+}
+.btn-emergency:hover { background: #e01f1f; }
+
+.text-btn-sm { padding: 6px 14px; font-size: 0.8rem; }
+.text-left-btn-full, .center-flex-btn { width: 100%; justify-content: flex-start; text-align: left; }
+.center-flex-btn { justify-content: center; text-align: center; }
+.full-width-sm-btn { width: 100%; justify-content: center; }
+.text-left-input, .text-left-input-field {
+  border-radius: var(--radius-sm);
+  text-align: left;
+  justify-content: flex-start;
+  cursor: text;
+  width: 100%;
+}
+.active-cadence-btn, .active-track { background: var(--sage); color: #fff; border-color: var(--sage); }
+
+/* ---------- Ambient sound widget ---------- */
+.ambient-audio-float-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 60;
+}
+.sound-panel-trigger {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  font-size: 1.3rem;
+  box-shadow: var(--shadow-hover);
+}
+.sound-menu-drawer-card {
+  display: none;
+  position: absolute;
+  bottom: 66px;
+  right: 0;
+  width: 240px;
+  background: #fff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-hover);
+  padding: 14px;
+}
+.sound-menu-drawer-card.open { display: block; }
+.sound-track-selectors-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.track-selection-chip {
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-cream);
+  border: 1px solid var(--border-soft);
+  font-size: 0.82rem;
+}
+.sound-actions-control-row { display: flex; gap: 6px; }
+.ctrl-btn-action {
+  flex: 1;
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  background: var(--sage-light);
+  font-size: 0.78rem;
+}
+
+/* ---------- Top nav ---------- */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-soft);
+}
+.nav-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo-link { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.logo-icon { font-size: 1.4rem; }
+.logo-text { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; color: var(--navy); }
+.logo-highlight { color: var(--sage-dark); }
+.nav-center { display: flex; gap: 6px; }
+.nav-item {
+  padding: 8px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.nav-item:hover { background: var(--sage-light); color: var(--navy); }
+.nav-item.active { background: var(--sage); color: #fff; }
+.nav-right { display: flex; align-items: center; gap: 12px; }
+.nav-icon-btn {
+  position: relative;
+  background: transparent;
+  font-size: 1.1rem;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+}
+.nav-icon-btn:hover { background: var(--sage-light); }
+.notification-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--red);
+  display: none;
+}
+.notification-badge.show { display: block; }
+.profile-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+/* ---------- Modal ---------- */
+.modal-overlay-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(43,76,111,0.35);
+  z-index: 80;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay-backdrop.open { display: flex; }
+.modal-window-card {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  max-width: 480px;
+  width: 100%;
+  max-height: 82vh;
+  overflow-y: auto;
+  padding: 22px;
+  box-shadow: var(--shadow-hover);
+}
+.modal-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.close-modal-btn { background: transparent; font-size: 1.4rem; color: var(--text-muted); line-height: 1; }
+.modal-body-content { font-size: 0.94rem; color: var(--text-dark); line-height: 1.6; }
+.modal-body-content ul { padding-left: 18px; }
+
+/* ---------- Toast ---------- */
+.toast-toast-alert {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.toast-item {
+  background: var(--navy);
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  box-shadow: var(--shadow-hover);
+  animation: toastIn 0.25s ease;
+}
+@keyframes toastIn { from { opacity: 0; transform: translateY(-8px);} to { opacity: 1; transform: translateY(0);} }
+
+/* ---------- Recovery mode ---------- */
+.recovery-screen-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--bg-cream);
+  z-index: 70;
+  overflow-y: auto;
+  padding: 28px 24px 60px;
+}
+.recovery-screen-overlay.open { display: block; }
+.recovery-top-bar {
+  max-width: 1180px;
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.recovery-dashboard-container {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 20px;
+}
+.recovery-column-stack { display: flex; flex-direction: column; gap: 20px; }
+.recovery-chat-log-box {
+  height: 180px;
+  overflow-y: auto;
+  background: var(--bg-cream);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  font-size: 0.88rem;
+  margin-bottom: 10px;
+}
+.recovery-chat-log-box p { margin: 0 0 10px; }
+.input-send-container { display: flex; gap: 8px; }
+.border-left-emergency { border-left: 4px solid var(--red); }
+
+/* ---------- Layout / cards ---------- */
+.dashboard-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 24px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  position: relative;
+  z-index: 1;
+}
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+  padding: 24px;
+}
+.card-title { font-size: 1.1rem; font-weight: 600; }
+.card-subtitle { color: var(--text-muted); font-size: 0.86rem; }
+.card-description { color: var(--text-muted); font-size: 0.9rem; }
+
+/* ---------- Hero ---------- */
+.premium-hero-card { background: linear-gradient(135deg, #fff, var(--sage-light)); }
+.hero-flex-wrapper { display: flex; justify-content: space-between; gap: 28px; flex-wrap: wrap; }
+.hero-identity-meta { flex: 1; min-width: 260px; }
+.welcome-title { font-size: 1.7rem; margin-bottom: 4px; }
+.hero-date-text, .welcome-subtitle { color: var(--text-muted); font-size: 0.9rem; margin: 0 0 14px; }
+.hero-quote-box {
+  background: rgba(255,255,255,0.7);
+  border-left: 3px solid var(--sage);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+.hero-quote-content { margin: 0; font-style: italic; font-size: 0.96rem; }
+.hero-quote-citation { display: block; margin-top: 6px; font-size: 0.8rem; color: var(--text-muted); }
+.quote-action-buttons-row { display: flex; gap: 8px; flex-wrap: wrap; }
+#quote-fav-btn.favorited { background: var(--amber-light); color: var(--amber); border-color: var(--amber); }
+
+.hero-interactive-mood-cluster {
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 18px;
+  min-width: 260px;
+  box-shadow: var(--shadow-soft);
+}
+.mood-widget-heading { font-size: 0.95rem; margin-bottom: 12px; }
+.mood-selector { display: flex; gap: 8px; flex-wrap: wrap; }
+.mood-btn {
+  background: var(--bg-cream);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 56px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+.mood-btn .mood-emoji { font-size: 1.3rem; }
+.mood-btn[aria-checked="true"] { background: var(--sage); color: #fff; border-color: var(--sage); }
+.status-toast { display: block; margin-top: 10px; font-size: 0.8rem; color: var(--sage-dark); min-height: 1em; }
+
+/* ---------- Emergency trigger ---------- */
+.emergency-trigger-wrapper { display: flex; justify-content: center; }
+.large-emergency-trigger-btn { padding: 16px 34px; font-size: 1.05rem; }
+
+/* ---------- Split rows ---------- */
+.split-row { display: grid; gap: 22px; }
+.split-row.column-2 { grid-template-columns: 1fr 1fr; }
+
+.card-icon-container { margin-bottom: 10px; }
+.card-badge {
+  display: inline-block;
+  background: var(--sage-light);
+  color: var(--sage-dark);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+.grid-title-large { font-size: 1.3rem; margin-bottom: 8px; }
+.ai-card .card-description { margin-bottom: 16px; }
+
+/* ---------- Breathing ---------- */
+.breathing-container { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.breathing-circle-outer {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 2px solid var(--sage-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle, var(--sage-light), transparent 70%);
+}
+.breathing-circle-inner {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--sage);
+  transition: width 1s ease, height 1s ease, background 1s ease;
+}
+.breathing-instruction { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+.text-center-breathing { text-align: center; }
+.cadence-button-row, .control-button-row, .button-row-center {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+/* ---------- Journey timeline ---------- */
+.filter-buttons-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0; }
+.journey-timeline-flow { display: flex; flex-direction: column; gap: 10px; max-height: 320px; overflow-y: auto; }
+.journey-entry-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-cream);
+  font-size: 0.86rem;
+}
+.journey-entry-row .je-emoji { font-size: 1.2rem; }
+.journey-entry-row .je-date { color: var(--text-muted); font-size: 0.78rem; margin-left: auto; }
+.journey-empty { color: var(--text-muted); font-size: 0.85rem; padding: 12px 0; }
+
+/* ---------- Comfort kit ---------- */
+.comfort-kit-card .card-subtitle { margin-bottom: 14px; }
+
+/* ---------- Journal ---------- */
+.section-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; }
+.save-status-indicator { font-size: 0.78rem; color: var(--sage-dark); background: var(--sage-light); padding: 4px 10px; border-radius: 999px; }
+.journal-dropdowns-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 18px 0; }
+.dropdown-wrapper { display: flex; flex-direction: column; gap: 4px; }
+.dropdown-label { font-size: 0.76rem; color: var(--text-muted); font-weight: 500; }
+.select-dropdown-node { width: 100%; text-align: left; justify-content: space-between; }
+.journal-textareas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+.textarea-stack-column { display: flex; flex-direction: column; gap: 12px; }
+.journal-field-textarea {
+  width: 100%;
+  min-height: 90px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  resize: vertical;
+  background: var(--bg-cream);
+}
+.journal-actions-row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+.primary-actions-cluster { display: flex; gap: 8px; flex-wrap: wrap; }
+.search-drawer-panel { display: none; margin-top: 14px; }
+.search-drawer-panel.open { display: block; }
+.drawer-text-input { margin-bottom: 10px; }
+.drawer-results-box { display: flex; flex-direction: column; gap: 8px; max-height: 240px; overflow-y: auto; }
+
+/* ---------- Resources / music / movies / motivation grids already use inline grid styles ---------- */
+.resources-section { margin-top: 6px; }
+.section-main-title { margin-bottom: 16px; font-size: 1.25rem; }
+.resources-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+.resource-item-card { display: flex; flex-direction: column; justify-content: space-between; gap: 14px; }
+.resource-icon-wrapper {
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+.color-stress { background: var(--sage-light); }
+.color-anxiety { background: var(--amber-light); }
+.color-sleep { background: #E5EEF7; }
+.resource-card-title { font-size: 1rem; margin-bottom: 6px; }
+.resource-card-desc { color: var(--text-muted); font-size: 0.85rem; }
+
+/* ---------- Footer emergency ---------- */
+.emergency-card { background: linear-gradient(135deg, #fff, var(--red-light)); flex-wrap: wrap; gap: 16px; }
+.emergency-title { font-size: 1.1rem; margin-bottom: 4px; }
+.emergency-desc { color: var(--text-muted); font-size: 0.88rem; margin: 0; }
+
+/* ---------- Simple pages (profile / settings / resources / chat) ---------- */
+.simple-page-wrap { max-width: 720px; margin: 0 auto; padding: 40px 24px 60px; position: relative; z-index: 1; }
+.simple-page-header { margin-bottom: 24px; }
+.simple-page-header p { color: var(--text-muted); }
+.info-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border-soft); font-size: 0.92rem; }
+.info-row:last-child { border-bottom: none; }
+.info-row span:first-child { color: var(--text-muted); }
+.settings-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border-soft); }
+.settings-row:last-child { border-bottom: none; }
+.settings-row-label { font-weight: 500; font-size: 0.94rem; }
+.settings-row-desc { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+.toggle-switch { position: relative; width: 48px; height: 26px; }
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+  position: absolute; inset: 0; cursor: pointer;
+  background: var(--border-soft);
+  border-radius: 999px;
+  transition: background 0.2s ease;
+}
+.toggle-slider::before {
+  content: ""; position: absolute; width: 20px; height: 20px;
+  left: 3px; top: 3px; background: #fff; border-radius: 50%;
+  transition: transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.toggle-switch input:checked + .toggle-slider { background: var(--sage); }
+.toggle-switch input:checked + .toggle-slider::before { transform: translateX(22px); }
+.back-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 26px; }
+
+/* ---------- Chat page ---------- */
+.chat-shell { max-width: 720px; margin: 0 auto; padding: 24px 24px 40px; position: relative; z-index: 1; }
+.chat-window {
+  background: #fff; border-radius: var(--radius-lg); border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft); display: flex; flex-direction: column; height: 60vh;
+}
+.chat-log { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+.chat-bubble { max-width: 80%; padding: 10px 14px; border-radius: var(--radius-md); font-size: 0.9rem; line-height: 1.5; }
+.chat-bubble.bot { background: var(--sage-light); align-self: flex-start; border-bottom-left-radius: 4px; }
+.chat-bubble.user { background: var(--navy); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+.chat-input-row { display: flex; gap: 10px; padding: 14px; border-top: 1px solid var(--border-soft); }
+.chat-input-row input { flex: 1; }
+.chat-disclaimer { font-size: 0.76rem; color: var(--text-muted); margin-top: 12px; text-align: center; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .nav-center { display: none; }
+  .split-row.column-2 { grid-template-columns: 1fr; }
+  .recovery-dashboard-container { grid-template-columns: 1fr; }
+  .journal-dropdowns-row { grid-template-columns: 1fr 1fr; }
+  .journal-textareas-grid { grid-template-columns: 1fr; }
+  .hero-flex-wrapper { flex-direction: column; }
+}
+@media (max-width: 520px) {
+  .journal-dropdowns-row { grid-template-columns: 1fr; }
+  .nav-container { padding: 12px 16px; }
+  .dashboard-grid { padding: 20px 14px 50px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+
+/* ---- Single-page view switching ---- */
+.view { display: none; }
+.view.active { display: block; }
+
+  </style>
 </head>
 <body>
 
-  <!-- Ambient Dark Overlay Backdrop Layer -->
   <div class="background-overlay-dark"></div>
 
-  <!-- Ambient Sound Floating Interface System -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <div class="nav-left">
+        <a href="javascript:void(0)" onclick="showView('dashboard')" class="logo-link" aria-label="Project HOPE Home">
+          <span class="logo-icon" aria-hidden="true">🕊️</span>
+          <span class="logo-text">Project <span class="logo-highlight">HOPE</span></span>
+        </a>
+      </div>
+      <nav class="nav-center" aria-label="Main Navigation">
+        <a href="javascript:void(0)" onclick="showView('dashboard')" class="nav-item active" data-view="dashboard" aria-current="page">Dashboard</a>
+        <a href="javascript:void(0)" onclick="showView('resources')" class="nav-item" data-view="resources">Resources</a>
+        <a href="javascript:void(0)" onclick="showView('profile')" class="nav-item" data-view="profile">Profile</a>
+        <a href="javascript:void(0)" onclick="showView('settings')" class="nav-item" data-view="settings">Settings</a>
+      </nav>
+      <div class="nav-right">
+        <button class="nav-icon-btn" onclick="triggerNotificationToast()" aria-label="View notifications">
+          <span class="icon" aria-hidden="true">🔔</span>
+          <span class="notification-badge" id="nav-badge-node"></span>
+        </button>
+        <a href="javascript:void(0)" onclick="showView('profile')" class="profile-avatar" id="global-avatar-indicator" style="text-decoration: none;">SH</a>
+      </div>
+    </div>
+  </header>
+
+<div class="background-overlay-dark"></div>
+
   <div class="ambient-audio-float-widget" id="ambient-sound-panel" aria-label="Ambient Sound Player">
     <button class="sound-panel-trigger" onclick="toggleAmbientMenuDrawer()" aria-label="Toggle ambient sound menu">
       <span class="sound-status-icon">🎵</span>
@@ -34,32 +625,8 @@
     </div>
   </div>
 
-  <!-- Top Navigation System Bar -->
-  <header class="top-nav">
-    <div class="nav-container">
-      <div class="nav-left">
-        <a href="index.html" class="logo-link" aria-label="Project HOPE Home">
-          <span class="logo-icon" aria-hidden="true">🕊️</span>
-          <span class="logo-text">Project <span class="logo-highlight">HOPE</span></span>
-        </a>
-      </div>
-      <nav class="nav-center" aria-label="Main Navigation">
-        <a href="dashboard.html" class="nav-item active" aria-current="page">Dashboard</a>
-        <a href="resources.html" class="nav-item">Resources</a>
-        <a href="profile.html" class="nav-item">Profile</a>
-        <a href="settings.html" class="nav-item">Settings</a>
-      </nav>
-      <div class="nav-right">
-        <button class="nav-icon-btn" onclick="triggerNotificationToast()" aria-label="View notifications">
-          <span class="icon" aria-hidden="true">🔔</span>
-          <span class="notification-badge" id="nav-badge-node"></span>
-        </button>
-        <a href="profile.html" class="profile-avatar" id="global-avatar-indicator" style="text-decoration: none;">SH</a>
-      </div>
-    </div>
-  </header>
+  
 
-  <!-- Interactive Sandbox Global Modal Layout -->
   <div id="system-sandbox-modal" class="modal-overlay-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal-window-card">
       <div class="modal-header-row">
@@ -70,10 +637,8 @@
     </div>
   </div>
 
-  <!-- Telemetry Toast Notification Center -->
   <div id="toast-notification-center" class="toast-toast-alert" role="status" aria-live="polite"></div>
 
-  <!-- ONE CLICK RECOVERY PANEL LAYOUT -->
   <div id="recovery-mode-overlay" class="recovery-screen-overlay">
     <div class="recovery-top-bar">
       <div>
@@ -125,13 +690,13 @@
 
         <div class="card">
           <h3 class="card-title" style="margin-bottom: 12px;">🎵 Play Rapid Relax Audio</h3>
-          <button onclick="launchAudioPipeline('https://www.youtube.com/watch?v=lFcSrYw-ARY')" class="btn btn-secondary text-left-btn-full" style="margin-bottom: 8px;"><span>🌊</span> Play Stress & Panic Relief Soundscape</button>
-          <button onclick="launchAudioPipeline('https://www.youtube.com/watch?v=rUxyKA_-grg')" class="btn btn-secondary text-left-btn-full"><span>🌙</span> Play Instant Biological Sleep Frequencies</button>
+          <button onclick="launchAudioPipeline('https://www.youtube.com/results?search_query=stress+and+panic+relief+calming+sounds')" class="btn btn-secondary text-left-btn-full" style="margin-bottom: 8px;"><span>🌊</span> Play Stress & Panic Relief Soundscape</button>
+          <button onclick="launchAudioPipeline('https://www.youtube.com/results?search_query=deep+sleep+music+relaxing')" class="btn btn-secondary text-left-btn-full"><span>🌙</span> Play Instant Sleep Music</button>
         </div>
 
         <div class="card">
           <h3 class="card-title" style="margin-bottom: 12px;">Curated Recovery Video Playlist</h3>
-          <button onclick="launchAudioPipeline('https://www.youtube.com/playlist?list=PLQiGxGHwiuD1kdxsWKFuhE0rITIXe76yC')" class="btn btn-primary" style="width: 100%; font-size: 0.88rem;">Watch Grounding & Mental Health Playlist</button>
+          <button onclick="launchAudioPipeline('https://www.youtube.com/results?search_query=grounding+and+mental+health+guided+exercises')" class="btn btn-primary" style="width: 100%; font-size: 0.88rem;">Watch Grounding & Mental Health Playlist</button>
         </div>
 
         <div class="card border-left-emergency">
@@ -143,10 +708,10 @@
     </div>
   </div>
 
-  <!-- Main View Container Panel Grid -->
-  <main class="dashboard-grid">
-    
-    <!-- Premium Minimal Hero Header Section -->
+  <main>
+<section class="view active" id="view-dashboard">
+<div class="dashboard-grid">
+
     <section class="premium-hero-card card">
       <div class="hero-flex-wrapper">
         <div class="hero-identity-meta">
@@ -162,7 +727,7 @@
             <button class="btn btn-secondary text-btn-sm" id="quote-fav-btn" onclick="quoteFavoriteActive()">Favorite</button>
           </div>
         </div>
-        
+
         <div class="hero-interactive-mood-cluster">
           <h3 class="mood-widget-heading">Today's Pulse Registration</h3>
           <div class="mood-selector" role="radiogroup" aria-label="Pulse registration choice matrix">
@@ -187,14 +752,12 @@
       </div>
     </section>
 
-    <!-- One Click Emergency Trigger Mechanism -->
     <section class="emergency-trigger-wrapper">
       <button class="btn btn-emergency large-emergency-trigger-btn" onclick="toggleRecoveryMode(true)">
         🫂 I Need Help Right Now
       </button>
     </section>
 
-    <!-- Split Layout Columns Architecture Grid -->
     <div class="split-row column-2">
       <section class="card ai-card">
         <div class="card-icon-container">
@@ -203,7 +766,7 @@
         <div class="card-badge">Companion Workspace</div>
         <h2 class="card-title grid-title-large">HOPE AI</h2>
         <p class="card-description">"I'm here whenever you need someone to listen without criteria parameters."</p>
-        <a href="chat.html" class="btn btn-primary" aria-label="Start Conversation with HOPE AI">Start Conversation</a>
+        <a href="javascript:void(0)" onclick="showView(\'chat\')" class="btn btn-primary" aria-label="Start Conversation with HOPE AI">Start Conversation</a>
       </section>
 
       <section class="card breathing-card" id="breathing-card-anchor">
@@ -230,11 +793,10 @@
       </section>
     </div>
 
-    <!-- AI MOOD JOURNEY TIMELINE -->
     <section class="card journey-timeline-card">
       <h2 class="card-title">📈 Immersive AI Mood Journey Timeline</h2>
       <p class="card-subtitle">Real-time data-layer insights parsed across journals, mood prompts, and companion metrics.</p>
-      
+
       <div class="filter-buttons-row">
         <button class="btn btn-primary" onclick="renderTimelineTimeline('all')">View Timeline</button>
         <button class="btn btn-secondary" onclick="renderTimelineTimeline('happy')">Filter Happy Days</button>
@@ -242,12 +804,9 @@
         <button class="btn btn-secondary" onclick="purgeTimelineLogs()" style="color: #FF2B2B;">Delete Entry Logs</button>
       </div>
 
-      <div id="journey-rendering-viewport" class="journey-timeline-flow">
-        <!-- Populated live by tracking scripts -->
-      </div>
+      <div id="journey-rendering-viewport" class="journey-timeline-flow"></div>
     </section>
 
-    <!-- COMFORT KIT INTERACTIVE SECTIONS -->
     <section class="card comfort-kit-card">
       <h2 class="card-title">🧰 Specialized Behavioral Comfort Kit</h2>
       <p class="card-subtitle">Access immediate grounding tools calibrated to target state behaviors.</p>
@@ -261,7 +820,6 @@
       </div>
     </section>
 
-    <!-- COMPREHENSIVE MULTI-FIELD JOURNAL STRUCTURE -->
     <section class="card dynamic-journal-card">
       <div class="section-header" style="margin-bottom: 16px;">
         <div>
@@ -336,20 +894,18 @@
       </div>
     </section>
 
-    <!-- Music Section -->
     <section class="card music-card-section" aria-labelledby="music-heading">
       <h2 id="music-heading" class="card-title">🎵 Relax Music Playlists</h2>
-      <p class="card-description" style="margin-bottom: 20px;">Open safe high-retention audio layers mapped directly to YouTube soundscapes.</p>
+      <p class="card-description" style="margin-bottom: 20px;">Open safe, always-available audio searches mapped directly to YouTube.</p>
       <div class="music-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;">
-        <button onclick="launchAudioPipeline('https://www.youtube.com/watch?v=lFcSrYw-ARY')" class="btn btn-secondary center-flex-btn"><span>🌧️</span> Rain Sounds</button>
-        <button onclick="launchAudioPipeline('https://www.youtube.com/watch?v=jfKfPfyJRdk')" class="btn btn-secondary center-flex-btn"><span>☕</span> Lo-fi Study Music</button>
-        <button onclick="launchAudioPipeline('https://www.youtube.com/watch?v=eKFTSSKCzWA')" class="btn btn-secondary center-flex-btn"><span>🌲</span> Nature Sounds</button>
-        <button onclick="launchAudioPipeline('https://www.youtube.com/watch?v=vPhg6sc1Mk4')" class="btn btn-secondary center-flex-btn"><span>🎹</span> Calm Piano</button>
-        <button onclick="launchAudioPipeline('https://www.youtube.com/watch?v=TURbeWK21d8')" class="btn btn-secondary center-flex-btn"><span>🧘</span> Meditation Music</button>
+        <button onclick="launchAudioPipeline('https://www.youtube.com/results?search_query=rain+sounds+for+sleeping')" class="btn btn-secondary center-flex-btn"><span>🌧️</span> Rain Sounds</button>
+        <button onclick="launchAudioPipeline('https://www.youtube.com/results?search_query=lofi+hip+hop+study+music')" class="btn btn-secondary center-flex-btn"><span>☕</span> Lo-fi Study Music</button>
+        <button onclick="launchAudioPipeline('https://www.youtube.com/results?search_query=nature+sounds+relaxation')" class="btn btn-secondary center-flex-btn"><span>🌲</span> Nature Sounds</button>
+        <button onclick="launchAudioPipeline('https://www.youtube.com/results?search_query=calm+piano+music')" class="btn btn-secondary center-flex-btn"><span>🎹</span> Calm Piano</button>
+        <button onclick="launchAudioPipeline('https://www.youtube.com/results?search_query=meditation+music')" class="btn btn-secondary center-flex-btn"><span>🧘</span> Meditation Music</button>
       </div>
     </section>
 
-    <!-- Movies Section -->
     <section class="card movies-card-section">
       <h2 class="card-title">🎬 Mindful Cinema Recommendations</h2>
       <p class="card-description" style="margin-bottom: 20px;">Curated films selected for deep emotional alignment and stress release.</p>
@@ -361,7 +917,6 @@
       </div>
     </section>
 
-    <!-- Motivation Section Layout -->
     <section class="card videos-card-section" aria-labelledby="videos-heading">
       <h2 id="videos-heading" class="card-title">🎥 Strategic Motivation Portals</h2>
       <p class="card-description" style="margin-bottom: 20px;">Access fresh behavioral science insights across selected presentation arrays.</p>
@@ -375,7 +930,6 @@
       </div>
     </section>
 
-    <!-- PANEL 2: COMPREHENSIVE RESOURCE ARRAYS PORT -->
     <section class="resources-section" aria-labelledby="resources-heading">
       <h2 id="resources-heading" class="section-main-title">📚 Clinical & Mindful Resources</h2>
       <div class="resources-grid">
@@ -435,7 +989,6 @@
       </div>
     </section>
 
-    <!-- Structural Footer Support Block -->
     <div class="split-row">
       <section class="card emergency-card" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
         <div class="emergency-content">
@@ -446,8 +999,896 @@
       </section>
     </div>
 
+  </div>
+</section>
+<section class="view" id="view-resources">
+<div class="simple-page-wrap" style="max-width:1180px;">
+    <div class="simple-page-header">
+      <h1 class="welcome-title">📚 Clinical & Mindful Resources</h1>
+      <p>Every link on this page opens real, working content — trusted organizations, playable audio searches, and stable video channels.</p>
+    </div>
+
+    <section class="resources-section" style="margin-bottom:32px;">
+      <h2 class="section-main-title">Trusted Websites</h2>
+      <div class="resources-grid">
+        <section class="card resource-item-card">
+          <div>
+            <div class="resource-icon-wrapper color-stress">🧠</div>
+            <h3 class="resource-card-title">WHO Mental Health</h3>
+            <p class="resource-card-desc">Global guidelines and fact sheets from the World Health Organization.</p>
+          </div>
+          <a href="https://www.who.int/health-topics/mental-health" target="_blank" class="btn btn-primary full-width-sm-btn">Open Resource</a>
+        </section>
+        <section class="card resource-item-card">
+          <div>
+            <div class="resource-icon-wrapper color-anxiety">😌</div>
+            <h3 class="resource-card-title">Mind (UK)</h3>
+            <p class="resource-card-desc">Practical mental health information and local support networks.</p>
+          </div>
+          <a href="https://www.mind.org.uk/" target="_blank" class="btn btn-primary full-width-sm-btn">Open Resource</a>
+        </section>
+        <section class="card resource-item-card">
+          <div>
+            <div class="resource-icon-wrapper color-sleep">🌙</div>
+            <h3 class="resource-card-title">NAMI</h3>
+            <p class="resource-card-desc">National Alliance on Mental Illness — education and support programs.</p>
+          </div>
+          <a href="https://www.nami.org/" target="_blank" class="btn btn-primary full-width-sm-btn">Open Resource</a>
+        </section>
+        <section class="card resource-item-card">
+          <div>
+            <div class="resource-icon-wrapper color-stress">🌿</div>
+            <h3 class="resource-card-title">Mental Health Foundation</h3>
+            <p class="resource-card-desc">Prevention-focused research and self-help guidance.</p>
+          </div>
+          <a href="https://www.mentalhealth.org.uk/" target="_blank" class="btn btn-primary full-width-sm-btn">Open Resource</a>
+        </section>
+        <section class="card resource-item-card">
+          <div>
+            <div class="resource-icon-wrapper color-anxiety">💬</div>
+            <h3 class="resource-card-title">7 Cups</h3>
+            <p class="resource-card-desc">Free, anonymous peer support chat, available around the clock.</p>
+          </div>
+          <a href="https://www.7cups.com/" target="_blank" class="btn btn-primary full-width-sm-btn">Open Resource</a>
+        </section>
+        <section class="card resource-item-card">
+          <div>
+            <div class="resource-icon-wrapper color-sleep">📞</div>
+            <h3 class="resource-card-title">988 Suicide & Crisis Lifeline</h3>
+            <p class="resource-card-desc">Free, confidential support, 24/7, for people in the US.</p>
+          </div>
+          <a href="https://988lifeline.org/" target="_blank" class="btn btn-primary full-width-sm-btn">Open Resource</a>
+        </section>
+        <section class="card resource-item-card">
+          <div>
+            <div class="resource-icon-wrapper color-anxiety">🌍</div>
+            <h3 class="resource-card-title">Find A Helpline</h3>
+            <p class="resource-card-desc">Directory of verified crisis helplines by country, for anyone outside the US.</p>
+          </div>
+          <a href="https://findahelpline.com/" target="_blank" class="btn btn-primary full-width-sm-btn">Open Resource</a>
+        </section>
+      </div>
+    </section>
+
+    <section class="resources-section" style="margin-bottom:32px;">
+      <h2 class="section-main-title">Guided Meditation & Breathing</h2>
+      <div class="resources-grid">
+        <section class="card resource-item-card">
+          <div>
+            <div class="resource-icon-wrapper color-stress">🧘</div>
+            <h3 class="resource-card-title">Guided Meditations</h3>
+            <p class="resource-card-desc">Always-current search results for guided meditation sessions.</p>
+          </div>
+          <a href="https://www.youtube.com/results?search_query=guided+meditation" target="_blank" class="btn btn-primary full-width-sm-btn">Watch</a>
+        </section>
+        <section class="card resource-item-card">
+          <div>
+            <div class="resource-icon-wrapper color-anxiety">🌬️</div>
+            <h3 class="resource-card-title">Breathing Exercises</h3>
+            <p class="resource-card-desc">Follow-along breathing videos for calming the nervous system.</p>
+          </div>
+          <a href="https://www.youtube.com/results?search_query=breathing+exercise+for+anxiety" target="_blank" class="btn btn-primary full-width-sm-btn">Watch</a>
+        </section>
+        <section class="card resource-item-card">
+          <div>
+            <div class="resource-icon-wrapper color-sleep">🎧</div>
+            <h3 class="resource-card-title">Headspace on Spotify</h3>
+            <p class="resource-card-desc">Meditation and sleep audio you can stream directly.</p>
+          </div>
+          <a href="https://open.spotify.com/search/headspace%20meditation" target="_blank" class="btn btn-primary full-width-sm-btn">Listen</a>
+        </section>
+      </div>
+    </section>
+
+    <section class="resources-section" style="margin-bottom:32px;">
+      <h2 class="section-main-title">Relaxation Audio</h2>
+      <div class="resources-grid">
+        <section class="card resource-item-card">
+          <div><div class="resource-icon-wrapper color-stress">🌧️</div><h3 class="resource-card-title">Rain Sounds</h3><p class="resource-card-desc">Ambient rain for focus, sleep, or calm.</p></div>
+          <a href="https://www.youtube.com/results?search_query=rain+sounds+for+sleeping" target="_blank" class="btn btn-primary full-width-sm-btn">Listen</a>
+        </section>
+        <section class="card resource-item-card">
+          <div><div class="resource-icon-wrapper color-anxiety">🌊</div><h3 class="resource-card-title">Ocean Waves</h3><p class="resource-card-desc">Steady wave sounds for deep relaxation.</p></div>
+          <a href="https://www.youtube.com/results?search_query=ocean+waves+relaxing+sounds" target="_blank" class="btn btn-primary full-width-sm-btn">Listen</a>
+        </section>
+        <section class="card resource-item-card">
+          <div><div class="resource-icon-wrapper color-sleep">🎹</div><h3 class="resource-card-title">Calm Piano</h3><p class="resource-card-desc">Soft instrumental piano for unwinding.</p></div>
+          <a href="https://www.youtube.com/results?search_query=calm+piano+music" target="_blank" class="btn btn-primary full-width-sm-btn">Listen</a>
+        </section>
+        <section class="card resource-item-card">
+          <div><div class="resource-icon-wrapper color-stress">🎧</div><h3 class="resource-card-title">Calm Playlist on Spotify</h3><p class="resource-card-desc">Curated relaxation playlists, ready to stream.</p></div>
+          <a href="https://open.spotify.com/search/relaxing%20calm%20music" target="_blank" class="btn btn-primary full-width-sm-btn">Listen</a>
+        </section>
+      </div>
+    </section>
+
+    <section class="resources-section" style="margin-bottom:32px;">
+      <h2 class="section-main-title">Motivational Videos</h2>
+      <div class="resources-grid">
+        <section class="card resource-item-card">
+          <div><div class="resource-icon-wrapper color-stress">●</div><h3 class="resource-card-title">TED Talks</h3><p class="resource-card-desc">Ideas worth spreading, on mental health and beyond.</p></div>
+          <a href="https://www.youtube.com/@TED" target="_blank" class="btn btn-primary full-width-sm-btn">Watch</a>
+        </section>
+        <section class="card resource-item-card">
+          <div><div class="resource-icon-wrapper color-anxiety">🧠</div><h3 class="resource-card-title">HealthyGamerGG</h3><p class="resource-card-desc">Psychiatrist-led videos on mental wellness.</p></div>
+          <a href="https://www.youtube.com/@HealthyGamerGG" target="_blank" class="btn btn-primary full-width-sm-btn">Watch</a>
+        </section>
+        <section class="card resource-item-card">
+          <div><div class="resource-icon-wrapper color-sleep">🌱</div><h3 class="resource-card-title">Jay Shetty</h3><p class="resource-card-desc">Mindset and purpose-driven storytelling.</p></div>
+          <a href="https://www.youtube.com/@JayShettyPodcast" target="_blank" class="btn btn-primary full-width-sm-btn">Watch</a>
+        </section>
+      </div>
+    </section>
+
+    <section class="resources-section" style="margin-bottom:32px;">
+      <h2 class="section-main-title">Books</h2>
+      <div class="resources-grid">
+        <section class="card resource-item-card">
+          <div><div class="resource-icon-wrapper color-stress">📖</div><h3 class="resource-card-title">The Body Keeps the Score</h3><p class="resource-card-desc">Bessel van der Kolk on trauma and healing.</p></div>
+          <a href="https://www.goodreads.com/book/show/18693771-the-body-keeps-the-score" target="_blank" class="btn btn-primary full-width-sm-btn">View on Goodreads</a>
+        </section>
+        <section class="card resource-item-card">
+          <div><div class="resource-icon-wrapper color-anxiety">📖</div><h3 class="resource-card-title">Feeling Good</h3><p class="resource-card-desc">David Burns' classic on cognitive behavioral techniques.</p></div>
+          <a href="https://www.goodreads.com/book/show/46674.Feeling_Good" target="_blank" class="btn btn-primary full-width-sm-btn">View on Goodreads</a>
+        </section>
+        <section class="card resource-item-card">
+          <div><div class="resource-icon-wrapper color-sleep">📖</div><h3 class="resource-card-title">The Anxiety and Phobia Workbook</h3><p class="resource-card-desc">A practical, exercise-based workbook.</p></div>
+          <a href="https://www.goodreads.com/book/show/68404.The_Anxiety_and_Phobia_Workbook" target="_blank" class="btn btn-primary full-width-sm-btn">View on Goodreads</a>
+        </section>
+      </div>
+    </section>
+
+    <a href="javascript:void(0)" onclick="showView(\'dashboard\')" class="btn btn-secondary back-link">← Back to Dashboard</a>
+  </div>
+</section>
+<section class="view" id="view-profile">
+<div class="simple-page-wrap">
+    <div class="simple-page-header" style="display:flex; align-items:center; gap:16px;">
+      <div class="profile-avatar" style="width:64px;height:64px;font-size:1.3rem;">SH</div>
+      <div>
+        <h1 class="welcome-title" style="font-size:1.5rem;">Suyash H.</h1>
+        <p style="margin:2px 0 0;">Member of Project HOPE</p>
+      </div>
+    </div>
+
+    <section class="card" style="margin-top:12px;">
+      <h2 class="card-title" style="margin-bottom:8px;">Account Information</h2>
+      <div class="info-row"><span>Full Name</span><span>Suyash H.</span></div>
+      <div class="info-row"><span>Email</span><span>suyash.h@example.com</span></div>
+      <div class="info-row"><span>Member Since</span><span id="profile-member-since">—</span></div>
+      <div class="info-row"><span>Account Type</span><span>Free</span></div>
+    </section>
+
+    <section class="card" style="margin-top:20px;">
+      <h2 class="card-title" style="margin-bottom:8px;">Profile Summary</h2>
+      <p style="color:var(--text-muted); font-size:0.92rem;" id="profile-summary-text">
+        Loading your journey summary…
+      </p>
+    </section>
+
+    <a href="javascript:void(0)" onclick="showView(\'dashboard\')" class="btn btn-secondary back-link">← Back to Dashboard</a>
+  </div>
+</section>
+<section class="view" id="view-settings">
+<div class="simple-page-wrap">
+    <div class="simple-page-header">
+      <h1 class="welcome-title" style="font-size:1.5rem;">Settings</h1>
+      <p>Basic preferences for your Project HOPE experience.</p>
+    </div>
+
+    <section class="card">
+      <div class="settings-row">
+        <div>
+          <div class="settings-row-label">Ambient Sound</div>
+          <div class="settings-row-desc">Enable the floating ambient sound player on your dashboard.</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="setting-sound" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="settings-row">
+        <div>
+          <div class="settings-row-label">Notifications</div>
+          <div class="settings-row-desc">Receive gentle reminders to check in and journal.</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="setting-notifications" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="settings-row">
+        <div>
+          <div class="settings-row-label">Dark Appearance</div>
+          <div class="settings-row-desc">Switch the dashboard to a darker, low-light theme.</div>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="setting-dark">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </section>
+
+    <p id="settings-saved-note" style="color:var(--sage-dark); font-size:0.85rem; margin-top:14px; min-height:1.2em;"></p>
+
+    <a href="javascript:void(0)" onclick="showView(\'dashboard\')" class="btn btn-secondary back-link">← Back to Dashboard</a>
+  </div>
+</section>
+<section class="view" id="view-chat">
+<div class="chat-shell">
+    <h1 class="welcome-title" style="font-size:1.4rem; margin-bottom:4px;">💬 HOPE AI Companion</h1>
+    <p style="color:var(--text-muted); margin-bottom:18px;">A space to think out loud. Not a replacement for professional care.</p>
+
+    <div class="chat-window">
+      <div class="chat-log" id="chat-log">
+        <div class="chat-bubble bot">Hi Suyash, I'm glad you're here. What's on your mind today?</div>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" id="chat-input" placeholder="Type a message...">
+        <button class="btn btn-primary" onclick="sendChatMessage()">Send</button>
+      </div>
+    </div>
+    <p class="chat-disclaimer">HOPE AI offers supportive, scripted responses and is not a licensed therapist. For urgent concerns, use the Emergency Help button on your dashboard.</p>
+  </div>
+</section>
+
   </main>
 
-  <script src="js/dashboard.js"></script>
+  <script>
+/* ===========================================================
+   Project HOPE — Dashboard Logic
+   =========================================================== */
+
+/* ---------------- Storage helpers ---------------- */
+const HOPE_KEYS = {
+  mood: 'hopeMoodLog',
+  journal: 'hopeJournalEntries',
+  quoteFavs: 'hopeFavoriteQuotes',
+  settings: 'hopeSettings'
+};
+
+function hopeLoad(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch (e) { return fallback; }
+}
+function hopeSave(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { /* storage unavailable */ }
+}
+
+/* ---------------- Toast notifications ---------------- */
+function showToast(message) {
+  const center = document.getElementById('toast-notification-center');
+  if (!center) return;
+  const item = document.createElement('div');
+  item.className = 'toast-item';
+  item.textContent = message;
+  center.appendChild(item);
+  setTimeout(() => item.remove(), 3200);
+}
+
+function triggerNotificationToast() {
+  const messages = [
+    "You haven't logged today's mood yet — takes 5 seconds.",
+    "Reminder: your evening journal entry is waiting.",
+    "New calming resource added to your library.",
+    "You're doing better than you think. Keep going."
+  ];
+  showToast(messages[Math.floor(Math.random() * messages.length)]);
+  const badge = document.getElementById('nav-badge-node');
+  if (badge) badge.classList.remove('show');
+}
+// Simulate an occasional notification badge
+setTimeout(() => {
+  const badge = document.getElementById('nav-badge-node');
+  if (badge) badge.classList.add('show');
+}, 4000);
+
+/* ---------------- Modal helper ---------------- */
+function openSystemModal(title, html) {
+  const modal = document.getElementById('system-sandbox-modal');
+  document.getElementById('modal-system-title').textContent = title;
+  document.getElementById('modal-system-body').innerHTML = html;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+}
+function dismissSystemModal() {
+  const modal = document.getElementById('system-sandbox-modal');
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+/* ---------------- Greeting / date / quotes ---------------- */
+const HOPE_QUOTES = [
+  { text: "You don't have to control your thoughts. You just have to stop letting them control you.", author: "Dan Millman" },
+  { text: "This too shall pass.", author: "Persian Proverb" },
+  { text: "Healing is not linear, and that's okay.", author: "Project HOPE" },
+  { text: "You are allowed to be both a masterpiece and a work in progress.", author: "Sophia Bush" },
+  { text: "Rest is not a reward for finishing. It is a requirement for continuing.", author: "Project HOPE" },
+  { text: "Small steps every day add up to big changes.", author: "Project HOPE" },
+  { text: "Your feelings are valid, even the uncomfortable ones.", author: "Project HOPE" },
+  { text: "Progress, not perfection.", author: "Anonymous" }
+];
+let activeQuoteIndex = 0;
+
+function setGreetingAndDate() {
+  const hour = new Date().getHours();
+  const greetingEl = document.getElementById('time-greeting');
+  if (greetingEl) {
+    greetingEl.textContent = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+  }
+  const dateEl = document.getElementById('hero-date-display');
+  if (dateEl) {
+    dateEl.textContent = new Date().toLocaleDateString(undefined, {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+  }
+}
+
+function renderQuote(index) {
+  activeQuoteIndex = index;
+  const q = HOPE_QUOTES[index];
+  document.getElementById('daily-quote-text').textContent = `"${q.text}"`;
+  document.getElementById('daily-quote-author').textContent = `— ${q.author}`;
+  const favs = hopeLoad(HOPE_KEYS.quoteFavs, []);
+  const favBtn = document.getElementById('quote-fav-btn');
+  if (favBtn) favBtn.classList.toggle('favorited', favs.includes(q.text));
+}
+function quoteCycleNew() {
+  let next = Math.floor(Math.random() * HOPE_QUOTES.length);
+  if (next === activeQuoteIndex) next = (next + 1) % HOPE_QUOTES.length;
+  renderQuote(next);
+}
+function quoteCopyActive() {
+  const q = HOPE_QUOTES[activeQuoteIndex];
+  const text = `"${q.text}" — ${q.author}`;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => showToast('Quote copied to clipboard.'));
+  } else {
+    showToast('Copy not supported on this browser.');
+  }
+}
+function quoteFavoriteActive() {
+  const q = HOPE_QUOTES[activeQuoteIndex];
+  let favs = hopeLoad(HOPE_KEYS.quoteFavs, []);
+  if (favs.includes(q.text)) {
+    favs = favs.filter(t => t !== q.text);
+    showToast('Removed from favorites.');
+  } else {
+    favs.push(q.text);
+    showToast('Saved to favorites.');
+  }
+  hopeSave(HOPE_KEYS.quoteFavs, favs);
+  renderQuote(activeQuoteIndex);
+}
+
+/* ---------------- Mood tracker ---------------- */
+function registerMoodSelection(btn, label, emoji) {
+  document.querySelectorAll('.mood-btn').forEach(b => b.setAttribute('aria-checked', 'false'));
+  btn.setAttribute('aria-checked', 'true');
+  const log = hopeLoad(HOPE_KEYS.mood, []);
+  log.push({ label, emoji, timestamp: new Date().toISOString() });
+  hopeSave(HOPE_KEYS.mood, log);
+  const status = document.getElementById('mood-status');
+  if (status) status.textContent = `Logged "${label}" ${emoji} for today. Thank you for checking in.`;
+  renderTimelineTimeline('all');
+}
+
+/* ---------------- Journey timeline ---------------- */
+const HAPPY_MOODS = ['Happy', 'Calm'];
+const DIFFICULT_MOODS = ['Sad', 'Stressed'];
+
+function renderTimelineTimeline(filter) {
+  const viewport = document.getElementById('journey-rendering-viewport');
+  if (!viewport) return;
+  let log = hopeLoad(HOPE_KEYS.mood, []).slice().reverse();
+  if (filter === 'happy') log = log.filter(e => HAPPY_MOODS.includes(e.label));
+  if (filter === 'difficult') log = log.filter(e => DIFFICULT_MOODS.includes(e.label));
+
+  document.querySelectorAll('.journey-timeline-card .filter-buttons-row .btn').forEach(b => b.classList.remove('btn-primary'));
+  document.querySelectorAll('.journey-timeline-card .filter-buttons-row .btn').forEach(b => b.classList.add('btn-secondary'));
+  const map = { all: 0, happy: 1, difficult: 2 };
+  const targetBtn = document.querySelectorAll('.journey-timeline-card .filter-buttons-row .btn')[map[filter]];
+  if (targetBtn) { targetBtn.classList.remove('btn-secondary'); targetBtn.classList.add('btn-primary'); }
+
+  if (!log.length) {
+    viewport.innerHTML = '<p class="journey-empty">No entries yet for this view. Log a mood above to start your timeline.</p>';
+    return;
+  }
+  viewport.innerHTML = log.map(e => `
+    <div class="journey-entry-row">
+      <span class="je-emoji">${e.emoji}</span>
+      <span>${e.label}</span>
+      <span class="je-date">${new Date(e.timestamp).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</span>
+    </div>`).join('');
+}
+function purgeTimelineLogs() {
+  if (!confirm('Delete all mood timeline entries? This cannot be undone.')) return;
+  hopeSave(HOPE_KEYS.mood, []);
+  renderTimelineTimeline('all');
+  showToast('Mood log cleared.');
+}
+
+/* ---------------- Breathing exercises (core + recovery) ---------------- */
+const BREATH_PATTERNS = {
+  'Box Breathing': [{ label: 'Inhale', seconds: 4 }, { label: 'Hold', seconds: 4 }, { label: 'Exhale', seconds: 4 }, { label: 'Hold', seconds: 4 }],
+  '4-7-8': [{ label: 'Inhale', seconds: 4 }, { label: 'Hold', seconds: 7 }, { label: 'Exhale', seconds: 8 }],
+  'Calm Mode': [{ label: 'Inhale', seconds: 5 }, { label: 'Exhale', seconds: 5 }]
+};
+
+function makeBreathingController(circleId, textId) {
+  let pattern = BREATH_PATTERNS['Box Breathing'];
+  let stepIndex = 0;
+  let timer = null;
+  const circle = () => document.getElementById(circleId);
+  const text = () => document.getElementById(textId);
+
+  function runStep() {
+    const step = pattern[stepIndex];
+    const el = circle(), t = text();
+    if (t) t.textContent = `${step.label}…`;
+    if (el) {
+      if (step.label === 'Inhale') { el.style.width = '100%'; el.style.height = '100%'; el.style.background = 'var(--sage-dark)'; }
+      else if (step.label === 'Exhale') { el.style.width = '38%'; el.style.height = '38%'; el.style.background = 'var(--sage)'; }
+      // Hold keeps current size
+    }
+    timer = setTimeout(() => {
+      stepIndex = (stepIndex + 1) % pattern.length;
+      runStep();
+    }, step.seconds * 1000);
+  }
+  return {
+    setPattern(name) { pattern = BREATH_PATTERNS[name] || BREATH_PATTERNS['Box Breathing']; stepIndex = 0; },
+    start() { this.stop(); runStep(); },
+    stop() { clearTimeout(timer); const t = text(); if (t) t.textContent = 'Paused'; },
+    restart() { this.stop(); stepIndex = 0; this.start(); }
+  };
+}
+
+const coreBreathing = makeBreathingController('breathing-circle', 'breathing-text');
+const recoveryBreathing = makeBreathingController('recovery-breath-circle', 'recovery-breath-text');
+
+function selectBreathingPattern(name) {
+  coreBreathing.setPattern(name);
+  document.querySelectorAll('.cadence-button-row .btn').forEach(b => b.classList.remove('active-cadence-btn'));
+  const idMap = { 'Box Breathing': 'cadence-box', '4-7-8': 'cadence-478', 'Calm Mode': 'cadence-calm' };
+  const target = document.getElementById(idMap[name]);
+  if (target) target.classList.add('active-cadence-btn');
+  document.getElementById('breathing-text').textContent = `${name} selected — press Start`;
+}
+function startCoreBreathing() { coreBreathing.start(); }
+function pauseCoreBreathing() { coreBreathing.stop(); }
+function restartCoreBreathing() { coreBreathing.restart(); }
+
+function startRecoveryBreathing() { recoveryBreathing.setPattern('4-7-8'); recoveryBreathing.start(); }
+function stopRecoveryBreathing() { recoveryBreathing.stop(); }
+
+/* ---------------- Recovery mode ---------------- */
+function toggleRecoveryMode(show) {
+  const overlay = document.getElementById('recovery-mode-overlay');
+  if (!overlay) return;
+  if (show) {
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    const log = hopeLoad(HOPE_KEYS.mood, []);
+    const last = log[log.length - 1];
+    const msgEl = document.getElementById('recovery-calm-msg');
+    if (msgEl) {
+      msgEl.textContent = last && DIFFICULT_MOODS.includes(last.label)
+        ? "It looks like today has been heavy. You reached out, and that matters. Let's slow things down together — try the breathing exercise or just stay here for a minute."
+        : "You're safe here. Whatever brought you to this space, it's okay to pause. Try a slow breath, read the affirmation, or talk it through below.";
+    }
+    const affEl = document.getElementById('recovery-affirmation-text');
+    if (affEl) {
+      const picks = [
+        '"This wave is temporary. My capacity to process this intensity is intact."',
+        '"I am allowed to take up space and ask for support."',
+        '"One breath at a time is enough right now."'
+      ];
+      affEl.textContent = picks[Math.floor(Math.random() * picks.length)];
+    }
+  } else {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    recoveryBreathing.stop();
+  }
+}
+
+/* Lightweight supportive reply generator — NOT a clinician, NOT a real-time
+   AI backend. Provides gentle, validating scripted responses and always
+   points to real crisis resources for higher-risk language. */
+const CRISIS_TERMS = ['suicide', 'kill myself', 'end my life', 'self harm', 'self-harm', 'hurt myself', 'want to die', "can't go on"];
+function recoveryBotReply(userText) {
+  const lower = userText.toLowerCase();
+  if (CRISIS_TERMS.some(term => lower.includes(term))) {
+    return "I'm really glad you told me. I can't provide emergency care myself, but you deserve real, immediate support right now — please reach out to a crisis line: <a href=\"https://findahelpline.com/\" target=\"_blank\">findahelpline.com</a> or <a href=\"https://988lifeline.org/\" target=\"_blank\">988lifeline.org</a>. You don't have to carry this alone.";
+  }
+  const templates = [
+    "That sounds really hard. Thank you for putting it into words — I'm listening.",
+    "It makes sense that you'd feel that way given what you're describing. What would feel even slightly comforting right now?",
+    "You're not overreacting. Your feelings are valid. Would a short breathing exercise help, or do you just want to keep talking?",
+    "I hear you. Let's slow down together for a moment — you're not alone in this."
+  ];
+  return templates[Math.floor(Math.random() * templates.length)];
+}
+function submitRecoveryChat() {
+  const input = document.getElementById('recovery-chat-input');
+  const log = document.getElementById('recovery-chat-log');
+  const text = input.value.trim();
+  if (!text) return;
+  const userP = document.createElement('p');
+  userP.innerHTML = `<strong>You:</strong> ${text.replace(/</g, '&lt;')}`;
+  log.appendChild(userP);
+  input.value = '';
+  log.scrollTop = log.scrollHeight;
+  setTimeout(() => {
+    const botP = document.createElement('p');
+    botP.style.color = '#666';
+    botP.innerHTML = `✨ <strong>HOPE AI:</strong> ${recoveryBotReply(text)}`;
+    log.appendChild(botP);
+    log.scrollTop = log.scrollHeight;
+  }, 500);
+}
+
+/* ---------------- Comfort kit ---------------- */
+const COMFORT_CONTENT = {
+  breathing: {
+    title: '🌬️ Breathing Exercise',
+    html: `<p>Let's do a simple round of box breathing together:</p>
+      <ul><li>Inhale gently for 4 seconds</li><li>Hold for 4 seconds</li><li>Exhale for 4 seconds</li><li>Hold for 4 seconds</li></ul>
+      <p>Repeat 4–6 times. You can also open the Mindful Breathing card below and press Start to follow along visually.</p>`
+  },
+  grounding: {
+    title: '🧘 5-4-3-2-1 Grounding',
+    html: `<p>Bring yourself back to the present moment. Notice:</p>
+      <ul><li><strong>5</strong> things you can see</li><li><strong>4</strong> things you can touch</li><li><strong>3</strong> things you can hear</li><li><strong>2</strong> things you can smell</li><li><strong>1</strong> thing you can taste</li></ul>`
+  },
+  affirmations: {
+    title: '💡 Positive Affirmation',
+    html: `<p style="font-style:italic;">"${['I am doing the best I can with what I have today.','My feelings are valid and temporary.','I am worthy of rest and care.','I get to grow at my own pace.'][Math.floor(Math.random()*4)]}"</p>`
+  },
+  gratitude: {
+    title: '✍️ Gratitude Prompt',
+    html: `<p>Take a moment to write down three things, big or small, that you're grateful for today. They can be as simple as a warm drink or a kind message from a friend.</p>
+      <p>Add them to your journal below under "Three things you appreciate today."</p>`
+  },
+  stretch: {
+    title: '🤸 Stretch Reminder',
+    html: `<p>You've been focused for a while — your body could use a reset:</p>
+      <ul><li>Roll your shoulders back 5 times</li><li>Reach both arms overhead and lean gently side to side</li><li>Stand and shake out your hands and legs for 10 seconds</li></ul>`
+  },
+  tips: {
+    title: '🌿 Calming Health Tips',
+    html: `<ul><li>Drink a glass of water — dehydration can amplify anxious feelings.</li>
+      <li>Step outside or near a window for natural light for a few minutes.</li>
+      <li>Keep a consistent sleep and wake time, even on hard days.</li>
+      <li>Limit doom-scrolling; set a soft time limit on news or social apps.</li></ul>`
+  }
+};
+function executeComfortAction(key) {
+  const item = COMFORT_CONTENT[key];
+  if (!item) return;
+  openSystemModal(item.title, item.html);
+}
+
+/* ---------------- Journal ---------------- */
+function collectJournalFields() {
+  return {
+    mood: document.getElementById('j-mood').value,
+    energy: document.getElementById('j-energy').value,
+    stress: document.getElementById('j-stress').value,
+    sleep: document.getElementById('j-sleep').value,
+    happened: document.getElementById('j-happened').value.trim(),
+    challenged: document.getElementById('j-challenged').value.trim(),
+    smile: document.getElementById('j-smile').value.trim(),
+    gratitude: document.getElementById('j-gratitude').value.trim(),
+    goal: document.getElementById('j-goal').value.trim(),
+    timestamp: new Date().toISOString()
+  };
+}
+function clearJournalFields() {
+  ['j-happened','j-challenged','j-smile','j-gratitude','j-goal'].forEach(id => document.getElementById(id).value = '');
+}
+function journalSaveDataEntry() {
+  const entry = collectJournalFields();
+  if (!entry.happened && !entry.challenged && !entry.smile && !entry.gratitude) {
+    showToast('Add a little detail before saving — even one field is fine.');
+    return;
+  }
+  const entries = hopeLoad(HOPE_KEYS.journal, []);
+  entries.push(entry);
+  hopeSave(HOPE_KEYS.journal, entries);
+  const status = document.getElementById('journal-saved-status');
+  if (status) { status.textContent = 'Entry saved just now'; }
+  clearJournalFields();
+  showToast('Journal entry saved.');
+}
+function renderJournalList(entries) {
+  if (!entries.length) return '<p class="journey-empty">No journal entries yet.</p>';
+  return entries.slice().reverse().map(e => `
+    <div class="journey-entry-row" style="flex-direction:column; align-items:flex-start; gap:4px;">
+      <strong>${new Date(e.timestamp).toLocaleString(undefined,{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})} — ${e.mood}</strong>
+      ${e.happened ? `<div><em>Happened:</em> ${e.happened}</div>` : ''}
+      ${e.challenged ? `<div><em>Challenged me:</em> ${e.challenged}</div>` : ''}
+      ${e.smile ? `<div><em>Made me smile:</em> ${e.smile}</div>` : ''}
+      ${e.gratitude ? `<div><em>Grateful for:</em> ${e.gratitude}</div>` : ''}
+      ${e.goal ? `<div><em>Tomorrow's goal:</em> ${e.goal}</div>` : ''}
+    </div>`).join('');
+}
+function journalViewPreviousRecords() {
+  const entries = hopeLoad(HOPE_KEYS.journal, []);
+  openSystemModal('📔 Previous Journal Entries', renderJournalList(entries));
+}
+function journalToggleSearchSystem() {
+  const drawer = document.getElementById('journal-search-drawer');
+  drawer.classList.toggle('open');
+  if (drawer.classList.contains('open')) {
+    document.getElementById('journal-query-input').focus();
+    executeJournalQueryFilter();
+  }
+}
+function executeJournalQueryFilter() {
+  const query = document.getElementById('journal-query-input').value.toLowerCase();
+  const entries = hopeLoad(HOPE_KEYS.journal, []);
+  const filtered = entries.filter(e =>
+    [e.happened, e.challenged, e.smile, e.gratitude, e.goal, e.mood].join(' ').toLowerCase().includes(query)
+  );
+  document.getElementById('journal-query-results').innerHTML = renderJournalList(filtered);
+}
+function journalPurgeLatestRecord() {
+  const entries = hopeLoad(HOPE_KEYS.journal, []);
+  if (!entries.length) { showToast('No entries to delete.'); return; }
+  if (!confirm('Delete your most recent journal entry?')) return;
+  entries.pop();
+  hopeSave(HOPE_KEYS.journal, entries);
+  showToast('Most recent entry deleted.');
+}
+function journalTriggerDataExport() {
+  const entries = hopeLoad(HOPE_KEYS.journal, []);
+  const blob = new Blob([JSON.stringify(entries, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `project-hope-journal-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  showToast('Journal exported.');
+}
+
+/* ---------------- External / audio links ---------------- */
+function launchAudioPipeline(url) {
+  window.open(url, '_blank', 'noopener');
+}
+
+/* ---------------- Ambient sound widget (self-contained WebAudio synth) ----------------
+   Generates real, always-working ambient sound in-browser instead of relying
+   on an external file or video link that could ever go down. */
+let ambientCtx = null;
+let ambientNodes = [];
+let ambientTrack = 'rain';
+let ambientMuted = false;
+let ambientGain = null;
+
+function ensureAmbientContext() {
+  if (!ambientCtx) {
+    ambientCtx = new (window.AudioContext || window.webkitAudioContext)();
+    ambientGain = ambientCtx.createGain();
+    ambientGain.gain.value = 0.18;
+    ambientGain.connect(ambientCtx.destination);
+  }
+  return ambientCtx;
+}
+function stopAmbientNodes() {
+  ambientNodes.forEach(n => { try { n.stop(); } catch (e) {} try { n.disconnect(); } catch (e) {} });
+  ambientNodes = [];
+}
+function makeNoiseBuffer(ctx) {
+  const bufferSize = 2 * ctx.sampleRate;
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+  return buffer;
+}
+function buildAmbientGraph(track) {
+  const ctx = ensureAmbientContext();
+  stopAmbientNodes();
+
+  if (track === 'piano') {
+    // Soft ambient pad using slow detuned oscillators
+    const freqs = [220, 277.18, 329.63];
+    freqs.forEach((f, i) => {
+      const osc = ctx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.value = f;
+      const g = ctx.createGain();
+      g.gain.value = 0.05;
+      osc.connect(g).connect(ambientGain);
+      osc.start();
+      ambientNodes.push(osc);
+    });
+    return;
+  }
+
+  // rain / ocean / forest are all filtered noise with different characters
+  const noise = ctx.createBufferSource();
+  noise.buffer = makeNoiseBuffer(ctx);
+  noise.loop = true;
+  const filter = ctx.createBiquadFilter();
+  if (track === 'rain') { filter.type = 'highpass'; filter.frequency.value = 1200; }
+  else if (track === 'ocean') { filter.type = 'lowpass'; filter.frequency.value = 500; }
+  else { filter.type = 'bandpass'; filter.frequency.value = 800; filter.Q.value = 0.6; } // forest
+
+  noise.connect(filter).connect(ambientGain);
+  noise.start();
+  ambientNodes.push(noise);
+
+  if (track === 'ocean') {
+    // slow amplitude modulation for a wave-like swell
+    const lfo = ctx.createOscillator();
+    lfo.frequency.value = 0.12;
+    const lfoGain = ctx.createGain();
+    lfoGain.gain.value = 0.09;
+    lfo.connect(lfoGain).connect(ambientGain.gain);
+    lfo.start();
+    ambientNodes.push(lfo);
+  }
+}
+function toggleAmbientMenuDrawer() {
+  document.getElementById('sound-menu-drawer').classList.toggle('open');
+}
+function selectAmbientTrack(track) {
+  ambientTrack = track;
+  document.querySelectorAll('.track-selection-chip').forEach(c => c.classList.remove('active-track'));
+  document.getElementById(`track-${track}`).classList.add('active-track');
+  if (ambientNodes.length) buildAmbientGraph(track); // if already playing, switch live
+}
+function playAmbientAudio() {
+  const ctx = ensureAmbientContext();
+  if (ctx.state === 'suspended') ctx.resume();
+  buildAmbientGraph(ambientTrack);
+  showToast(`Playing ${ambientTrack} ambience.`);
+}
+function pauseAmbientAudio() {
+  stopAmbientNodes();
+}
+function toggleMuteAmbientAudio() {
+  ambientMuted = !ambientMuted;
+  if (ambientGain) ambientGain.gain.value = ambientMuted ? 0 : 0.18;
+  const btn = document.getElementById('btn-sound-mute');
+  if (btn) btn.textContent = ambientMuted ? '🔇 Unmute' : '🔊 Mute';
+}
+
+/* ---------------- Init ---------------- */
+document.addEventListener('DOMContentLoaded', () => {
+  setGreetingAndDate();
+  renderQuote(Math.floor(Math.random() * HOPE_QUOTES.length));
+  renderTimelineTimeline('all');
+
+  // Close modal / recovery mode with Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      dismissSystemModal();
+    }
+  });
+
+  // Close ambient drawer when clicking outside
+  document.addEventListener('click', (e) => {
+    const widget = document.getElementById('ambient-sound-panel');
+    const drawer = document.getElementById('sound-menu-drawer');
+    if (widget && drawer && !widget.contains(e.target)) drawer.classList.remove('open');
+  });
+
+  // Enter key sends recovery chat
+  const recInput = document.getElementById('recovery-chat-input');
+  if (recInput) {
+    recInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitRecoveryChat(); });
+  }
+});
+
+
+/* ---- Profile page script (merged) ---- */
+
+    document.getElementById('profile-member-since').textContent =
+      new Date().toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+
+    (function () {
+      let moodCount = 0, journalCount = 0;
+      try { moodCount = (JSON.parse(localStorage.getItem('hopeMoodLog') || '[]')).length; } catch (e) {}
+      try { journalCount = (JSON.parse(localStorage.getItem('hopeJournalEntries') || '[]')).length; } catch (e) {}
+      document.getElementById('profile-summary-text').textContent =
+        `You've logged ${moodCount} mood check-in${moodCount === 1 ? '' : 's'} and written ${journalCount} journal entr${journalCount === 1 ? 'y' : 'ies'} so far. Every entry helps build a clearer picture of your wellbeing over time.`;
+    })();
+  
+
+/* ---- Settings page script (merged) ---- */
+
+    const DEFAULTS = { sound: true, notifications: true, dark: false };
+    function loadSettings() {
+      try { return { ...DEFAULTS, ...JSON.parse(localStorage.getItem('hopeSettings') || '{}') }; }
+      catch (e) { return DEFAULTS; }
+    }
+    function saveSettings(s) {
+      localStorage.setItem('hopeSettings', JSON.stringify(s));
+      const note = document.getElementById('settings-saved-note');
+      note.textContent = 'Preferences saved.';
+      setTimeout(() => { note.textContent = ''; }, 2000);
+    }
+    const settings = loadSettings();
+    document.getElementById('setting-sound').checked = settings.sound;
+    document.getElementById('setting-notifications').checked = settings.notifications;
+    document.getElementById('setting-dark').checked = settings.dark;
+    if (settings.dark) document.documentElement.style.filter = 'invert(1) hue-rotate(180deg)';
+
+    ['sound','notifications','dark'].forEach(key => {
+      document.getElementById(`setting-${key}`).addEventListener('change', (e) => {
+        const s = loadSettings();
+        s[key] = e.target.checked;
+        saveSettings(s);
+        if (key === 'dark') {
+          document.documentElement.style.filter = s.dark ? 'invert(1) hue-rotate(180deg)' : '';
+        }
+      });
+    });
+  
+
+/* ---- Chat page script (merged) ---- */
+
+    function appendBubble(text, who) {
+      const log = document.getElementById('chat-log');
+      const bubble = document.createElement('div');
+      bubble.className = `chat-bubble ${who}`;
+      if (who === 'bot') { bubble.innerHTML = text; } else { bubble.textContent = text; }
+      log.appendChild(bubble);
+      log.scrollTop = log.scrollHeight;
+    }
+    function sendChatMessage() {
+      const input = document.getElementById('chat-input');
+      const text = input.value.trim();
+      if (!text) return;
+      appendBubble(text, 'user');
+      input.value = '';
+      setTimeout(() => {
+        appendBubble(recoveryBotReply(text), 'bot');
+      }, 500);
+    }
+    document.getElementById('chat-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') sendChatMessage();
+    });
+  
+
+/* ---- View switcher for single-file app ---- */
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  const target = document.getElementById('view-' + name);
+  if (target) target.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.nav-item[data-view="' + name + '"]').forEach(n => n.classList.add('active'));
+  window.scrollTo(0, 0);
+}
+
+  </script>
 </body>
 </html>
