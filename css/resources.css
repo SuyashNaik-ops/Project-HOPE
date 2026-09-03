@@ -1,0 +1,290 @@
+/* --- High-Performance Performance Layout Variables Matrix --- */
+:root {
+  --hope-cream: #FFFDF8;
+  --hope-sage: #8DB596;
+  --hope-sage-hover: #7aa183;
+  --hope-secondary: rgba(246, 241, 233, 0.5);
+  --hope-blue: #A7C7E7;
+  --hope-peach: #F6C28B;
+  --hope-text: #2D2D2D;
+  --hope-card: rgba(255, 255, 255, 0.75);
+  --hope-border: rgba(255, 255, 255, 0.6);
+  --radius-premium: 20px;
+  --radius-inner: 14px;
+  --shadow-warm: 0 8px 24px -4px rgba(141, 181, 150, 0.12), 0 2px 8px -1px rgba(0, 0, 0, 0.03);
+  --transition-fast: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* --- Fixed Backdrop Framework Assignment --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--hope-cream);
+  color: var(--hope-text);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=70'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.background-overlay-dark {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(28, 30, 32, 0.45) 0%, rgba(18, 20, 22, 0.55) 100%);
+  z-index: -3;
+  pointer-events: none;
+}
+
+/* --- Navigation Architecture Layout --- */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--hope-border);
+  padding: 14px 0;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-link { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-text { font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--hope-text); letter-spacing: -0.5px; }
+.logo-highlight { color: var(--hope-sage); }
+.logo-icon { font-size: 1.4rem; }
+.nav-center { display: flex; gap: 4px; }
+
+.nav-item {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--hope-text);
+  opacity: 0.75;
+  text-decoration: none;
+  padding: 8px 18px;
+  border-radius: 40px;
+  transition: var(--transition-fast);
+  cursor: pointer;
+}
+
+.nav-item:hover, .nav-item.active { opacity: 1; background-color: var(--hope-secondary); }
+
+/* --- Base Structural UI Grid Core Elements --- */
+.resources-grid {
+  max-width: 1200px;
+  margin: 40px auto 80px auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.resources-section-node {
+  display: flex;
+  flex-direction: column;
+}
+
+.section-main-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: white;
+  letter-spacing: -0.4px;
+}
+
+/* --- Premium Unified Glassmorphism Cards --- */
+.card {
+  background: var(--hope-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--radius-premium);
+  padding: 24px;
+  box-shadow: var(--shadow-warm);
+  border: 1px solid var(--hope-border);
+  transition: var(--transition-fast);
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px -6px rgba(141, 181, 150, 0.22);
+}
+
+/* --- Interactive Multi-Column Matrix Systems --- */
+.cards-layout-grid-columns {
+  display: grid;
+  gap: 24px;
+}
+
+.column-3 { grid-template-columns: repeat(3, 1fr); }
+.column-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 1024px) {
+  .column-3, .column-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .column-3, .column-4 { grid-template-columns: 1fr; }
+}
+
+/* --- Card Sub-Layout Framework Specifications --- */
+.flex-column-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-media-frame {
+  width: 100%;
+  height: 150px;
+  border-radius: var(--radius-inner);
+  overflow: hidden;
+  margin-bottom: 16px;
+  background-color: rgba(0,0,0,0.05);
+}
+
+.aspect-video { height: 160px; }
+
+.media-img-node {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+  transition: var(--transition-fast);
+}
+.card:hover .media-img-node { opacity: 1; }
+
+.card-meta-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.author-label-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--hope-sage);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+  margin-bottom: 8px;
+}
+
+.card-desc-text {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  opacity: 0.85;
+  margin-bottom: 20px;
+}
+
+/* Playlist and App Specific Micro-Architectures */
+.metric-flex-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.playlist-icon-node {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+}
+
+.app-branding-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.app-graphic-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: inset 0 1px 3px rgba(255,255,255,0.2);
+}
+
+.bg-calm-theme { background: #588BB3; color: white; }
+.bg-headspace-theme { background: #FF9F46; color: white; }
+.bg-insight-theme { background: #DDAA55; color: white; }
+.bg-medito-theme { background: #68856F; color: white; }
+
+.border-left-clinical {
+  border-left: 4px solid var(--hope-sage);
+}
+
+/* --- Highlighted Emergency Callout Banner --- */
+.emergency-banner-card {
+  border: 1px solid rgba(255, 43, 43, 0.25);
+  background: rgba(255, 43, 43, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+}
+
+.emergency-accent-stripe {
+  width: 4px;
+  height: 36px;
+  background-color: #FF2B2B;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.emergency-notice-text {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #FF5555;
+  line-height: 1.45;
+}
+
+/* --- Standardized Unified Buttons --- */
+.btn {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 0.92rem;
+  padding: 12px 24px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.btn-primary { background-color: var(--hope-sage); color: white; }
+.btn-primary:hover { background-color: var(--hope-sage-hover); }
+.btn-secondary { background-color: var(--hope-secondary); color: var(--hope-text); border: 1px solid var(--hope-border); }
+.btn-secondary:hover { background-color: rgba(255,255,255,0.2); }
+.btn-emergency { background-color: rgba(255, 43, 43, 0.15); color: #FF5555; font-weight: 600; border: 1px dashed #FF5555; }
+
+.text-center-btn-node { width: 100%; text-align: center; }
+.full-width-action-btn { width: 100%; margin-top: auto; font-size: 0.82rem; padding: 10px; border-radius: 20px; }

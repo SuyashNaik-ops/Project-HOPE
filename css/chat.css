@@ -634,7 +634,7 @@ button:focus-visible, a:focus-visible, textarea:focus-visible {
     grid-template-columns: 280px 1fr;
   }
   .right-sidebar {
-    display: none; /* Safely collapses contextual layout panels on smaller monitors */
+    display: none;
   }
 }
 

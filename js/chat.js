@@ -120,7 +120,7 @@ function initPremiumChatEngine() {
         if (typingIndicatorNode)
             typingIndicatorNode.classList.add('hidden');
 
-        typeWriterEffect(data.reply);
+        createChatBubbleElement(data.reply, "ai");
 
         persistMessageToLocalStorage(data.reply, "ai");
 
