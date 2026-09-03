@@ -1,19 +1,28 @@
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
+const Chat = require("./models/Chat");
+const bcrypt = require("bcrypt");
+const User = require("./models/User");
+
 require("dotenv").config();
 console.log("API Loaded:", !!process.env.GEMINI_API_KEY);
 
 const { GoogleGenAI } = require("@google/genai");
-
+const ai = new GoogleGenAI({
+  apiKey: process.env.GEMINI_API_KEY,
+});
 const app = express();
+require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"]);
+mongoose.connect(process.env.MONGODB_URI)
+.then(() => console.log("✅ MongoDB Connected"))
+.catch(err => console.error(err));
 const conversations = {};
 
 app.use(cors());
 app.use(express.json());
 
-const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-});
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -21,6 +30,97 @@ app.get("/", (req, res) => {
     res.send("Project HOPE Backend is Running 🌿");
 });
 
+app.post("/signup", async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
+
+        // Check if all fields are filled
+        if (!name || !email || !password) {
+            return res.status(400).json({
+                message: "Please fill all fields."
+            });
+        }
+
+        // Check if email already exists
+        const existingUser = await User.findOne({ email });
+
+        if (existingUser) {
+            return res.status(400).json({
+                message: "Email already exists."
+            });
+        }
+
+        // Encrypt password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create new user
+        const newUser = new User({
+            name,
+            email,
+            password: hashedPassword
+        });
+
+        // Save to MongoDB
+        await newUser.save();
+
+        res.status(201).json({
+            message: "Account created successfully!"
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            message: "Server error."
+        });
+    }
+});
+app.post("/login", async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Check fields
+        if (!email || !password) {
+            return res.status(400).json({
+                message: "Please enter email and password."
+            });
+        }
+
+        // Find user
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(400).json({
+                message: "Invalid email or password."
+            });
+        }
+
+        // Compare password
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if (!passwordMatch) {
+            return res.status(400).json({
+                message: "Invalid email or password."
+            });
+        }
+
+        res.status(200).json({
+            message: "Login successful!",
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email
+            }
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            message: "Server error."
+        });
+    }
+});
 app.post("/chat", async (req, res) => {
     try {
         const { message, userId = "default-user" } = req.body;
@@ -38,6 +138,11 @@ app.post("/chat", async (req, res) => {
     role: "user",
     text: message
 });
+await Chat.create({
+    userId,
+    role: "user",
+    text: message
+});
 
         const chatHistory = conversations[userId].map(msg => ({
     role: msg.role,
@@ -47,9 +152,10 @@ app.post("/chat", async (req, res) => {
         }
     ]
 }));
+   console.log("Using model: gemini-flash-latest");
 
-    const response = await ai.models.generateContent({
-    model: "gemini-3-flash-preview",
+const response = await ai.models.generateContent({
+    model: "gemini-flash-latest",
 
     systemInstruction: `
 You are HOPE AI, the AI companion of Project HOPE.
@@ -67,15 +173,25 @@ Rules:
 
     contents: chatHistory
 });
-        
 
-        res.json({
-            reply: response.text
-        });
+const reply =
+    response.text ||
+    response.candidates?.[0]?.content?.parts?.[0]?.text ||
+    "Sorry, I couldn't generate a response.";
 
-        conversations[userId].push({
+res.json({
+    reply
+});
+
+conversations[userId].push({
     role: "model",
-    text: response.text
+    text: reply
+});
+
+await Chat.create({
+    userId,
+    role: "model",
+    text: reply
 });
 
     } catch (error) {
