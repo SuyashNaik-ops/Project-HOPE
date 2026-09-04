@@ -154,7 +154,7 @@ await Chat.create({
    console.log("Using model: gemini-flash-latest");
 
 const response = await ai.models.generateContent({
-    model: "gemini-flash-latest",
+    model: "gemini-2.5-flash",
 
     systemInstruction: `
 You are HOPE AI, the AI companion of Project HOPE.
