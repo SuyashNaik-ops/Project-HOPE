@@ -10,7 +10,7 @@
   <style>
 /* ===========================================================
    Project HOPE — Dashboard Stylesheet
-   Calming wellness palette: sage green, deep navy,warm amber
+   Calming wellness palette: sage green, deep navy, warm amber
    =========================================================== */
 
 :root {
@@ -41,11 +41,16 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: var(--bg-cream);
+  background-color: var(--bg-cream);
   color: var(--text-dark);
   font-family: var(--font-body);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=70');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 h1, h2, h3 { font-family: var(--font-display); margin: 0; color: var(--navy); }
@@ -591,7 +596,6 @@ button {
       <nav class="nav-center" aria-label="Main Navigation">
         <a href="javascript:void(0)" onclick="showView('dashboard')" class="nav-item active" data-view="dashboard" aria-current="page">Dashboard</a>
         <a href="javascript:void(0)" onclick="showView('resources')" class="nav-item" data-view="resources">Resources</a>
-        <a href="javascript:void(0)" onclick="showView('chat')" class="nav-item" data-view="chat">Chat</a>
         <a href="javascript:void(0)" onclick="showView('profile')" class="nav-item" data-view="profile">Profile</a>
         <a href="javascript:void(0)" onclick="showView('settings')" class="nav-item" data-view="settings">Settings</a>
       </nav>
@@ -767,7 +771,7 @@ button {
         <div class="card-badge">Companion Workspace</div>
         <h2 class="card-title grid-title-large">HOPE AI</h2>
         <p class="card-description">"I'm here whenever you need someone to listen without criteria parameters."</p>
-        <a href="javascript:void(0)" onclick="showView(\'chat\')" class="btn btn-primary" aria-label="Start Conversation with HOPE AI">Start Conversation</a>
+        <a href="chat.html" class="btn btn-primary" aria-label="Start Conversation with HOPE AI">Start Conversation</a>
       </section>
 
       <section class="card breathing-card" id="breathing-card-anchor">
@@ -1159,7 +1163,7 @@ button {
       </div>
     </section>
 
-    <a href="javascript:void(0)" onclick="showView(\'dashboard\')" class="btn btn-secondary back-link">← Back to Dashboard</a>
+    <a href="javascript:void(0)" onclick="showView('dashboard')" class="btn btn-secondary back-link">← Back to Dashboard</a>
   </div>
 </section>
 <section class="view" id="view-profile">
@@ -1187,7 +1191,7 @@ button {
       </p>
     </section>
 
-    <a href="javascript:void(0)" onclick="showView(\'dashboard\')" class="btn btn-secondary back-link">← Back to Dashboard</a>
+    <a href="javascript:void(0)" onclick="showView('dashboard')" class="btn btn-secondary back-link">← Back to Dashboard</a>
   </div>
 </section>
 <section class="view" id="view-settings">
@@ -1232,7 +1236,7 @@ button {
 
     <p id="settings-saved-note" style="color:var(--sage-dark); font-size:0.85rem; margin-top:14px; min-height:1.2em;"></p>
 
-    <a href="javascript:void(0)" onclick="showView(\'dashboard\')" class="btn btn-secondary back-link">← Back to Dashboard</a>
+    <a href="javascript:void(0)" onclick="showView('dashboard')" class="btn btn-secondary back-link">← Back to Dashboard</a>
   </div>
 </section>
 <section class="view" id="view-chat">
