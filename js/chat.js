@@ -101,8 +101,7 @@ function initPremiumChatEngine() {
 
     try {
 
-        const response = await fetch("http://localhost:3000/chat", {
-
+        const response = await fetch("https://project-hope-backend.onrender.com/chat", {
             method: "POST",
 
             headers: {
