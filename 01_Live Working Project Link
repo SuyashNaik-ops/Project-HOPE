@@ -98,7 +98,7 @@ Project-Hope/
 ├── js/
 │   └── script.js
 │
-├── *.html
+├── .html
 │
 ├── server.js
 ├── package.json
