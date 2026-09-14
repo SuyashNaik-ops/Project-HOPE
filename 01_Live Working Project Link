@@ -117,7 +117,7 @@ git clone YOUR-GITHUB-REPOSITORY-URL
 cd Project-Hope
 
 
-### 2. Install dependencies
+ 2. Install dependencies
 
 ```bash
 npm install
