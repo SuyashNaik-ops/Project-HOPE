@@ -158,7 +158,7 @@ Make sure `.env` is included in `.gitignore`:
 node_modules/
 ```
 
----
+
 
 ## 🧠 AI Support
 
