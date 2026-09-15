@@ -128,9 +128,6 @@ node server.js
 
 The backend should run on:
 
-http://localhost:3000
-5. Open the frontend
-
 Open the Project HOPE frontend using your preferred local server, such as VS Code Live Server.
 
 🔐 Security
