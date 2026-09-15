@@ -131,7 +131,7 @@ Project HOPE is designed as a supportive wellness application and is not a repla
 
 Users experiencing a serious mental health crisis should contact a trusted person, qualified professional, or appropriate local emergency service.
 
-🎯 Vision
+🎯 Vision:
 
 The goal of Project HOPE is to make emotional support and wellness resources more accessible through technology while creating a simple, welcoming, and user-friendly experience.
 this project is a complete mental health wellness ecosystem
