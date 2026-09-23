@@ -160,17 +160,17 @@ node_modules/
 
 
 
-## 🧠 AI Support
+ 🧠 AI Support
 
 Project Hope uses the **Gemini API** to provide conversational responses.
 
 The AI component is designed to:
 
-* Listen to user messages
-* Provide supportive responses
-* Encourage healthy coping strategies
-* Help users explore available resources
-* Guide users toward appropriate support when needed
+ Listen to user messages
+ Provide supportive responses
+ Encourage healthy coping strategies
+ Help users explore available resources
+ Guide users toward appropriate support when needed
 
 AI responses should not be treated as professional medical or psychological advice.
 
