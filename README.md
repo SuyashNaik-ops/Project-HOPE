@@ -125,7 +125,7 @@ GitHub — source code repository
 
 The Gemini API key should be configured as a secure environment variable on the hosting platform.
 
-⚠️ Disclaimer
+⚠️ Disclaimer:
 
 Project HOPE is designed as a supportive wellness application and is not a replacement for professional mental health care, diagnosis, or emergency services.
 
