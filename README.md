@@ -37,11 +37,11 @@ Simple activities and suggestions such as breathing exercises, grounding exercis
 Frontend,
 HTML5,
 CSS3,
-JavaScript
-Backend
-Database
-MongoDB
-Mongoose
+JavaScript,
+Backend,
+Database,
+MongoDB,
+Mongoose,
 MongoDB Atlas for cloud deployment
 AI
 Google Gemini API
