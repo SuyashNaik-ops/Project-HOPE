@@ -34,9 +34,9 @@ Simple activities and suggestions such as breathing exercises, grounding exercis
 👤 User Features
 
 🛠️ Tech Stack
-Frontend
-HTML5
-CSS3
+Frontend,
+HTML5,
+CSS3,
 JavaScript
 Backend
 Database
