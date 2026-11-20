@@ -107,7 +107,7 @@ Express.js
 User login/signup and personalized sections for managing the Project HOPE experience.
 Trusted mental health websites
 
-🔐 Security
+🔐 Security:
 
 API keys and database credentials are stored in environment variables rather than directly in the source code.
 
