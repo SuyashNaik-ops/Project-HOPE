@@ -8,7 +8,7 @@ It combines an AI-powered conversational companion with mood tracking, journalin
 
 An AI-powered conversational companion integrated with the Google Gemini API to provide supportive and empathetic responses.
 
-💬 AI Chat:
+💬 AI Chat
 
 Users can interact with HOPE AI through a dedicated chat interface and maintain conversation context.
 
