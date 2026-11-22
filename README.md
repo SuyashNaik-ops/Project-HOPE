@@ -31,7 +31,7 @@ Meditation resources
 
 Simple activities and suggestions such as breathing exercises, grounding exercises, affirmations, and calming activities.
 
-👤 User Features:
+👤 User Features
 
 🛠️ Tech Stack
 Frontend,
