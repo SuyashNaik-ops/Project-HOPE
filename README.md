@@ -16,7 +16,7 @@ Users can interact with HOPE AI through a dedicated chat interface and maintain 
 
 Users can record and monitor their moods to become more aware of their emotional patterns.
 
-📖 Journal
+📖 Journal:
 
 A personal space where users can write and reflect on their thoughts and experiences.
 📚 HOPE Resources
