@@ -12,7 +12,7 @@ An AI-powered conversational companion integrated with the Google Gemini API to 
 
 Users can interact with HOPE AI through a dedicated chat interface and maintain conversation context.
 
-😊 Mood Tracking:
+😊 Mood Tracking
 
 Users can record and monitor their moods to become more aware of their emotional patterns.
 
